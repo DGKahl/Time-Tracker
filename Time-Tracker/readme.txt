@@ -36,3 +36,10 @@ Starten der Tasks: Zwei Versionen sind vorstellbar...
 	- Liste gibt Auskunft über aktuellen Status laufender Tasks. Alternativ: neues Menüfenster je laufendem Task?
 		--> umständlicher Start neuer Tasks. Leichter zu implementieren?
 
+### Version 1
+- Dropdown-Feld zur Auswahl der Timer
+- Knöpfe zur Anlage/Pflege der Timer
+- Anlegen/Bearbeiten --> neues Fenster
+- Timer Starten --> neues Fenster
+- ein paar Buttons, denen man "quick" Timer zuweisen kann (zum Starten)
+
