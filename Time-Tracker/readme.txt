@@ -43,3 +43,8 @@ Starten der Tasks: Zwei Versionen sind vorstellbar...
 - Timer Starten --> neues Fenster
 - ein paar Buttons, denen man "quick" Timer zuweisen kann (zum Starten)
 
+TODOS:
+[ ] Grafik einbinden mit überschriebener OnPaint-Methode.
+[ ] Datenbank entwerfen
+	[ ] Datenbank anbinden
+
