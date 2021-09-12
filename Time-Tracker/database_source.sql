@@ -1,5 +1,5 @@
 ﻿--
--- File generated with SQLiteStudio v3.3.0 on So Sep 12 11:09:06 2021
+-- File generated with SQLiteStudio v3.3.0 on So Sep 12 17:06:11 2021
 --
 -- Text encoding used: System
 --
@@ -11,46 +11,68 @@ CREATE TABLE Timer (
     ID           INTEGER PRIMARY KEY AUTOINCREMENT,
     Name         TEXT,
     Beschreibung TEXT,
-    parallel     BOOLEAN DEFAULT (true) 
+    parallel     BOOLEAN DEFAULT (true),
+    quickslot    INTEGER DEFAULT (0) 
 );
 
 INSERT INTO Timer (
                       ID,
                       Name,
                       Beschreibung,
-                      parallel
+                      parallel,
+                      quickslot
                   )
                   VALUES (
                       1,
                       Arbeit,
                       Testeintrag zum Tracken von Arbeitszeit,
-                      false
+                      false,
+                      1
                   );
 
 INSERT INTO Timer (
                       ID,
                       Name,
                       Beschreibung,
-                      parallel
+                      parallel,
+                      quickslot
                   )
                   VALUES (
                       2,
                       Privat,
                       Testeintrag zum Tracken von privater Zeit,
-                      false
+                      false,
+                      2
                   );
 
 INSERT INTO Timer (
                       ID,
                       Name,
                       Beschreibung,
-                      parallel
+                      parallel,
+                      quickslot
                   )
                   VALUES (
                       3,
                       Denken,
                       Testeintrag für parallele Tätigkeit,
-                      true
+                      true,
+                      3
+                  );
+
+INSERT INTO Timer (
+                      ID,
+                      Name,
+                      Beschreibung,
+                      parallel,
+                      quickslot
+                  )
+                  VALUES (
+                      4,
+                      Programmieren,
+                      Testeintrag für Quickslot-Tests,
+                      false,
+                      0
                   );
 
 
