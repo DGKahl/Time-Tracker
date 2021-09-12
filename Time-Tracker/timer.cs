@@ -10,12 +10,12 @@ using System.Windows.Forms;
 
 namespace Time_Tracker
 {
-    public partial class Start : Form
+    public partial class timer : Form
     {
-        public Start()
+        public timer(string timername)
         {
             InitializeComponent();
+            this.Text = timername;
         }
-
     }
 }

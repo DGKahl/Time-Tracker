@@ -34,12 +34,12 @@ namespace Time_Tracker
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.neuerTimerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.auswertungToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timerBearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.auswertungToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnQTimer1 = new System.Windows.Forms.Button();
-            this.btnQTimer2 = new System.Windows.Forms.Button();
             this.btnQTimer3 = new System.Windows.Forms.Button();
+            this.btnQTimer2 = new System.Windows.Forms.Button();
+            this.btnQTimer1 = new System.Windows.Forms.Button();
             this.lblRuntime = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -61,6 +61,7 @@ namespace Time_Tracker
             this.btnStart.TabIndex = 1;
             this.btnStart.Text = "Start!";
             this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // menuStrip1
             // 
@@ -85,20 +86,20 @@ namespace Time_Tracker
             // neuerTimerToolStripMenuItem
             // 
             this.neuerTimerToolStripMenuItem.Name = "neuerTimerToolStripMenuItem";
-            this.neuerTimerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.neuerTimerToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.neuerTimerToolStripMenuItem.Text = "Neuer Timer...";
-            // 
-            // auswertungToolStripMenuItem
-            // 
-            this.auswertungToolStripMenuItem.Name = "auswertungToolStripMenuItem";
-            this.auswertungToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.auswertungToolStripMenuItem.Text = "Auswertung...";
             // 
             // timerBearbeitenToolStripMenuItem
             // 
             this.timerBearbeitenToolStripMenuItem.Name = "timerBearbeitenToolStripMenuItem";
-            this.timerBearbeitenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.timerBearbeitenToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.timerBearbeitenToolStripMenuItem.Text = "Timer bearbeiten...";
+            // 
+            // auswertungToolStripMenuItem
+            // 
+            this.auswertungToolStripMenuItem.Name = "auswertungToolStripMenuItem";
+            this.auswertungToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.auswertungToolStripMenuItem.Text = "Auswertung...";
             // 
             // groupBox1
             // 
@@ -112,14 +113,14 @@ namespace Time_Tracker
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Quick Timer";
             // 
-            // btnQTimer1
+            // btnQTimer3
             // 
-            this.btnQTimer1.Location = new System.Drawing.Point(6, 19);
-            this.btnQTimer1.Name = "btnQTimer1";
-            this.btnQTimer1.Size = new System.Drawing.Size(75, 49);
-            this.btnQTimer1.TabIndex = 5;
-            this.btnQTimer1.Text = "n/a";
-            this.btnQTimer1.UseVisualStyleBackColor = true;
+            this.btnQTimer3.Location = new System.Drawing.Point(168, 19);
+            this.btnQTimer3.Name = "btnQTimer3";
+            this.btnQTimer3.Size = new System.Drawing.Size(75, 49);
+            this.btnQTimer3.TabIndex = 7;
+            this.btnQTimer3.Text = "n/a";
+            this.btnQTimer3.UseVisualStyleBackColor = true;
             // 
             // btnQTimer2
             // 
@@ -130,14 +131,14 @@ namespace Time_Tracker
             this.btnQTimer2.Text = "n/a";
             this.btnQTimer2.UseVisualStyleBackColor = true;
             // 
-            // btnQTimer3
+            // btnQTimer1
             // 
-            this.btnQTimer3.Location = new System.Drawing.Point(168, 19);
-            this.btnQTimer3.Name = "btnQTimer3";
-            this.btnQTimer3.Size = new System.Drawing.Size(75, 49);
-            this.btnQTimer3.TabIndex = 7;
-            this.btnQTimer3.Text = "n/a";
-            this.btnQTimer3.UseVisualStyleBackColor = true;
+            this.btnQTimer1.Location = new System.Drawing.Point(6, 19);
+            this.btnQTimer1.Name = "btnQTimer1";
+            this.btnQTimer1.Size = new System.Drawing.Size(75, 49);
+            this.btnQTimer1.TabIndex = 5;
+            this.btnQTimer1.Text = "n/a";
+            this.btnQTimer1.UseVisualStyleBackColor = true;
             // 
             // lblRuntime
             // 
