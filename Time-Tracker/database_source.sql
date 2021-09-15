@@ -1,5 +1,5 @@
 ﻿--
--- File generated with SQLiteStudio v3.3.0 on So Sep 12 17:06:11 2021
+-- File generated with SQLiteStudio v3.3.0 on Mi Sep 15 10:22:17 2021
 --
 -- Text encoding used: System
 --
@@ -9,7 +9,7 @@ BEGIN TRANSACTION;
 -- Table: Timer
 CREATE TABLE Timer (
     ID           INTEGER PRIMARY KEY AUTOINCREMENT,
-    Name         TEXT,
+    Name         TEXT    UNIQUE,
     Beschreibung TEXT,
     parallel     BOOLEAN DEFAULT (true),
     quickslot    INTEGER DEFAULT (0) 

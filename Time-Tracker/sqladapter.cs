@@ -17,7 +17,38 @@ namespace Time_Tracker
             return ConfigurationManager.ConnectionStrings["default"].ConnectionString;
         }
 
-        //Zeit vom Tracker zurückschreiben
+        //Übersicht: Quickslot-Buttons mit richtigem Timer "belegen"
+
+        // ---------> check entry on stackoverflow!!!!! <-------------------------- ####################################
+
+        public List<string> SetQuickslots()
+        {
+            List<string> list = new List<string>();
+
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                SQLiteCommand com = new SQLiteCommand();
+                com.Connection = cnn;
+                cnn.Open();
+                for (int i = 1; i <= 3; i++)
+                {
+                    com.CommandText = "SELECT Timer.name AS name, Timer.quickslot as slot FROM Timer WHERE slot=" + i;
+                    SQLiteDataReader reader = com.ExecuteReader();
+                    
+                        while (reader.Read())
+                        {
+                        list.Add((string)reader[0]);
+                        }
+                    reader.Close();
+                }
+                cnn.Close();
+                return list;
+            }
+        }
+
+     
+
+        //Timer: Zeit vom Tracker speichern
         public void savetime()
         {
             //using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
