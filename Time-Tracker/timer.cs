@@ -12,6 +12,11 @@ namespace Time_Tracker
 {
     public partial class timer : Form
     {
+        public timer()
+        {
+            InitializeComponent();
+        }
+
         public timer(string timername)
         {
             InitializeComponent();
