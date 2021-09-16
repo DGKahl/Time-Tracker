@@ -15,7 +15,7 @@ namespace Time_Tracker
         public Start()
         {
             InitializeComponent();
-            setQuickslots();
+            SetQuickslots();
         }
 
 
@@ -26,10 +26,10 @@ namespace Time_Tracker
             OpenForm.Show();
         }
 
-        void setQuickslots()
+        void SetQuickslots()
         {
             sqladapter dbaccess = new sqladapter();
-            List<string> qs_items = dbaccess.SetQuickslots();
+            List<string> qs_items = dbaccess.GetQuickslots();
 
             btnQTimer1.Text = qs_items[0];
             btnQTimer2.Text = qs_items[1];
@@ -93,6 +93,12 @@ namespace Time_Tracker
                 timer OpenForm = new timer(btnQTimer2.Text);
                 OpenForm.Show();
             }
+        }
+
+        private void bearbeitenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Settings OpenForm = new Settings();
+            OpenForm.Show();
         }
     }
 }

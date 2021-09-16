@@ -41,8 +41,8 @@ namespace Time_Tracker
             this.btnQTimer2 = new System.Windows.Forms.Button();
             this.btnQTimer1 = new System.Windows.Forms.Button();
             this.lblRuntime = new System.Windows.Forms.Label();
-            this.quickslotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setzenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.einstellungenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -69,7 +69,7 @@ namespace Time_Tracker
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dateiToolStripMenuItem,
-            this.quickslotToolStripMenuItem});
+            this.einstellungenToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(271, 24);
@@ -89,19 +89,19 @@ namespace Time_Tracker
             // neuerTimerToolStripMenuItem
             // 
             this.neuerTimerToolStripMenuItem.Name = "neuerTimerToolStripMenuItem";
-            this.neuerTimerToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.neuerTimerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.neuerTimerToolStripMenuItem.Text = "Neuer Timer...";
             // 
             // timerBearbeitenToolStripMenuItem
             // 
             this.timerBearbeitenToolStripMenuItem.Name = "timerBearbeitenToolStripMenuItem";
-            this.timerBearbeitenToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.timerBearbeitenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.timerBearbeitenToolStripMenuItem.Text = "Timer bearbeiten...";
             // 
             // auswertungToolStripMenuItem
             // 
             this.auswertungToolStripMenuItem.Name = "auswertungToolStripMenuItem";
-            this.auswertungToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.auswertungToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.auswertungToolStripMenuItem.Text = "Auswertung...";
             // 
             // groupBox1
@@ -154,19 +154,20 @@ namespace Time_Tracker
             this.lblRuntime.TabIndex = 5;
             this.lblRuntime.Text = "00:00:00";
             // 
-            // quickslotToolStripMenuItem
+            // einstellungenToolStripMenuItem
             // 
-            this.quickslotToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.setzenToolStripMenuItem});
-            this.quickslotToolStripMenuItem.Name = "quickslotToolStripMenuItem";
-            this.quickslotToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
-            this.quickslotToolStripMenuItem.Text = "Quickslot";
+            this.einstellungenToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bearbeitenToolStripMenuItem});
+            this.einstellungenToolStripMenuItem.Name = "einstellungenToolStripMenuItem";
+            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
+            this.einstellungenToolStripMenuItem.Text = "Einstellungen";
             // 
-            // setzenToolStripMenuItem
+            // bearbeitenToolStripMenuItem
             // 
-            this.setzenToolStripMenuItem.Name = "setzenToolStripMenuItem";
-            this.setzenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.setzenToolStripMenuItem.Text = "Setzen...";
+            this.bearbeitenToolStripMenuItem.Name = "bearbeitenToolStripMenuItem";
+            this.bearbeitenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bearbeitenToolStripMenuItem.Text = "Bearbeiten...";
+            this.bearbeitenToolStripMenuItem.Click += new System.EventHandler(this.bearbeitenToolStripMenuItem_Click);
             // 
             // Start
             // 
@@ -203,8 +204,8 @@ namespace Time_Tracker
         private System.Windows.Forms.Button btnQTimer2;
         private System.Windows.Forms.Button btnQTimer1;
         private System.Windows.Forms.Label lblRuntime;
-        private System.Windows.Forms.ToolStripMenuItem quickslotToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem setzenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem einstellungenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bearbeitenToolStripMenuItem;
     }
 }
 
