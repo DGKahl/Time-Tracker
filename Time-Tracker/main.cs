@@ -16,15 +16,20 @@ namespace Time_Tracker
         {
             InitializeComponent();
             SetQuickslots();
+            Fillcb();
         }
 
-
-        private void btnStart_Click(object sender, EventArgs e)
+        void Fillcb()
         {
-            string timername = cbTimerSelection.SelectedItem.ToString();
-            timer OpenForm = new timer(timername);
-            OpenForm.Show();
+            sqladapter adapter = new sqladapter();
+            List<string> list = adapter.GetAllTimers();
+
+            foreach (string t in list)
+            {
+                cbTimerSelection.Items.Add(t);
+            }
         }
+
 
         void SetQuickslots()
         {
@@ -48,6 +53,19 @@ namespace Time_Tracker
                 }
             }
             return false;
+        }
+
+
+
+        //---------------------------------------------------------------------------------------
+        // ### KNÖPFE UND INTERAKTION -----------------------------------------------------------
+        //---------------------------------------------------------------------------------------
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            string timername = cbTimerSelection.SelectedItem.ToString();
+            timer OpenForm = new timer(timername);
+            OpenForm.Show();
         }
 
         private void btnQTimer1_Click(object sender, EventArgs e)
