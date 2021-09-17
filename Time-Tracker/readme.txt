@@ -45,6 +45,11 @@ Starten der Tasks: Zwei Versionen sind vorstellbar...
 
 TODOS:
 [ ] Grafik einbinden mit überschriebener OnPaint-Methode.
-[ ] Datenbank entwerfen
-	[ ] Datenbank anbinden
+[x] Datenbank entwerfen
+	[x] Datenbank anbinden
 
++ 16.09.21:
+[ ] Wenn Start-Fenster geschlossen wird, sollen auch alle anderen Fenster geschlossen werden
+[ ] Wenn die Einstellungen offen sind, kann nichts anderes geöffnet werden.
+[ ] Nach dem Speichern in den Einstellungen sollten die anderen Fenster (min. Start, wg. Quickslots) aktualisiert werden
+	(i) evtl. mit refresh, wenn Fokus auf das Fenster geht?

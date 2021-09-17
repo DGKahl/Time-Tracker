@@ -15,21 +15,26 @@ namespace Time_Tracker
         public Start()
         {
             InitializeComponent();
-            setQuickslots();
+            SetQuickslots();
+            Fillcb();
         }
 
-
-        private void btnStart_Click(object sender, EventArgs e)
+        void Fillcb()
         {
-            string timername = cbTimerSelection.SelectedItem.ToString();
-            timer OpenForm = new timer(timername);
-            OpenForm.Show();
+            sqladapter adapter = new sqladapter();
+            List<string> list = adapter.GetAllTimers();
+
+            foreach (string t in list)
+            {
+                cbTimerSelection.Items.Add(t);
+            }
         }
 
-        void setQuickslots()
+
+        void SetQuickslots()
         {
             sqladapter dbaccess = new sqladapter();
-            List<string> qs_items = dbaccess.SetQuickslots();
+            List<string> qs_items = dbaccess.GetQuickslots();
 
             btnQTimer1.Text = qs_items[0];
             btnQTimer2.Text = qs_items[1];
@@ -48,6 +53,19 @@ namespace Time_Tracker
                 }
             }
             return false;
+        }
+
+
+
+        //---------------------------------------------------------------------------------------
+        // ### KNÖPFE UND INTERAKTION -----------------------------------------------------------
+        //---------------------------------------------------------------------------------------
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            string timername = cbTimerSelection.SelectedItem.ToString();
+            timer OpenForm = new timer(timername);
+            OpenForm.Show();
         }
 
         private void btnQTimer1_Click(object sender, EventArgs e)
@@ -93,6 +111,12 @@ namespace Time_Tracker
                 timer OpenForm = new timer(btnQTimer2.Text);
                 OpenForm.Show();
             }
+        }
+
+        private void bearbeitenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Settings OpenForm = new Settings();
+            OpenForm.Show();
         }
     }
 }
