@@ -63,9 +63,14 @@ namespace Time_Tracker
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            string timername = cbTimerSelection.SelectedItem.ToString();
-            timer OpenForm = new timer(timername);
-            OpenForm.Show();
+            if (cbTimerSelection.SelectedItem != null) {
+                string timername = cbTimerSelection.SelectedItem.ToString();
+                timer OpenForm = new timer(timername);
+                OpenForm.Show();
+            } else
+            {
+                MessageBox.Show("Kein Timer ausgewählt.", "Information", MessageBoxButtons.OK);
+            }
         }
 
         private void btnQTimer1_Click(object sender, EventArgs e)
@@ -100,7 +105,7 @@ namespace Time_Tracker
 
         private void btnQTimer3_Click(object sender, EventArgs e)
         {
-            bool check = checkFormStatus(btnQTimer2.Text);
+            bool check = checkFormStatus(btnQTimer3.Text);
 
             if (check == true)
             {
@@ -108,7 +113,7 @@ namespace Time_Tracker
             }
             else
             {
-                timer OpenForm = new timer(btnQTimer2.Text);
+                timer OpenForm = new timer(btnQTimer3.Text);
                 OpenForm.Show();
             }
         }

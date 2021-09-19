@@ -1,5 +1,5 @@
 ﻿--
--- File generated with SQLiteStudio v3.3.0 on Mi Sep 15 10:22:17 2021
+-- File generated with SQLiteStudio v3.3.0 on So Sep 19 11:33:37 2021
 --
 -- Text encoding used: System
 --
@@ -75,6 +75,36 @@ INSERT INTO Timer (
                       0
                   );
 
+INSERT INTO Timer (
+                      ID,
+                      Name,
+                      Beschreibung,
+                      parallel,
+                      quickslot
+                  )
+                  VALUES (
+                      5,
+                      Hausarbeit,
+                      Testeintrag für Spatzl,
+                      false,
+                      0
+                  );
+
+INSERT INTO Timer (
+                      ID,
+                      Name,
+                      Beschreibung,
+                      parallel,
+                      quickslot
+                  )
+                  VALUES (
+                      6,
+                      Organisation,
+                      Testeintrag für mich,
+                      true,
+                      0
+                  );
+
 
 -- Table: TimerTimes
 CREATE TABLE TimerTimes (
@@ -90,8 +120,9 @@ CREATE TABLE TimerTimes (
 -- Table: Times
 CREATE TABLE Times (
     ID    INTEGER PRIMARY KEY AUTOINCREMENT,
-    Datum DATE,
-    Zeit  TEXT,
+    Start DATE,
+    [End] DATE,
+    Zeit  STRING,
     Notiz TEXT
 );
 

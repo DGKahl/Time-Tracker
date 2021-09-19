@@ -81,6 +81,7 @@
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
     <Compile Include="sqladapter.cs" />
+    <Compile Include="timeobject.cs" />
     <Compile Include="timer.cs">
       <SubType>Form</SubType>
     </Compile>
