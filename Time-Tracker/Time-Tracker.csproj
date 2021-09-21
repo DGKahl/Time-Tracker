@@ -145,6 +145,7 @@
   <ItemGroup>
     <Content Include="database_source.sql" />
     <Content Include="readme.txt" />
+    <Content Include="todo.txt" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
