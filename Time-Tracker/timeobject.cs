@@ -10,6 +10,14 @@ namespace Time_Tracker
 {
     class timeobject
     {
+        //Timer-Daten
+        int id;
+        string name;
+        string descr;
+        bool parallel;
+        int quickslot;
+
+        //Zeiten
         DateTime start;
         DateTime end;
         TimeSpan elapsed;
@@ -20,7 +28,19 @@ namespace Time_Tracker
         public DateTime getEnd() { return end; }
         public TimeSpan getElapsed() { return elapsed; }
 
+        public int getID() { return id; }
+        public string getName() { return name; }
+        public string getDescr() { return descr; }
+        public bool getParallel() { return parallel; }
+        public int getQuickslot() { return quickslot; }
+        public void setID(int i) { id=i; }
+        public void setName(string s) { name=s; }
+        public void setDescr(string s) { descr=s; }
+        public void setParallel(bool b) { parallel=b; }
+        public void setQuickslot(int i) {quickslot = i; }
 
+
+        //### Methoden etc.
         public void startTimer()
         {
             //stopwatch.Start();
@@ -34,11 +54,5 @@ namespace Time_Tracker
             //elapsed2 = stopwatch.Elapsed;
             elapsed = end - start;
         }
-
-        public timeobject getData()
-        {
-            return this;
-        }
-
     }
 }

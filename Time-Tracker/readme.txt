@@ -53,3 +53,9 @@ TODOS:
 [ ] Wenn die Einstellungen offen sind, kann nichts anderes geöffnet werden.
 [ ] Nach dem Speichern in den Einstellungen sollten die anderen Fenster (min. Start, wg. Quickslots) aktualisiert werden
 	(i) evtl. mit refresh, wenn Fokus auf das Fenster geht?
+
++ 20.09.21:
+[ ] Timer auf Typ (parallel/n.parallel) prüfen und bei Start jeweils andere Timer prüfen (ggf. auto-beenden/-speichern)
+
++ 21.09.21:
+[ ] m:n Tabelle nicht praktikabel (bes. wg. "deletes") --> Änderung auf 2 Tabellen: Timer, Times. Times entählt alle gemessenen Zeiten mit eindeutigem Timer als ForeignKey verlinkt.

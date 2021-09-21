@@ -43,6 +43,30 @@ namespace Time_Tracker
             }
         }
 
+        //ID zu einem ausgewählten Timer finden
+        public int getTimerID(string name)
+        {
+            int id = 0;
+
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                SQLiteCommand com = new SQLiteCommand();
+                com.Connection = cnn;
+                com.CommandText = "SELECT Timer.ID AS id FROM Timer WHERE Timer.name = '" + name + "'";
+                cnn.Open();
+                SQLiteDataReader reader = com.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    id = Int32.Parse(reader["id"].ToString());
+                }
+                reader.Close();
+                cnn.Close();
+            }
+            return id;
+        }
+
+
         // SETTINGS: Neue Quickslots setzen (auf Basis der übergebenen strings)
         public void UpdateQuickslots(string one, string two, string three)
         {
@@ -63,7 +87,7 @@ namespace Time_Tracker
                 //Slot 1
                 SQLiteCommand com1 = new SQLiteCommand();
                 com1.Connection = cnn;
-                com1.CommandText = "UPDATE Timer SET quickslot = '1' WHERE Timer.name='" + one +"'";
+                com1.CommandText = "UPDATE Timer SET quickslot = '1' WHERE Timer.name='" + one + "'";
 
                 //Slot 2
                 SQLiteCommand com2 = new SQLiteCommand();
@@ -85,7 +109,8 @@ namespace Time_Tracker
         }
 
         // SETTINGS: Liste der Namen aller aktuellen Timer ermitteln
-        public List<string> GetAllTimers() {
+        public List<string> GetAllTimers()
+        {
 
             List<string> list = new List<string>();
 
@@ -122,9 +147,9 @@ namespace Time_Tracker
                 cnn.Close();
 
                 //(2) m:n link einfügen:
-                int m=0, n=0;
+                int m = 0, n = 0;
 
-                    //(2.1) ID für m finden:
+                //(2.1) ID für m finden:
                 com.CommandText = "SELECT Timer.ID AS id FROM Timer WHERE Timer.name = '" + timername + "'";
                 cnn.Open();
                 SQLiteDataReader reader = com.ExecuteReader();
@@ -136,7 +161,7 @@ namespace Time_Tracker
                 reader.Close();
                 cnn.Close();
 
-                    //(2.2) ID für n finden: 
+                //(2.2) ID für n finden: 
                 com.CommandText = "SELECT Times.ID AS id FROM Times WHERE id=(SELECT max(id) FROM Times)";
                 cnn.Open();
                 SQLiteDataReader reader2 = com.ExecuteReader();
@@ -148,8 +173,106 @@ namespace Time_Tracker
                 reader2.Close();
                 cnn.Close();
 
-                    //(2.3) Neue Daten in m:n Tabelle schreiben:
+                //(2.3) Neue Daten in m:n Tabelle schreiben:
                 com.CommandText = "INSERT INTO timertimes (timerid, timesid) VALUES ('" + m + "', '" + n + "')";
+                cnn.Open();
+                com.ExecuteNonQuery();
+                cnn.Close();
+            }
+        }
+
+        //Daten eines bestimmten Timers von db holen (relevant bei Auswahl in Combobox)
+        public timeobject mytimer(int i)
+        {
+            timeobject currenttimer = new timeobject();
+
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                SQLiteCommand com = new SQLiteCommand();
+                com.Connection = cnn;
+                cnn.Open();
+
+                com.CommandText = "SELECT Timer.id as id, Timer.Name AS name, Timer.Beschreibung AS descr, Timer.parallel AS parallel, Timer.quickslot AS quickslot FROM Timer where id='" + i + "'";
+                SQLiteDataReader reader = com.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    currenttimer.setID(Int32.Parse(reader["id"].ToString()));
+                    currenttimer.setName(reader["name"].ToString());
+                    currenttimer.setDescr(reader["descr"].ToString());
+                    currenttimer.setParallel(Boolean.Parse(reader["parallel"].ToString()));
+                    currenttimer.setQuickslot(Int32.Parse(reader["quickslot"].ToString()));
+                }
+                reader.Close();
+                cnn.Close();
+            }
+            return currenttimer;
+        }
+
+        //neuen Timer hinzufügen
+        public void AddTimer(string name, string beschreibung, bool parallel)
+        {
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                SQLiteCommand com = new SQLiteCommand();
+                com.Connection = cnn;
+                com.CommandText = "INSERT INTO Timer (name, beschreibung, parallel) VALUES ('" + name + "', '" + beschreibung + "', '" + parallel + "')";
+                cnn.Open();
+                com.ExecuteNonQuery();
+                cnn.Close();
+            }
+        }
+
+        //Timer editieren
+        public void EditTimer(string name, string beschreibung, bool parallel)
+        {
+            int id = this.getTimerID(name);
+
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                SQLiteCommand com = new SQLiteCommand();
+                com.Connection = cnn;
+                com.CommandText = "UPDATE Timer SET name = '" + name + "', beschreibung = '" + beschreibung + "', parallel = '" + parallel + "' WHERE Timer.ID = " + id;
+                cnn.Open();
+                com.ExecuteNonQuery();
+                cnn.Close();
+            }
+        }
+
+        //Timer archivieren
+        public void ArchiveTimer(string name)
+        {
+            int id = this.getTimerID(name);
+
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                SQLiteCommand com = new SQLiteCommand();
+                com.Connection = cnn;
+                com.CommandText = "UPDATE Timer (archived) VALUES ('true') WHERE Timer.ID = " + id;
+                cnn.Open();
+                com.ExecuteNonQuery();
+                cnn.Close();
+            }
+        }
+
+        //Timer löschen (inklusive Zeiten)
+        public void DeleteTimer(string name)
+        {
+            int id = this.getTimerID(name);
+
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                //(1) Löschen aller Zeiten in m:n Tabelle
+                SQLiteCommand com = new SQLiteCommand();
+                com.Connection = cnn;
+                com.CommandText = "DELETE FROM TimerTimes WHERE TimerTimes.TimerID=" + id;
+                cnn.Open();
+                com.ExecuteNonQuery();
+                cnn.Close();
+
+                //(2) Löschen des Timers
+                com.Connection = cnn;
+                com.CommandText = "DELETE FROM Timer WHERE ID=" + id;
                 cnn.Open();
                 com.ExecuteNonQuery();
                 cnn.Close();

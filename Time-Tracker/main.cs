@@ -63,10 +63,21 @@ namespace Time_Tracker
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            string timername;
+
             if (cbTimerSelection.SelectedItem != null) {
-                string timername = cbTimerSelection.SelectedItem.ToString();
-                timer OpenForm = new timer(timername);
-                OpenForm.Show();
+                timername = cbTimerSelection.SelectedItem.ToString();
+                bool check = checkFormStatus(timername);
+
+                if (check == true)
+                {
+                    MessageBox.Show("Der Timer ist bereits geöffnet.", "Information", MessageBoxButtons.OK);
+                }
+                else
+                {
+                    timer OpenForm = new timer(timername);
+                    OpenForm.Show();
+                }
             } else
             {
                 MessageBox.Show("Kein Timer ausgewählt.", "Information", MessageBoxButtons.OK);
@@ -121,6 +132,36 @@ namespace Time_Tracker
         private void bearbeitenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Settings OpenForm = new Settings();
+            OpenForm.Show();
+        }
+
+        private void neuerTimerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            timer_edit OpenForm = new timer_edit(1);
+            OpenForm.Show();
+        }
+
+        private void timerBearbeitenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            timer_edit OpenForm = new timer_edit(2);
+            OpenForm.Show();
+        }
+
+        private void timerLöschenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            timer_edit OpenForm = new timer_edit(3);
+            OpenForm.Show();
+        }
+
+        private void zeitenBearbeitenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            timelist OpenForm = new timelist();
+            OpenForm.Show();
+        }
+
+        private void auswertungToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            results OpenForm = new results();
             OpenForm.Show();
         }
     }
