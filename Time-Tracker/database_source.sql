@@ -1,5 +1,5 @@
 ﻿--
--- File generated with SQLiteStudio v3.3.0 on Di Sep 21 11:04:42 2021
+-- File generated with SQLiteStudio v3.3.0 on Di Sep 21 11:56:19 2021
 --
 -- Text encoding used: System
 --
@@ -119,24 +119,15 @@ INSERT INTO Timer (
                   );
 
 
--- Table: TimerTimes
-CREATE TABLE TimerTimes (
-    TimerID INTEGER REFERENCES Timer (ID),
-    TimesID INTEGER REFERENCES Times (ID) ON DELETE CASCADE,
-    PRIMARY KEY (
-        TimerID,
-        TimesID
-    )
-);
-
-
 -- Table: Times
 CREATE TABLE Times (
-    ID    INTEGER  PRIMARY KEY AUTOINCREMENT,
-    Start DATETIME,
-    [End] DATETIME,
-    Zeit  TIME,
-    Notiz TEXT
+    ID      INTEGER  PRIMARY KEY AUTOINCREMENT,
+    Start   DATETIME,
+    [End]   DATETIME,
+    Zeit    TIME,
+    Notiz   TEXT,
+    TimerID INTEGER  REFERENCES Timer (ID) 
+                     NOT NULL ON CONFLICT ROLLBACK
 );
 
 
