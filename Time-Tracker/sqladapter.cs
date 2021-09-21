@@ -12,7 +12,7 @@ namespace Time_Tracker
     class sqladapter
     {
         //ConnectionString
-        private string LoadConnectionString()
+        private static string LoadConnectionString()
         {
             return ConfigurationManager.ConnectionStrings["default"].ConnectionString;
         }
@@ -44,7 +44,7 @@ namespace Time_Tracker
         }
 
         //ID zu einem ausgewählten Timer finden
-        public int getTimerID(string name)
+        public static int getTimerID(string name)
         {
             int id = 0;
 
@@ -58,7 +58,7 @@ namespace Time_Tracker
 
                 while (reader.Read())
                 {
-                    id = Int32.Parse(reader["id"].ToString());
+                    id = Int32.Parse(reader["ID"].ToString());
                 }
                 reader.Close();
                 cnn.Close();
@@ -136,45 +136,13 @@ namespace Time_Tracker
         //Timer: Zeit vom Tracker speichern
         public void savetime(timeobject t, string timername)
         {
+            int id = sqladapter.getTimerID(timername);
             using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 //(1) Zeit einfügen
                 SQLiteCommand com = new SQLiteCommand();
                 com.Connection = cnn;
-                com.CommandText = "INSERT INTO times (Start, End, Zeit) VALUES ('" + t.getStart().ToString() + "', '" + t.getEnd().ToString() + "', '" + t.getElapsed().Hours + ":" + t.getElapsed().Minutes + ":" + t.getElapsed().Seconds + "')";
-                cnn.Open();
-                com.ExecuteNonQuery();
-                cnn.Close();
-
-                //(2) m:n link einfügen:
-                int m = 0, n = 0;
-
-                //(2.1) ID für m finden:
-                com.CommandText = "SELECT Timer.ID AS id FROM Timer WHERE Timer.name = '" + timername + "'";
-                cnn.Open();
-                SQLiteDataReader reader = com.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    m = Int32.Parse(reader["id"].ToString());
-                }
-                reader.Close();
-                cnn.Close();
-
-                //(2.2) ID für n finden: 
-                com.CommandText = "SELECT Times.ID AS id FROM Times WHERE id=(SELECT max(id) FROM Times)";
-                cnn.Open();
-                SQLiteDataReader reader2 = com.ExecuteReader();
-
-                while (reader2.Read())
-                {
-                    n = Int32.Parse(reader2["id"].ToString());
-                }
-                reader2.Close();
-                cnn.Close();
-
-                //(2.3) Neue Daten in m:n Tabelle schreiben:
-                com.CommandText = "INSERT INTO timertimes (timerid, timesid) VALUES ('" + m + "', '" + n + "')";
+                com.CommandText = "INSERT INTO times (Start, End, Zeit, TimerID) VALUES ('" + t.getStart().ToString() + "', '" + t.getEnd().ToString() + "', '" + t.getElapsed().Hours + ":" + t.getElapsed().Minutes + ":" + t.getElapsed().Seconds +  "', '" + id + "')";
                 cnn.Open();
                 com.ExecuteNonQuery();
                 cnn.Close();
@@ -226,7 +194,7 @@ namespace Time_Tracker
         //Timer editieren
         public void EditTimer(string name, string beschreibung, bool parallel)
         {
-            int id = this.getTimerID(name);
+            int id = sqladapter.getTimerID(name);
 
             using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
@@ -242,7 +210,7 @@ namespace Time_Tracker
         //Timer archivieren
         public void ArchiveTimer(string name)
         {
-            int id = this.getTimerID(name);
+            int id = sqladapter.getTimerID(name);
 
             using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
@@ -258,14 +226,14 @@ namespace Time_Tracker
         //Timer löschen (inklusive Zeiten)
         public void DeleteTimer(string name)
         {
-            int id = this.getTimerID(name);
+            int id = sqladapter.getTimerID(name);
 
             using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                //(1) Löschen aller Zeiten in m:n Tabelle
+                //(1) Löschen aller Zeiten
                 SQLiteCommand com = new SQLiteCommand();
                 com.Connection = cnn;
-                com.CommandText = "DELETE FROM TimerTimes WHERE TimerTimes.TimerID=" + id;
+                com.CommandText = "DELETE FROM Times WHERE TimerID=" + id;
                 cnn.Open();
                 com.ExecuteNonQuery();
                 cnn.Close();
