@@ -165,7 +165,7 @@ namespace Time_Tracker
             sqladapter dbaccess = new sqladapter();
             timeobject mytimer = new timeobject();
             string selectedtimer = cbSelection.SelectedItem.ToString();
-            int id = dbaccess.getTimerID(selectedtimer);
+            int id = sqladapter.getTimerID(selectedtimer);
             mytimer = dbaccess.mytimer(id);
             txtInfo.Text = mytimer.getDescr();
             if (mytimer.getParallel() == true)
