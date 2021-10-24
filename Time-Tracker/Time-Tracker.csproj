@@ -122,6 +122,9 @@
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="timelist.resx">
+      <DependentUpon>timelist.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="timer.resx">
       <DependentUpon>timer.cs</DependentUpon>
     </EmbeddedResource>

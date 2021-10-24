@@ -149,6 +149,27 @@ namespace Time_Tracker
             }
         }
 
+        //Manuelle Zeiteingabe speichern
+        public void savetime(string timername, DateTime datum, DateTime start, DateTime ende)
+        {
+            int id = sqladapter.getTimerID(timername);
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                //(1) Build strings
+                string starttime = datum.ToShortDateString() + " " + start.ToString(@"HH\:mm\:ss");
+                string endtime = datum.Date.ToShortDateString() + " " + ende.ToString(@"HH\:mm\:ss");
+                string duration = ende.Subtract(start).ToString(@"hh\:mm\:ss");
+
+                //(1) Insert strings
+                SQLiteCommand com = new SQLiteCommand();
+                com.Connection = cnn;
+                com.CommandText = "INSERT INTO times (Start, End, Zeit, TimerID) VALUES ('" + starttime + "', '" + endtime + "', '" + duration + "', '" + id + "')";
+                cnn.Open();
+                com.ExecuteNonQuery();
+                cnn.Close();
+            }
+        }
+
         //Daten eines bestimmten Timers von db holen (relevant bei Auswahl in Combobox)
         public timeobject mytimer(int i)
         {
@@ -246,5 +267,45 @@ namespace Time_Tracker
                 cnn.Close();
             }
         }
+
+        //Ermittlung, ob ein manueller Eintrag (Timer, Datum, Start, Ende) von einem Single-Timer bereits belegt ist
+        //(Idee: Single-Timer dürfen nur alleine laufen, nicht parallel zu anderen Timern)
+
+        public bool CheckExistingTime(string datum, string start, string ende)
+        {
+            //Befehl in SQL:
+            //SELECT * FROM TIMES WHERE ('24.10.2021 16:28:00' BETWEEN TIMES.Start AND TIMES.End OR '24.10.2021 16:30:42' BETWEEN TIMES.Start AND TIMES.End);
+
+            //build string from date and times
+            string startvalue = datum + " " + start;
+            string endvalue = datum + " " + ende;
+
+            //*********************************************************************
+            // <<<<TODO>>>> Aktuell wird die Zeit OHNE Sekunden angehängt. Fixen!
+            //*********************************************************************
+
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                SQLiteCommand com = new SQLiteCommand();
+                com.Connection = cnn;
+                com.CommandText = "SELECT * FROM TIMES WHERE ('" + startvalue + "' BETWEEN TIMES.Start AND TIMES.End OR '" + endvalue + "' BETWEEN TIMES.Start AND TIMES.End)";
+                cnn.Open();
+                SQLiteDataReader reader = com.ExecuteReader();
+
+                if (reader.HasRows == true)
+                {
+                    reader.Close();
+                    cnn.Close();
+                    return true;
+                } else
+                {
+                    reader.Close();
+                    cnn.Close();
+                    return false;
+                }
+            }
+        }
+
+
     }
 }
