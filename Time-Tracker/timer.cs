@@ -13,11 +13,17 @@ namespace Time_Tracker
     public partial class timer : Form
     {
         timeobject thistimer = new timeobject();
+        Timer mytimer = new Timer();
 
         public timer()
         {
             InitializeComponent();
             measuretime();
+
+            //initialize Timer_Tick:
+            mytimer.Interval = (10 * 1000); // 10 secs
+            mytimer.Tick += new EventHandler(timer_Tick);
+            mytimer.Start();
         }
 
         public timer(string timername)
@@ -25,6 +31,18 @@ namespace Time_Tracker
             InitializeComponent();
             this.Text = timername;
             measuretime();
+
+            //initialize Timer_Tick:
+            mytimer.Interval = (1000); // 1 secs
+            mytimer.Tick += new EventHandler(timer_Tick);
+            mytimer.Start();
+        }
+
+        //Methode zum refreshen der aktuellen Timeranzeige
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            //lblDurationTime.Text = (DateTime.Now.ToLocalTime() - thistimer.getStart()).ToString(@"hh\:mm\:ss");
+            lblDurationTime.Text = DateTime.Now.Subtract(thistimer.getStart()).ToString(@"hh\:mm\:ss");
         }
 
         public void measuretime()
@@ -37,6 +55,7 @@ namespace Time_Tracker
         {
             thistimer.stopTimer();
             lblEndTime.Text = thistimer.getEnd().ToString();
+            mytimer.Stop();
             writedata();
         }
 
