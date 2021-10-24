@@ -12,7 +12,7 @@ Die Darstellung, Auswahl und Steuerung soll einfach von der Hand gehen.
 		- parallele Task wird gestartet:
 			- bereits laufende parallele Tasks laufen weiter
 			- ein laufender single Task wird beendet
-		- singe Task wird gestartet:
+		- single Task wird gestartet:
 			- bereits laufende parallele Tasks werden beendet
 			- ein laufender single Task wird beendet
 	- in einem Extra-Menü können alle Zeiten angezeigt werden
@@ -20,7 +20,7 @@ Die Darstellung, Auswahl und Steuerung soll einfach von der Hand gehen.
 		- es können weitere Zeiten per Hand eingetragen werden
 - Zeiten:
 	- lassen sich gesamtheitlich über Zeiträume (Zeitleiste?, Tag, Woche, Monat, Jahr, fortlaufend von x bis y) anzeigen
-	- einzelne Tasks lassen sich im Detail anzeigen
+	- einzelne Tasks lassen sich im Detail anzeigen (update 24.10.: Wofür, was soll hier im Detail angezeigt werden? Raus...)
 - Tracking:
 	- wird über ein zentrales Menü gestartet/beendet
 	- pausieren gibt es nicht; jede Unterbrechung führt zu einem neuen Eintrag
@@ -42,3 +42,20 @@ Starten der Tasks: Zwei Versionen sind vorstellbar...
 - Anlegen/Bearbeiten --> neues Fenster
 - Timer Starten --> neues Fenster
 - ein paar Buttons, denen man "quick" Timer zuweisen kann (zum Starten)
+
+### UPDATE 24.10.2021
+- Standard Timer funktioniert soweit. Zeiten lassen sich messen, Quickslots belegen, neue Timer anlegen.
+ Nächste ToDos:
+  [ ] Menü zum Bearbeiten der Zeiten: 
+	[ ] Manuell Einträge anlegen (+ Prüfung, ob in diesem Zeitraum schon eine Single-Task lief)
+	[ ] Vorhandene Einträge als Tabelle anzeigen und editieren (+ Prüfung, ob nach der Änderung Zeiträume von Single-Tasks doppelt belegt sind)
+	[ ] Einträge komplett löschen
+  [ ] Auswertung/Übersicht: 
+	[ ] 2 Modi: 
+		[ ] Einzelanzeige eines bestimmten Timers für heute bis Stichzeitpunkt JETZT; als "Torte"
+		[ ] Gesamtanzeige aller Timer mit Stundenverteilung und Prozentanteilan allen Stunden
+			- Zeitraum kann vorher festgelegt werden
+			- Darstellung/Intervall kann vorher festgelegt werden (Tag, Woche, Monat...)
+			- optional: Anzeige der "ungetrackten" Stunden
+			- optional: Abzug von X Stunden je Tag von der Gesamtanzeige (z.B. 7 Std. für Schlaf täglich, o.ä.)
+			- Darstellung als Balkendiagramm: x-Achse = Tage/Wochen etc.; y-Achse = Stunden
