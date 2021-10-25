@@ -20,13 +20,10 @@ namespace Time_Tracker
         //Zeiten
         DateTime start;
         DateTime end;
-        TimeSpan elapsed;
-        //Stopwatch stopwatch = new Stopwatch();    //Werte minimal größer als Diff. zw. Start-End...
 
         //### Getter und Setter
         public DateTime getStart() {return start;}
         public DateTime getEnd() { return end; }
-        public TimeSpan getElapsed() { return elapsed; }
 
         public int getID() { return id; }
         public string getName() { return name; }
@@ -43,16 +40,12 @@ namespace Time_Tracker
         //### Methoden etc.
         public void startTimer()
         {
-            //stopwatch.Start();
             start = DateTime.Now.ToLocalTime();
         }
 
         public void stopTimer()
         {
-            //stopwatch.Stop();
             end = DateTime.Now.ToLocalTime();
-            //elapsed2 = stopwatch.Elapsed;
-            elapsed = end - start;
         }
     }
 }

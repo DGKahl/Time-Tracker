@@ -139,10 +139,15 @@ namespace Time_Tracker
             int id = sqladapter.getTimerID(timername);
             using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                //(1) Zeit einfügen
+                //(1) Build strings
+                string starttime = t.getStart().ToString();
+                string endtime = t.getEnd().ToString();
+                string duration = t.getEnd().Subtract(t.getStart()).ToString(@"hh\:mm\:ss");
+
+                //(2) Zeit einfügen
                 SQLiteCommand com = new SQLiteCommand();
                 com.Connection = cnn;
-                com.CommandText = "INSERT INTO times (Start, End, Zeit, TimerID) VALUES ('" + t.getStart().ToString() + "', '" + t.getEnd().ToString() + "', '" + t.getElapsed().Hours + ":" + t.getElapsed().Minutes + ":" + t.getElapsed().Seconds +  "', '" + id + "')";
+                com.CommandText = "INSERT INTO times (Start, End, Zeit, TimerID) VALUES ('" + starttime + "', '" + endtime + "', '" + duration +  "', '" + id + "')";
                 cnn.Open();
                 com.ExecuteNonQuery();
                 cnn.Close();
@@ -281,8 +286,8 @@ namespace Time_Tracker
             string endvalue = datum + " " + ende;
 
             //*********************************************************************
-            // <<<<TODO>>>> Aktuell wird die Zeit OHNE Sekunden angehängt. Fixen!
-            //*********************************************************************
+            // <<<<TODO>>>> Selektion (check) nur gegen Single-Timer!
+            //*********************************************************************//
 
             using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {

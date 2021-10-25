@@ -71,7 +71,7 @@ namespace Time_Tracker
         private void btnSaveTime_Click(object sender, EventArgs e)
         {
             sqladapter dbaccess = new sqladapter();
-            bool choice = dbaccess.CheckExistingTime(dtpDate.Value.ToShortDateString(), dtpStart.Value.ToShortTimeString(), dtpEnd.Value.ToShortTimeString());
+            bool choice = dbaccess.CheckExistingTime(dtpDate.Value.ToShortDateString(), dtpStart.Value.ToLongTimeString(), dtpEnd.Value.ToLongTimeString());
 
             if (choice == true)
             {
