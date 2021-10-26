@@ -278,22 +278,20 @@ namespace Time_Tracker
 
         public bool CheckExistingTime(string datum, string start, string ende)
         {
-            //Befehl in SQL:
-            //SELECT * FROM TIMES WHERE ('24.10.2021 16:28:00' BETWEEN TIMES.Start AND TIMES.End OR '24.10.2021 16:30:42' BETWEEN TIMES.Start AND TIMES.End);
-
             //build string from date and times
             string startvalue = datum + " " + start;
             string endvalue = datum + " " + ende;
-
-            //*********************************************************************
-            // <<<<TODO>>>> Selektion (check) nur gegen Single-Timer!
-            //*********************************************************************//
 
             using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 SQLiteCommand com = new SQLiteCommand();
                 com.Connection = cnn;
-                com.CommandText = "SELECT * FROM TIMES WHERE ('" + startvalue + "' BETWEEN TIMES.Start AND TIMES.End OR '" + endvalue + "' BETWEEN TIMES.Start AND TIMES.End)";
+                //com.CommandText = "SELECT * FROM TIMES WHERE ('" + startvalue + "' BETWEEN TIMES.Start AND TIMES.End OR '" + endvalue + "' BETWEEN TIMES.Start AND TIMES.End)";
+                com.CommandText = "SELECT * FROM Timer LEFT JOIN Times ON Times.TimerID = Timer.ID WHERE \n" +
+                    "('" + startvalue + "' BETWEEN Times.Start AND Times.End) OR \n" +
+                    "('" + endvalue + "' BETWEEN Times.Start AND Times.End) OR \n" +
+                    "(Times.Start BETWEEN '" + startvalue + "' AND '" + endvalue + "') OR \n" +
+                    "(Times.End BETWEEN '" + startvalue + "' AND '" + endvalue + "')";
                 cnn.Open();
                 SQLiteDataReader reader = com.ExecuteReader();
 
@@ -310,7 +308,5 @@ namespace Time_Tracker
                 }
             }
         }
-
-
     }
 }

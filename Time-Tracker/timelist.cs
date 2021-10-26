@@ -12,14 +12,29 @@ namespace Time_Tracker
 {
     public partial class timelist : Form
     {
+        //zum Aktualisieren der Anzeigen bei erfolgter Speicherung.
+        Timer mytimer = new Timer();
+
         public timelist()
         {
             InitializeComponent();
             Fillcb();
 
+            //initialize Timer_Tick:
+            mytimer.Interval = (3000); // 1 secs
+            mytimer.Tick += new EventHandler(timer_Tick);
+
             //Deaktiviere alle Eingaben, bevor nicht ein Eintrag aus der Dropbox für "Timer" gewählt wurde...
             BlockEditing();
         }
+
+        //Methode zum refreshen über den Timer-Tick
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            lblStatusWert.Text = "wartend...";
+            mytimer.Stop();
+        }
+
 
         void Fillcb()
         {
@@ -35,7 +50,6 @@ namespace Time_Tracker
         public void BlockEditing()
         {
             btnDeleteSelection.Enabled = false;
-            btnRefresh.Enabled = false;
             btnSaveChanges.Enabled = false;
             btnSaveTime.Enabled = false;
             dgvTimerTimes.Enabled = false;
@@ -47,7 +61,6 @@ namespace Time_Tracker
         public void EnableEditing()
         {
             btnDeleteSelection.Enabled = true;
-            btnRefresh.Enabled = true;
             btnSaveChanges.Enabled = true;
             btnSaveTime.Enabled = true;
             dgvTimerTimes.Enabled = true;
@@ -79,6 +92,8 @@ namespace Time_Tracker
             } else
             {
                 dbaccess.savetime(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value, dtpStart.Value, dtpEnd.Value);
+                lblStatusWert.Text = "Neuer Eintrag wurde gespeichert!";
+                mytimer.Start();
             }
         }
     }

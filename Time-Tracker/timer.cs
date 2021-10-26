@@ -21,7 +21,7 @@ namespace Time_Tracker
             measuretime();
 
             //initialize Timer_Tick:
-            mytimer.Interval = (10 * 1000); // 10 secs
+            mytimer.Interval = (1000); // 1 secs
             mytimer.Tick += new EventHandler(timer_Tick);
             mytimer.Start();
         }
