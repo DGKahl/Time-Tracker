@@ -108,6 +108,34 @@ namespace Time_Tracker
             }
         }
 
+        // !!!!!!!!!!!!!!!!! HIER WEITER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        // Parallel-Status für alle(!) vorhandenen Timer auslesen --> Speichern in Dictionary
+        public IDictionary<string, bool> AllTimersParallelStatus()
+        {
+            IDictionary<string, bool> alltimers = new Dictionary<string, bool>();
+
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                SQLiteCommand com = new SQLiteCommand();
+                com.Connection = cnn;
+                cnn.Open();
+
+                com.CommandText = "SELECT Timer.name AS name, Timer.parallel AS parallel FROM Timer";
+                SQLiteDataReader reader = com.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    alltimers.Add(reader["name"].ToString(), Boolean.Parse(reader["parallel"].ToString()));
+                    //list.Add(reader["name"].ToString());
+                }
+                reader.Close();
+                cnn.Close();
+            }
+            return alltimers;
+        }
+
         // SETTINGS: Liste der Namen aller aktuellen Timer ermitteln
         public List<string> GetAllTimers()
         {
@@ -202,6 +230,31 @@ namespace Time_Tracker
             }
             return currenttimer;
         }
+
+        //"Parallel" Status eines bestimmten Timers auf Basis des Namens holen
+        public bool getParallelStatus(string name)
+        {
+            bool status = false;
+
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                SQLiteCommand com = new SQLiteCommand();
+                com.Connection = cnn;
+                cnn.Open();
+
+                com.CommandText = "SELECT Timer.name AS name, Timer.parallel AS parallel FROM Timer where name='" + name + "'";
+                SQLiteDataReader reader = com.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    status = Boolean.Parse(reader["parallel"].ToString());
+                }
+                reader.Close();
+                cnn.Close();
+            }
+            return status;
+        }
+
 
         //neuen Timer hinzufügen
         public void AddTimer(string name, string beschreibung, bool parallel)

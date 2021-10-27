@@ -12,11 +12,17 @@ namespace Time_Tracker
 {
     public partial class Start : Form
     {
+        //zum Tracken, ob ein Single Timer läuft oder nicht
+        public static bool parallelflag = false;
+        public static IDictionary<string, bool> timerparallelstatus = new Dictionary<string, bool>();
+        public static List<string> timerrunningstatus = new List<string>();
+
         public Start()
         {
             InitializeComponent();
             SetQuickslots();
             Fillcb();
+            AllTimersStatus();
         }
 
         void Fillcb()
@@ -30,6 +36,12 @@ namespace Time_Tracker
             }
         }
 
+        //Ermitteln eines Dictionaries mit allen vorhandenen Timern und dem Parallel-Status:
+        void AllTimersStatus()
+        {
+            sqladapter adapter = new sqladapter();
+            timerparallelstatus = adapter.AllTimersParallelStatus();
+        }
 
         void SetQuickslots()
         {
@@ -56,6 +68,22 @@ namespace Time_Tracker
         }
 
 
+            //Fall 1: Parallel-Timer laufen --> Es wird ein Single-Timer gestartet; alle Parallel-Timer enden.
+            //d.h.: flag = false, newTimer = true.
+            //0..n (laufende) Timer enden.
+
+
+            //Fall 2: Ein Single-Timer läuft --> Es wird ein Single-Timer gestartet; der alte Single-Timer endet.
+            //d.h.: flag = true, newTimer = true.
+            //1 laufender Timer endet.
+
+            //Fall 3: Ein Single-Timer läuft --> Es wird ein Parallel-Timer gestartet; der alte Single-Timer endet.
+            //d.h.: flag = true, newTimer = false.
+            //1 laufender Timer endet.
+
+            //[INFO] Fall 4: Parallel-Timer laufen --> Es wird ein Parallel-Timer gestartet; die alten Parallel-Timer laufen weiter.
+            //[INFO] d.h.: flag = false, newTimer = false.
+        
 
         //---------------------------------------------------------------------------------------
         // ### KNÖPFE UND INTERAKTION -----------------------------------------------------------
@@ -65,7 +93,8 @@ namespace Time_Tracker
         {
             string timername;
 
-            if (cbTimerSelection.SelectedItem != null) {
+            if (cbTimerSelection.SelectedItem != null) 
+            {
                 timername = cbTimerSelection.SelectedItem.ToString();
                 bool check = checkFormStatus(timername);
 
@@ -75,6 +104,7 @@ namespace Time_Tracker
                 }
                 else
                 {
+                    timerrunningstatus.Add(timername);
                     timer OpenForm = new timer(timername);
                     OpenForm.Show();
                 }
@@ -94,6 +124,7 @@ namespace Time_Tracker
             }
             else
             {
+                timerrunningstatus.Add(btnQTimer1.Text);
                 timer OpenForm = new timer(btnQTimer1.Text);
                 OpenForm.Show();
             }
@@ -109,6 +140,7 @@ namespace Time_Tracker
             }
             else
             {
+                timerrunningstatus.Add(btnQTimer2.Text);
                 timer OpenForm = new timer(btnQTimer2.Text);
                 OpenForm.Show();
             }
@@ -124,6 +156,7 @@ namespace Time_Tracker
             }
             else
             {
+                timerrunningstatus.Add(btnQTimer3.Text);
                 timer OpenForm = new timer(btnQTimer3.Text);
                 OpenForm.Show();
             }
