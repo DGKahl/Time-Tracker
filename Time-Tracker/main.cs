@@ -67,56 +67,61 @@ namespace Time_Tracker
             return false;
         }
 
+
+        //Prüfung der zu startenden Timer bei Button-Klicks
+        private void ExecuteTimerStartCheck(string timername, bool manualselection)
+        {
+            bool check = checkFormStatus(timername);
+
+            if (check != true)
+            {
+                bool timertype = timerparallelstatus[timername];
+                timer[] temptimers = timerrunningstatus.ToArray();
+
+                //timertype = true --> Single Timer; alle laufenden Timer beenden
+                if (timertype == false)
+                {
+                    foreach (timer t in temptimers)
+                    {
+                        t.ExternalClosing();
+                        timerrunningstatus.Remove(t);
+                    }
+                    timer OpenForm = new timer(timername);
+                    timerrunningstatus.Add(OpenForm);
+                    OpenForm.Show();
+                }
+                else //Parallel Timer; Prüfung, ob ein laufender Single-Timer beendet werden muss
+                {
+                    foreach (timer t in temptimers)
+                    {
+                        if (timerparallelstatus[t.Text] == false)
+                        {
+                            t.ExternalClosing();
+                            timerrunningstatus.Remove(t);
+                        }
+                    }
+                    //timerrunningstatus.Add(timername);
+                    timer OpenForm = new timer(timername);
+                    timerrunningstatus.Add(OpenForm);
+                    OpenForm.Show();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Timer ist schon geöffnet.", "Information", MessageBoxButtons.OK);
+            }
+        }
+
+
         //---------------------------------------------------------------------------------------
         // ### KNÖPFE UND INTERAKTION -----------------------------------------------------------
         //---------------------------------------------------------------------------------------
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            string timername;
-
             if (cbTimerSelection.SelectedItem != null)
             {
-                timername = cbTimerSelection.SelectedItem.ToString();
-                bool check = checkFormStatus(timername);
-
-                if (check != true)
-                {
-                    bool timertype = timerparallelstatus[timername];
-                    timer[] temptimers = timerrunningstatus.ToArray();
-
-                    //timertype = true --> Single Timer; alle laufenden Timer beenden
-                    if (timertype == false)
-                    {
-                        foreach (timer t in temptimers)
-                        {
-                            t.ExternalClosing();
-                            timerrunningstatus.Remove(t);
-                        }
-                        timer OpenForm = new timer(timername);
-                        timerrunningstatus.Add(OpenForm);
-                        OpenForm.Show();
-                    }
-                    else //Parallel Timer; Prüfung, ob ein laufender Single-Timer beendet werden muss
-                    {
-                        foreach (timer t in temptimers)
-                        {
-                            if (timerparallelstatus[t.Text] == false)
-                            {
-                                t.ExternalClosing();
-                                timerrunningstatus.Remove(t);
-                            }
-                        }
-                        //timerrunningstatus.Add(timername);
-                        timer OpenForm = new timer(timername);
-                        timerrunningstatus.Add(OpenForm);
-                        OpenForm.Show();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Timer ist schon geöffnet.", "Information", MessageBoxButtons.OK);
-                }
+                this.ExecuteTimerStartCheck(cbTimerSelection.SelectedItem.ToString(), true);
             }
             else
             {
@@ -126,53 +131,17 @@ namespace Time_Tracker
 
         private void btnQTimer1_Click(object sender, EventArgs e)
         {
-            bool check = checkFormStatus(btnQTimer1.Text);
-
-            if (check==true)
-            {
-                MessageBox.Show("Der Timer ist bereits geöffnet.", "Information", MessageBoxButtons.OK);
-            }
-            else
-            {
-                //timerrunningstatus.Add(btnQTimer1.Text);
-                timer OpenForm = new timer(btnQTimer1.Text);
-                timerrunningstatus.Add(OpenForm);
-                OpenForm.Show();
-            }
+            this.ExecuteTimerStartCheck(btnQTimer1.Text, false);
         }
 
         private void btnQTimer2_Click(object sender, EventArgs e)
         {
-            bool check = checkFormStatus(btnQTimer2.Text);
-
-            if (check == true)
-            {
-                MessageBox.Show("Der Timer ist bereits geöffnet.", "Information", MessageBoxButtons.OK);
-            }
-            else
-            {
-                //timerrunningstatus.Add(btnQTimer2.Text);
-                timer OpenForm = new timer(btnQTimer2.Text);
-                timerrunningstatus.Add(OpenForm);
-                OpenForm.Show();
-            }
+            this.ExecuteTimerStartCheck(btnQTimer2.Text, false);
         }
 
         private void btnQTimer3_Click(object sender, EventArgs e)
         {
-            bool check = checkFormStatus(btnQTimer3.Text);
-
-            if (check == true)
-            {
-                MessageBox.Show("Der Timer ist bereits geöffnet.", "Information", MessageBoxButtons.OK);
-            }
-            else
-            {
-                //timerrunningstatus.Add(btnQTimer3.Text);
-                timer OpenForm = new timer(btnQTimer3.Text);
-                timerrunningstatus.Add(OpenForm);
-                OpenForm.Show();
-            }
+            this.ExecuteTimerStartCheck(btnQTimer3.Text, false);
         }
 
         private void bearbeitenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -209,6 +178,17 @@ namespace Time_Tracker
         {
             results OpenForm = new results();
             OpenForm.Show();
+        }
+
+        private void btnStopAll_Click(object sender, EventArgs e)
+        {
+            timer[] temptimers = timerrunningstatus.ToArray();
+
+            foreach (timer t in temptimers)
+            {
+                t.ExternalClosing();
+                timerrunningstatus.Remove(t);
+            }
         }
     }
 }
