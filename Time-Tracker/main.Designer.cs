@@ -44,10 +44,12 @@ namespace Time_Tracker
             this.btnQTimer3 = new System.Windows.Forms.Button();
             this.btnQTimer2 = new System.Windows.Forms.Button();
             this.btnQTimer1 = new System.Windows.Forms.Button();
-            this.lblRuntime = new System.Windows.Forms.Label();
             this.btnStopAll = new System.Windows.Forms.Button();
+            this.gbLog = new System.Windows.Forms.GroupBox();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.gbLog.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbTimerSelection
@@ -55,14 +57,14 @@ namespace Time_Tracker
             this.cbTimerSelection.FormattingEnabled = true;
             this.cbTimerSelection.Location = new System.Drawing.Point(12, 28);
             this.cbTimerSelection.Name = "cbTimerSelection";
-            this.cbTimerSelection.Size = new System.Drawing.Size(166, 21);
+            this.cbTimerSelection.Size = new System.Drawing.Size(248, 21);
             this.cbTimerSelection.TabIndex = 0;
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(184, 27);
+            this.btnStart.Location = new System.Drawing.Point(12, 55);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(76, 41);
+            this.btnStart.Size = new System.Drawing.Size(120, 27);
             this.btnStart.TabIndex = 1;
             this.btnStart.Text = "Start!";
             this.btnStart.UseVisualStyleBackColor = true;
@@ -146,18 +148,18 @@ namespace Time_Tracker
             this.groupBox1.Controls.Add(this.btnQTimer3);
             this.groupBox1.Controls.Add(this.btnQTimer2);
             this.groupBox1.Controls.Add(this.btnQTimer1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 94);
+            this.groupBox1.Location = new System.Drawing.Point(12, 97);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(248, 74);
+            this.groupBox1.Size = new System.Drawing.Size(248, 70);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Quick Timer";
             // 
             // btnQTimer3
             // 
-            this.btnQTimer3.Location = new System.Drawing.Point(168, 19);
+            this.btnQTimer3.Location = new System.Drawing.Point(168, 22);
             this.btnQTimer3.Name = "btnQTimer3";
-            this.btnQTimer3.Size = new System.Drawing.Size(75, 49);
+            this.btnQTimer3.Size = new System.Drawing.Size(75, 43);
             this.btnQTimer3.TabIndex = 7;
             this.btnQTimer3.Text = "n/a";
             this.btnQTimer3.UseVisualStyleBackColor = true;
@@ -165,9 +167,9 @@ namespace Time_Tracker
             // 
             // btnQTimer2
             // 
-            this.btnQTimer2.Location = new System.Drawing.Point(87, 19);
+            this.btnQTimer2.Location = new System.Drawing.Point(87, 22);
             this.btnQTimer2.Name = "btnQTimer2";
-            this.btnQTimer2.Size = new System.Drawing.Size(75, 49);
+            this.btnQTimer2.Size = new System.Drawing.Size(75, 43);
             this.btnQTimer2.TabIndex = 6;
             this.btnQTimer2.Text = "n/a";
             this.btnQTimer2.UseVisualStyleBackColor = true;
@@ -175,40 +177,49 @@ namespace Time_Tracker
             // 
             // btnQTimer1
             // 
-            this.btnQTimer1.Location = new System.Drawing.Point(6, 19);
+            this.btnQTimer1.Location = new System.Drawing.Point(6, 22);
             this.btnQTimer1.Name = "btnQTimer1";
-            this.btnQTimer1.Size = new System.Drawing.Size(75, 49);
+            this.btnQTimer1.Size = new System.Drawing.Size(75, 43);
             this.btnQTimer1.TabIndex = 5;
             this.btnQTimer1.Text = "n/a";
             this.btnQTimer1.UseVisualStyleBackColor = true;
             this.btnQTimer1.Click += new System.EventHandler(this.btnQTimer1_Click);
             // 
-            // lblRuntime
-            // 
-            this.lblRuntime.AutoSize = true;
-            this.lblRuntime.Location = new System.Drawing.Point(18, 55);
-            this.lblRuntime.Name = "lblRuntime";
-            this.lblRuntime.Size = new System.Drawing.Size(49, 13);
-            this.lblRuntime.TabIndex = 5;
-            this.lblRuntime.Text = "00:00:00";
-            // 
             // btnStopAll
             // 
-            this.btnStopAll.Location = new System.Drawing.Point(184, 72);
+            this.btnStopAll.Location = new System.Drawing.Point(140, 55);
             this.btnStopAll.Name = "btnStopAll";
-            this.btnStopAll.Size = new System.Drawing.Size(76, 23);
+            this.btnStopAll.Size = new System.Drawing.Size(120, 27);
             this.btnStopAll.TabIndex = 6;
             this.btnStopAll.Text = "Alle stoppen";
             this.btnStopAll.UseVisualStyleBackColor = true;
             this.btnStopAll.Click += new System.EventHandler(this.btnStopAll_Click);
             // 
+            // gbLog
+            // 
+            this.gbLog.Controls.Add(this.richTextBox1);
+            this.gbLog.Location = new System.Drawing.Point(12, 184);
+            this.gbLog.Name = "gbLog";
+            this.gbLog.Size = new System.Drawing.Size(248, 91);
+            this.gbLog.TabIndex = 7;
+            this.gbLog.TabStop = false;
+            this.gbLog.Text = "Log";
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(7, 20);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(236, 65);
+            this.richTextBox1.TabIndex = 0;
+            this.richTextBox1.Text = "";
+            // 
             // Start
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(271, 175);
+            this.ClientSize = new System.Drawing.Size(271, 283);
+            this.Controls.Add(this.gbLog);
             this.Controls.Add(this.btnStopAll);
-            this.Controls.Add(this.lblRuntime);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.cbTimerSelection);
@@ -219,6 +230,7 @@ namespace Time_Tracker
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            this.gbLog.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -237,12 +249,13 @@ namespace Time_Tracker
         private System.Windows.Forms.Button btnQTimer3;
         private System.Windows.Forms.Button btnQTimer2;
         private System.Windows.Forms.Button btnQTimer1;
-        private System.Windows.Forms.Label lblRuntime;
         private System.Windows.Forms.ToolStripMenuItem einstellungenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bearbeitenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zeitenBearbeitenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem timerLöschenToolStripMenuItem;
         private System.Windows.Forms.Button btnStopAll;
+        private System.Windows.Forms.GroupBox gbLog;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 
