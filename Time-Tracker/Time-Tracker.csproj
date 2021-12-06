@@ -67,7 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="auswertung.cs" />
-    <Compile Include="ClosedFormEventArgs.cs" />
     <Compile Include="main.cs">
       <SubType>Form</SubType>
     </Compile>

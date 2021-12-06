@@ -11,7 +11,7 @@
 	[ ] Timer auf Typ (parallel/n.parallel) prüfen und bei Start jeweils andere Timer prüfen (ggf. auto-beenden/-speichern)
 + 21.09.21:
 	[x] m:n Tabelle nicht praktikabel (bes. wg. "deletes") --> Änderung auf 2 Tabellen: Timer, Times. Times entählt alle gemessenen Zeiten mit eindeutigem Timer als ForeignKey verlinkt.
-	[ ] 2 Knöpfe bei beendeten Timern: "Stop" und "Stop+Schließen", damit das Fenster gleich geschlossen wird.
+	[-] 2 Knöpfe bei beendeten Timern: "Stop" und "Stop+Schließen", damit das Fenster gleich geschlossen wird.
 	[ ] Die Sekunden werden manchmal nicht richtig gezählt --> prüfen!
 	[ ] Auswertungen-Form fertigstellen (Design)
 	[ ] Listen-Form fertigstellen (Design)
