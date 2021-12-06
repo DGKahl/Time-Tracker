@@ -41,25 +41,12 @@ namespace Time_Tracker
             mytimer.Start();
         }
 
-        //EVENT UND DELEGATE
-        public event Formhandler FormIsClosed;
-        public delegate void Formhandler(Form f, GetClosedFormEventArgs e);
-
-        private void Form_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            GetClosedFormEventArgs FormCloseEvent = new GetClosedFormEventArgs();   //Objekt vom Typ meines eigenen Eventargs erstellen,...
-            FormCloseEvent.formname = this.Name;                                    //... und hier die zu übertragenen Daten speichern.
-            FormIsClosed(this, FormCloseEvent);                                     //Event ansprechen --> ruft den Delegate, da Template stimmt.
-            //weiter bei "main"....
-        }
-
         //Methode zum refreshen der aktuellen Timeranzeige
         private void timer_Tick(object sender, EventArgs e)
         {
             //lblDurationTime.Text = (DateTime.Now.ToLocalTime() - thistimer.getStart()).ToString(@"hh\:mm\:ss");
             lblDurationTime.Text = DateTime.Now.Subtract(thistimer.getStart()).ToString(@"hh\:mm\:ss");
         }
-
 
         public void measuretime()
         {
@@ -73,6 +60,7 @@ namespace Time_Tracker
             lblEndTime.Text = thistimer.getEnd().ToString();
             mytimer.Stop();
             writedata();
+            this.Close();
         }
 
         public void writedata()
@@ -80,6 +68,15 @@ namespace Time_Tracker
             sqladapter myadapter = new sqladapter();
             myadapter.savetime(thistimer, this.Text);
             lblStatus.Text = "saved!";
+        }
+
+        public void ExternalClosing()
+        {
+            thistimer.stopTimer();
+            lblEndTime.Text = thistimer.getEnd().ToString();
+            mytimer.Stop();
+            writedata();
+            this.Close();
         }
     }
 }
