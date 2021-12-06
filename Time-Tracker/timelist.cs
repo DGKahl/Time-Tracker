@@ -88,7 +88,7 @@ namespace Time_Tracker
 
             if (choice == true)
             {
-                MessageBox.Show("Eintrag bereits für einen anderen Single-Timer vorhanden!", "Fehler", MessageBoxButtons.OK);
+                MessageBox.Show("Eintrag bereits für einen Single-Timer vorhanden!", "Fehler", MessageBoxButtons.OK);
             } else
             {
                 dbaccess.savetime(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value, dtpStart.Value, dtpEnd.Value);
