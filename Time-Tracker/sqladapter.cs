@@ -108,9 +108,6 @@ namespace Time_Tracker
             }
         }
 
-        // !!!!!!!!!!!!!!!!! HIER WEITER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
         // Parallel-Status für alle(!) vorhandenen Timer auslesen --> Speichern in Dictionary
         public IDictionary<string, bool> AllTimersParallelStatus()
         {

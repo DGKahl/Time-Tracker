@@ -1,5 +1,5 @@
 ﻿initial:	
-	[ ] Grafik einbinden mit überschriebener OnPaint-Methode.
+	[-] Grafik einbinden mit überschriebener OnPaint-Methode.
 	[x] Datenbank entwerfen
 	[x] Datenbank anbinden
 + 16.09.21:
@@ -8,13 +8,23 @@
 	[ ] Nach dem Speichern in den Einstellungen sollten die anderen Fenster (min. Start, wg. Quickslots) aktualisiert werden
 		(i) evtl. mit refresh, wenn Fokus auf das Fenster geht?
 + 20.09.21:
-	[ ] Timer auf Typ (parallel/n.parallel) prüfen und bei Start jeweils andere Timer prüfen (ggf. auto-beenden/-speichern)
+	[x] Timer auf Typ (parallel/n.parallel) prüfen und bei Start jeweils andere Timer prüfen (ggf. auto-beenden/-speichern)
 + 21.09.21:
 	[x] m:n Tabelle nicht praktikabel (bes. wg. "deletes") --> Änderung auf 2 Tabellen: Timer, Times. Times entählt alle gemessenen Zeiten mit eindeutigem Timer als ForeignKey verlinkt.
 	[-] 2 Knöpfe bei beendeten Timern: "Stop" und "Stop+Schließen", damit das Fenster gleich geschlossen wird.
 	[ ] Die Sekunden werden manchmal nicht richtig gezählt --> prüfen!
 	[ ] Auswertungen-Form fertigstellen (Design)
 	[ ] Listen-Form fertigstellen (Design)
++ 06.12.21_
+	[ ] Zeiten bearbeiten: DataGRidview automatisch befüllen:
+		- alle Einträge für einen gewählten Timer zum gewählten Datum
+		- initial: leer
+		- nach Wahl eines Timers: Datum automatisch auf heute gesetzt
+		- nach Wahl eines Datums: Update auf das Datum für gewählten Timer
+		- nach Wahl eines anderen Timers: Letztes Datum "merken"
+		- nach Wahl eines Eintrags: Automatisches Updaten der Zeiten gemäß Eintrag
+		- nach jeder externen Änderung (Wechsel Timer, Wechsel Datum, Speichern/Löschen Knopf) -> Update des Datagridviews
+		- nach jeder internen Änderung (neuer Eintrag in Datagridview angeklickt) -> Update der Uhrzeiten
 
 
 
