@@ -14,7 +14,6 @@ namespace Time_Tracker
     {
         timeobject thistimer = new timeobject();
         Timer mytimer = new Timer();
-        Timer closingtimer = new Timer();
 
         // --> wird aktuell überhaupt nicht verwendet!!!!
         public timer()
@@ -28,11 +27,6 @@ namespace Time_Tracker
             mytimer.Interval = (1000); // 1 secs
             mytimer.Tick += new EventHandler(timer_Tick);
             mytimer.Start();
-
-            //Countdown bis zum Fenster-Schließen:
-            closingtimer.Interval = (3000); // 3 secs
-            closingtimer.Tick += new EventHandler(timer_TickClose);
-            closingtimer.Start();
         }
 
         public timer(string timername)
@@ -45,10 +39,18 @@ namespace Time_Tracker
             mytimer.Interval = (1000); // 1 secs
             mytimer.Tick += new EventHandler(timer_Tick);
             mytimer.Start();
+        }
 
-            //Countdown bis zum Fenster-Schließen:
-            closingtimer.Interval = (3000); // 3 secs
-            closingtimer.Tick += new EventHandler(timer_TickClose);
+        //EVENT UND DELEGATE
+        public event Formhandler FormIsClosed;
+        public delegate void Formhandler(Form f, GetClosedFormEventArgs e);
+
+        private void Form_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            GetClosedFormEventArgs FormCloseEvent = new GetClosedFormEventArgs();   //Objekt vom Typ meines eigenen Eventargs erstellen,...
+            FormCloseEvent.formname = this.Name;                                    //... und hier die zu übertragenen Daten speichern.
+            FormIsClosed(this, FormCloseEvent);                                     //Event ansprechen --> ruft den Delegate, da Template stimmt.
+            //weiter bei "main"....
         }
 
         //Methode zum refreshen der aktuellen Timeranzeige
@@ -58,18 +60,6 @@ namespace Time_Tracker
             lblDurationTime.Text = DateTime.Now.Subtract(thistimer.getStart()).ToString(@"hh\:mm\:ss");
         }
 
-        //Methode zum refreshen der automatischen Fenster-SChließung
-        private void timer_TickClose(object sender, EventArgs e)
-        {
-            closingtimer.Stop();
-            //!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!!'!'!'!''!'!'!'!'!'!'!'!!'!'!''!'!'!'!'!'!'!'!!''!'!'!'!'!'!'!'!!'!'!''!'!'
-            // --> HIER MUSS IRGENDWIE EIN EVENT HANDLER REIN, um beim FORMCLOSE Event den Namen der Form an MAIN.CS zu schicken.
-            //Dort dann die Liste der offenen forms entsprechend um diesen Eintrag reduzieren.
-            //!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!!'!'!'!''!'!'!'!'!'!'!'!!'!'!''!'!'!'!'!'!'!'!!''!'!'!'!'!'!'!'!!'!'!''!'!'
-            //PS: Falls das nicht klappt mit der Liste, kann diese auch einfach jedes Mal, wenn das FormClose Event erfolgt, komplett neu 
-            //auf Basis aller offenen Forms befüllt werden; so was ähnliches steht schon in einer anderen Methode...
-            this.Close();
-        }
 
         public void measuretime()
         {
@@ -83,7 +73,6 @@ namespace Time_Tracker
             lblEndTime.Text = thistimer.getEnd().ToString();
             mytimer.Stop();
             writedata();
-            closingtimer.Start();
         }
 
         public void writedata()

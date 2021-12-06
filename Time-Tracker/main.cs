@@ -25,6 +25,15 @@ namespace Time_Tracker
             AllTimersStatus();
         }
 
+        // !!! Ich "glaube" hier passiert folgendes:
+        // Zuordung des Events "Formhandler" zu Delegate "FormIsClosed" --> Verweis auf Methode "EventHappens"
+        // ???
+        public void Subscriber(timer f)
+        {
+            f.FormIsClosed += new timer.Formhandler(EventHappens);
+        }
+
+
         void Fillcb()
         {
             sqladapter adapter = new sqladapter();
@@ -67,23 +76,28 @@ namespace Time_Tracker
             return false;
         }
 
+        // !!! Delegate+Eventhandler in Action!
+        public void EventHappens(Form f, GetClosedFormEventArgs e)
+        {
+            int a = 2;
+        }
 
-            //Fall 1: Parallel-Timer laufen --> Es wird ein Single-Timer gestartet; alle Parallel-Timer enden.
-            //d.h.: flag = false, newTimer = true.
-            //0..n (laufende) Timer enden.
+        //Fall 1: Parallel-Timer laufen --> Es wird ein Single-Timer gestartet; alle Parallel-Timer enden.
+        //d.h.: flag = false, newTimer = true.
+        //0..n (laufende) Timer enden.
 
 
-            //Fall 2: Ein Single-Timer läuft --> Es wird ein Single-Timer gestartet; der alte Single-Timer endet.
-            //d.h.: flag = true, newTimer = true.
-            //1 laufender Timer endet.
+        //Fall 2: Ein Single-Timer läuft --> Es wird ein Single-Timer gestartet; der alte Single-Timer endet.
+        //d.h.: flag = true, newTimer = true.
+        //1 laufender Timer endet.
 
-            //Fall 3: Ein Single-Timer läuft --> Es wird ein Parallel-Timer gestartet; der alte Single-Timer endet.
-            //d.h.: flag = true, newTimer = false.
-            //1 laufender Timer endet.
+        //Fall 3: Ein Single-Timer läuft --> Es wird ein Parallel-Timer gestartet; der alte Single-Timer endet.
+        //d.h.: flag = true, newTimer = false.
+        //1 laufender Timer endet.
 
-            //[INFO] Fall 4: Parallel-Timer laufen --> Es wird ein Parallel-Timer gestartet; die alten Parallel-Timer laufen weiter.
-            //[INFO] d.h.: flag = false, newTimer = false.
-        
+        //[INFO] Fall 4: Parallel-Timer laufen --> Es wird ein Parallel-Timer gestartet; die alten Parallel-Timer laufen weiter.
+        //[INFO] d.h.: flag = false, newTimer = false.
+
 
         //---------------------------------------------------------------------------------------
         // ### KNÖPFE UND INTERAKTION -----------------------------------------------------------
@@ -106,6 +120,10 @@ namespace Time_Tracker
                 {
                     timerrunningstatus.Add(timername);
                     timer OpenForm = new timer(timername);
+
+                    //Subscibing von "main" zur "form", die gerade erstellt wurde!!! <<<<--------- WICHTIG!
+                    this.Subscriber(OpenForm);
+
                     OpenForm.Show();
                 }
             } else
@@ -126,6 +144,10 @@ namespace Time_Tracker
             {
                 timerrunningstatus.Add(btnQTimer1.Text);
                 timer OpenForm = new timer(btnQTimer1.Text);
+
+                //Subscibing von "main" zur "form", die gerade erstellt wurde!!! <<<<--------- WICHTIG!
+                this.Subscriber(OpenForm);
+
                 OpenForm.Show();
             }
         }
@@ -142,6 +164,10 @@ namespace Time_Tracker
             {
                 timerrunningstatus.Add(btnQTimer2.Text);
                 timer OpenForm = new timer(btnQTimer2.Text);
+
+                //Subscibing von "main" zur "form", die gerade erstellt wurde!!! <<<<--------- WICHTIG!
+                this.Subscriber(OpenForm);
+
                 OpenForm.Show();
             }
         }
@@ -158,6 +184,10 @@ namespace Time_Tracker
             {
                 timerrunningstatus.Add(btnQTimer3.Text);
                 timer OpenForm = new timer(btnQTimer3.Text);
+
+                //Subscibing von "main" zur "form", die gerade erstellt wurde!!! <<<<--------- WICHTIG!
+                this.Subscriber(OpenForm);
+
                 OpenForm.Show();
             }
         }
