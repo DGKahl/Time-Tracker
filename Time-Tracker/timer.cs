@@ -41,6 +41,20 @@ namespace Time_Tracker
             mytimer.Start();
         }
 
+
+        //EVENT UND DELEGATE
+        public event Formhandler FormIsClosed;
+        public delegate void Formhandler(timer f, GetClosedFormEventArgs e);
+
+        private void timer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            GetClosedFormEventArgs FormCloseEvent = new GetClosedFormEventArgs();   //Objekt vom Typ meines eigenen Eventargs erstellen,...
+            FormCloseEvent.formname = this.Name;                                    //... und hier die zu übertragenen Daten speichern.
+            FormIsClosed(this, FormCloseEvent);                                     //Event ansprechen --> ruft den Delegate, da Template stimmt.
+            //weiter bei "main"....
+        }
+
+
         //Methode zum refreshen der aktuellen Timeranzeige
         private void timer_Tick(object sender, EventArgs e)
         {

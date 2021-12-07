@@ -25,6 +25,18 @@ namespace Time_Tracker
             AllTimersStatus();
         }
 
+        //DELEGATE STUFF
+        public void Subscriber(timer f)
+        {
+            f.FormIsClosed += new timer.Formhandler(EventHappens);
+        }
+
+        // !!! Delegate+Eventhandler in Action!
+        public void EventHappens(timer f, GetClosedFormEventArgs e)
+        {
+            timerrunningstatus.Remove(f);
+        }
+
         void Fillcb()
         {
             sqladapter adapter = new sqladapter();
@@ -84,9 +96,13 @@ namespace Time_Tracker
                     foreach (timer t in temptimers)
                     {
                         t.ExternalClosing();
-                        timerrunningstatus.Remove(t);
+                        //timerrunningstatus.Remove(t);
                     }
                     timer OpenForm = new timer(timername);
+
+                    //Subscibing von "main" zur "form", die gerade erstellt wurde!!! <<<<--------- WICHTIG!
+                    this.Subscriber(OpenForm);
+
                     timerrunningstatus.Add(OpenForm);
                     OpenForm.Show();
                 }
@@ -97,11 +113,15 @@ namespace Time_Tracker
                         if (timerparallelstatus[t.Text] == false)
                         {
                             t.ExternalClosing();
-                            timerrunningstatus.Remove(t);
+                            //timerrunningstatus.Remove(t);
                         }
                     }
                     //timerrunningstatus.Add(timername);
                     timer OpenForm = new timer(timername);
+
+                    //Subscibing von "main" zur "form", die gerade erstellt wurde!!! <<<<--------- WICHTIG!
+                    this.Subscriber(OpenForm);
+
                     timerrunningstatus.Add(OpenForm);
                     OpenForm.Show();
                 }
@@ -187,7 +207,7 @@ namespace Time_Tracker
             foreach (timer t in temptimers)
             {
                 t.ExternalClosing();
-                timerrunningstatus.Remove(t);
+                //timerrunningstatus.Remove(t);
             }
         }
     }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SQLite;
+using System.Data;
 
 
 namespace Time_Tracker
@@ -172,7 +173,7 @@ namespace Time_Tracker
                 //(2) Zeit einfügen
                 SQLiteCommand com = new SQLiteCommand();
                 com.Connection = cnn;
-                com.CommandText = "INSERT INTO times (Start, End, Zeit, TimerID) VALUES ('" + starttime + "', '" + endtime + "', '" + duration +  "', '" + id + "')";
+                com.CommandText = "INSERT INTO times (Start, End, Zeit, TimerID) VALUES ('" + starttime + "', '" + endtime + "', '" + duration + "', '" + id + "')";
                 cnn.Open();
                 com.ExecuteNonQuery();
                 cnn.Close();
@@ -357,6 +358,28 @@ namespace Time_Tracker
                     return false;
                 }
             }
+        }
+
+        //Datagridview mit aktuellen Timerzeiten füllen
+        public DataTable GetTimerData(string timername)
+        {
+            DataTable Tabelle = new DataTable();
+            SQLiteCommand command = new SQLiteCommand();
+
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Open();
+                SQLiteDataReader LiesReihe;
+                command.CommandText = "SELECT * FROM Timer LEFT JOIN Times ON Times.TimerID = Timer.ID WHERE \n" +
+                "Timer.Name = '" + timername + "'";
+                command.CommandType = CommandType.Text;
+                command.Connection = cnn;
+                LiesReihe = command.ExecuteReader();
+                Tabelle.Load(LiesReihe);
+                LiesReihe.Close();
+                cnn.Close();
+            }
+            return Tabelle;
         }
     }
 }

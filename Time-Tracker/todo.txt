@@ -1,4 +1,10 @@
-﻿initial:	
+﻿Noch offen:
+ - Timelist fertigstellen (Datagridview, Auto-Refresh bei Änderung)
+ - Auswertung (design, Funktionalität komplett offen)
+ - Visuellen Pomodoro-Timer (komplett offen)
+
+
+initial:	
 	[-] Grafik einbinden mit überschriebener OnPaint-Methode.
 	[x] Datenbank entwerfen
 	[x] Datenbank anbinden

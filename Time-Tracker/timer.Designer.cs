@@ -131,6 +131,7 @@ namespace Time_Tracker
             this.Controls.Add(this.lblStart);
             this.Name = "timer";
             this.Text = "timer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.timer_FormClosing);
             this.gbDauer.ResumeLayout(false);
             this.gbDauer.PerformLayout();
             this.ResumeLayout(false);

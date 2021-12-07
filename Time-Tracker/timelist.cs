@@ -75,10 +75,18 @@ namespace Time_Tracker
             if (cbTimerSelection.SelectedItem.ToString() != "")
             {
                 EnableEditing();
+                LoadTimerTimes(cbTimerSelection.SelectedItem.ToString());
             } else
             {
                 BlockEditing();
             }
+        }
+
+        //Datagridview befüllen
+        private void LoadTimerTimes(string timername)
+        {
+            sqladapter dbaccess = new sqladapter();
+            dgvTimerTimes.DataSource = dbaccess.GetTimerData(timername);
         }
 
         private void btnSaveTime_Click(object sender, EventArgs e)
