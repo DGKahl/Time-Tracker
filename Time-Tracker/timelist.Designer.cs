@@ -29,6 +29,7 @@ namespace Time_Tracker
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblTimer = new System.Windows.Forms.Label();
             this.cbTimerSelection = new System.Windows.Forms.ComboBox();
             this.gbNew = new System.Windows.Forms.GroupBox();
@@ -122,6 +123,7 @@ namespace Time_Tracker
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(94, 20);
             this.dtpDate.TabIndex = 3;
+            this.dtpDate.ValueChanged += new System.EventHandler(this.dtpDate_ValueChanged);
             // 
             // lblEnd
             // 
@@ -182,12 +184,24 @@ namespace Time_Tracker
             // 
             // dgvTimerTimes
             // 
-            this.dgvTimerTimes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dgvTimerTimes.AllowUserToAddRows = false;
+            this.dgvTimerTimes.AllowUserToDeleteRows = false;
+            this.dgvTimerTimes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvTimerTimes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvTimerTimes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTimerTimes.Location = new System.Drawing.Point(7, 19);
+            this.dgvTimerTimes.MultiSelect = false;
             this.dgvTimerTimes.Name = "dgvTimerTimes";
             this.dgvTimerTimes.Size = new System.Drawing.Size(368, 142);
             this.dgvTimerTimes.TabIndex = 0;
+            this.dgvTimerTimes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTimerTimes_CellContentClick);
             // 
             // lblStatus
             // 

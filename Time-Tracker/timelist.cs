@@ -74,8 +74,16 @@ namespace Time_Tracker
         {
             if (cbTimerSelection.SelectedItem.ToString() != "")
             {
+                if (dtpDate.Enabled == false)
+                {
+                    LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), DateTime.Today);
+                    dgvTimerTimes.ClearSelection();
+                } else
+                {
+                    LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value);
+                    dgvTimerTimes.ClearSelection();
+                }
                 EnableEditing();
-                LoadTimerTimes(cbTimerSelection.SelectedItem.ToString());
             } else
             {
                 BlockEditing();
@@ -83,10 +91,10 @@ namespace Time_Tracker
         }
 
         //Datagridview befüllen
-        private void LoadTimerTimes(string timername)
+        private void LoadTimerTimes(string timername, DateTime selectedtime)
         {
             sqladapter dbaccess = new sqladapter();
-            dgvTimerTimes.DataSource = dbaccess.GetTimerData(timername);
+            dgvTimerTimes.DataSource = dbaccess.GetTimerData(timername, selectedtime);
         }
 
         private void btnSaveTime_Click(object sender, EventArgs e)
@@ -103,6 +111,18 @@ namespace Time_Tracker
                 lblStatusWert.Text = "Neuer Eintrag wurde gespeichert!";
                 mytimer.Start();
             }
+        }
+
+        private void dtpDate_ValueChanged(object sender, EventArgs e)
+        {
+            LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value);
+            dgvTimerTimes.ClearSelection();
+        }
+
+        private void dgvTimerTimes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dtpStart.Value = DateTime.Parse(dgvTimerTimes.CurrentRow.Cells[0].Value.ToString());
+            dtpEnd.Value = DateTime.Parse(dgvTimerTimes.CurrentRow.Cells[1].Value.ToString());
         }
     }
 }
