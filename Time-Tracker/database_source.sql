@@ -1,5 +1,5 @@
 ﻿--
--- File generated with SQLiteStudio v3.3.0 on Di Sep 21 11:56:19 2021
+-- File generated with SQLiteStudio v3.3.0 on Mi Dez 8 20:55:00 2021
 --
 -- Text encoding used: System
 --
@@ -124,7 +124,7 @@ CREATE TABLE Times (
     ID      INTEGER  PRIMARY KEY AUTOINCREMENT,
     Start   DATETIME,
     [End]   DATETIME,
-    Zeit    TIME,
+    Zeit    STRING,
     Notiz   TEXT,
     TimerID INTEGER  REFERENCES Timer (ID) 
                      NOT NULL ON CONFLICT ROLLBACK
