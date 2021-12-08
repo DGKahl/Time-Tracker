@@ -181,14 +181,14 @@ namespace Time_Tracker
         }
 
         //Manuelle Zeiteingabe speichern
-        public void savetime(string timername, DateTime datum, DateTime start, DateTime ende)
+        public void savetime(string timername, DateTime datum, DateTime start, DateTime datumende, DateTime ende)
         {
             int id = sqladapter.getTimerID(timername);
             using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 //(1) Build strings
                 string starttime = datum.ToShortDateString() + " " + start.ToString(@"HH\:mm\:ss");
-                string endtime = datum.Date.ToShortDateString() + " " + ende.ToString(@"HH\:mm\:ss");
+                string endtime = datumende.Date.ToShortDateString() + " " + ende.ToString(@"HH\:mm\:ss");
                 string duration = ende.Subtract(start).ToString(@"hh\:mm\:ss");
 
                 //(1) Insert strings
@@ -200,6 +200,48 @@ namespace Time_Tracker
                 cnn.Close();
             }
         }
+
+        //Vorhandene Zeit editieren
+        public void edittime(string timername, DateTime new_datum, DateTime new_start, DateTime new_datumende, DateTime new_ende, string timesid)
+        {
+            int id = sqladapter.getTimerID(timername);
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                //(1) Build new strings
+                string new_starttime = new_datum.ToShortDateString() + " " + new_start.ToString(@"HH\:mm\:ss");
+                string new_endtime = new_datumende.Date.ToShortDateString() + " " + new_ende.ToString(@"HH\:mm\:ss");
+                string new_duration = (DateTime.Parse(new_endtime) - DateTime.Parse(new_starttime)).ToString();
+                
+                    
+                    //new_ende.Subtract(new_start).ToString(@"hh\:mm\:ss");
+
+
+
+
+                //(1) Insert strings
+                SQLiteCommand com = new SQLiteCommand();
+                com.Connection = cnn;
+                com.CommandText = "UPDATE times SET Start = '" + new_starttime + "', End = '" + new_endtime + "', Zeit = '" + new_duration + "', TimerID = '" + id + "' WHERE ID = '" + timesid + "'";
+                cnn.Open();
+                com.ExecuteNonQuery();
+                cnn.Close();
+            }
+        }
+
+        //Vorhandene Zeit wieder löschen
+        public void deletetime(string timesid)
+        {
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                SQLiteCommand com = new SQLiteCommand();
+                com.Connection = cnn;
+                com.CommandText = "DELETE FROM Times WHERE ID = '" + timesid + "'";
+                cnn.Open();
+                com.ExecuteNonQuery();
+                cnn.Close();
+            }
+        }
+
 
         //Daten eines bestimmten Timers von db holen (relevant bei Auswahl in Combobox)
         public timeobject mytimer(int i)
@@ -327,11 +369,11 @@ namespace Time_Tracker
         //Ermittlung, ob ein manueller Eintrag (Timer, Datum, Start, Ende) von einem Single-Timer bereits belegt ist
         //(Idee: Single-Timer dürfen nur alleine laufen, nicht parallel zu anderen Timern)
 
-        public bool CheckExistingTime(string datum, string start, string ende)
+        public bool CheckExistingTime(string datum, string start, string datumende, string ende)
         {
             //build string from date and times
             string startvalue = datum + " " + start;
-            string endvalue = datum + " " + ende;
+            string endvalue = datumende + " " + ende;
 
             using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
@@ -370,6 +412,7 @@ namespace Time_Tracker
             Tabelle.Columns.Add("Endzeit");
             Tabelle.Columns.Add("Enddatum");
             Tabelle.Columns.Add("Dauer");
+            Tabelle.Columns.Add("TimesID");
 
             SQLiteCommand command = new SQLiteCommand();
 
@@ -386,7 +429,7 @@ namespace Time_Tracker
                 {
                     if (LiesReihe["Zeit"].ToString() != "") {
 
-                        string[] new_row = new string[4];
+                        string[] new_row = new string[5];
 
                         //Name holen
                         //string nameoftimer = LiesReihe["Name"].ToString();
@@ -406,9 +449,12 @@ namespace Time_Tracker
 
 
                         //Dauer holen (Datum wird verworfen)
-                        string duration = LiesReihe["Zeit"].ToString();
-                        string[] duration_edited = duration.Split(' ');
-                        new_row[3] = duration_edited[1];
+                        string duration = LiesReihe.GetString(9);
+                        new_row[3] = duration;
+
+                        //TimesID holen (für Edit später)
+                        int timesid = LiesReihe.GetInt32(6);
+                        new_row[4] = timesid.ToString();
 
                         Tabelle.LoadDataRow(new_row, true);
                     } else

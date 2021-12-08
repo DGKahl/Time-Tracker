@@ -29,23 +29,25 @@ namespace Time_Tracker
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblTimer = new System.Windows.Forms.Label();
             this.cbTimerSelection = new System.Windows.Forms.ComboBox();
             this.gbNew = new System.Windows.Forms.GroupBox();
-            this.btnSaveNew = new System.Windows.Forms.Button();
+            this.btnDeleteSelection = new System.Windows.Forms.Button();
+            this.btnSaveChange = new System.Windows.Forms.Button();
             this.dtpEnd = new System.Windows.Forms.DateTimePicker();
             this.dtpStart = new System.Windows.Forms.DateTimePicker();
+            this.btnSaveNew = new System.Windows.Forms.Button();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
-            this.lblEnd = new System.Windows.Forms.Label();
-            this.lblStart = new System.Windows.Forms.Label();
-            this.lblDate = new System.Windows.Forms.Label();
+            this.lblEndTime = new System.Windows.Forms.Label();
+            this.lblStartTime = new System.Windows.Forms.Label();
+            this.lblStartDate = new System.Windows.Forms.Label();
             this.gbEdit = new System.Windows.Forms.GroupBox();
             this.dgvTimerTimes = new System.Windows.Forms.DataGridView();
             this.lblStatus = new System.Windows.Forms.Label();
             this.lblStatusWert = new System.Windows.Forms.Label();
-            this.btnSaveChange = new System.Windows.Forms.Button();
-            this.btnDeleteSelection = new System.Windows.Forms.Button();
+            this.dtpDateEnd = new System.Windows.Forms.DateTimePicker();
+            this.lblEndDate = new System.Windows.Forms.Label();
             this.gbNew.SuspendLayout();
             this.gbEdit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTimerTimes)).BeginInit();
@@ -54,9 +56,10 @@ namespace Time_Tracker
             // lblTimer
             // 
             this.lblTimer.AutoSize = true;
+            this.lblTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTimer.Location = new System.Drawing.Point(13, 13);
             this.lblTimer.Name = "lblTimer";
-            this.lblTimer.Size = new System.Drawing.Size(36, 13);
+            this.lblTimer.Size = new System.Drawing.Size(42, 13);
             this.lblTimer.TabIndex = 0;
             this.lblTimer.Text = "Timer:";
             // 
@@ -71,36 +74,48 @@ namespace Time_Tracker
             // 
             // gbNew
             // 
+            this.gbNew.Controls.Add(this.dtpDateEnd);
+            this.gbNew.Controls.Add(this.lblEndDate);
             this.gbNew.Controls.Add(this.btnDeleteSelection);
             this.gbNew.Controls.Add(this.btnSaveChange);
             this.gbNew.Controls.Add(this.dtpEnd);
             this.gbNew.Controls.Add(this.dtpStart);
             this.gbNew.Controls.Add(this.btnSaveNew);
             this.gbNew.Controls.Add(this.dtpDate);
-            this.gbNew.Controls.Add(this.lblEnd);
-            this.gbNew.Controls.Add(this.lblStart);
-            this.gbNew.Controls.Add(this.lblDate);
+            this.gbNew.Controls.Add(this.lblEndTime);
+            this.gbNew.Controls.Add(this.lblStartTime);
+            this.gbNew.Controls.Add(this.lblStartDate);
             this.gbNew.Location = new System.Drawing.Point(16, 50);
             this.gbNew.Name = "gbNew";
-            this.gbNew.Size = new System.Drawing.Size(160, 209);
+            this.gbNew.Size = new System.Drawing.Size(160, 250);
             this.gbNew.TabIndex = 2;
             this.gbNew.TabStop = false;
             this.gbNew.Text = "Zeiten bearbeiten";
             // 
-            // btnSaveNew
+            // btnDeleteSelection
             // 
-            this.btnSaveNew.Location = new System.Drawing.Point(9, 110);
-            this.btnSaveNew.Name = "btnSaveNew";
-            this.btnSaveNew.Size = new System.Drawing.Size(138, 27);
-            this.btnSaveNew.TabIndex = 6;
-            this.btnSaveNew.Text = "Neuen Eintrag speichern";
-            this.btnSaveNew.UseVisualStyleBackColor = true;
-            this.btnSaveNew.Click += new System.EventHandler(this.btnSaveTime_Click);
+            this.btnDeleteSelection.Location = new System.Drawing.Point(9, 216);
+            this.btnDeleteSelection.Name = "btnDeleteSelection";
+            this.btnDeleteSelection.Size = new System.Drawing.Size(138, 27);
+            this.btnDeleteSelection.TabIndex = 2;
+            this.btnDeleteSelection.Text = "Eintrag löschen";
+            this.btnDeleteSelection.UseVisualStyleBackColor = true;
+            this.btnDeleteSelection.Click += new System.EventHandler(this.btnDeleteSelection_Click);
+            // 
+            // btnSaveChange
+            // 
+            this.btnSaveChange.Location = new System.Drawing.Point(9, 183);
+            this.btnSaveChange.Name = "btnSaveChange";
+            this.btnSaveChange.Size = new System.Drawing.Size(138, 27);
+            this.btnSaveChange.TabIndex = 7;
+            this.btnSaveChange.Text = "Änderung speichern";
+            this.btnSaveChange.UseVisualStyleBackColor = true;
+            this.btnSaveChange.Click += new System.EventHandler(this.btnSaveChange_Click);
             // 
             // dtpEnd
             // 
             this.dtpEnd.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpEnd.Location = new System.Drawing.Point(53, 84);
+            this.dtpEnd.Location = new System.Drawing.Point(53, 124);
             this.dtpEnd.MinDate = new System.DateTime(2021, 1, 1, 0, 0, 0, 0);
             this.dtpEnd.Name = "dtpEnd";
             this.dtpEnd.ShowUpDown = true;
@@ -110,12 +125,22 @@ namespace Time_Tracker
             // dtpStart
             // 
             this.dtpStart.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpStart.Location = new System.Drawing.Point(53, 56);
+            this.dtpStart.Location = new System.Drawing.Point(53, 54);
             this.dtpStart.MinDate = new System.DateTime(2021, 1, 1, 0, 0, 0, 0);
             this.dtpStart.Name = "dtpStart";
             this.dtpStart.ShowUpDown = true;
             this.dtpStart.Size = new System.Drawing.Size(94, 20);
             this.dtpStart.TabIndex = 4;
+            // 
+            // btnSaveNew
+            // 
+            this.btnSaveNew.Location = new System.Drawing.Point(9, 150);
+            this.btnSaveNew.Name = "btnSaveNew";
+            this.btnSaveNew.Size = new System.Drawing.Size(138, 27);
+            this.btnSaveNew.TabIndex = 6;
+            this.btnSaveNew.Text = "Neuen Eintrag speichern";
+            this.btnSaveNew.UseVisualStyleBackColor = true;
+            this.btnSaveNew.Click += new System.EventHandler(this.btnSaveTime_Click);
             // 
             // dtpDate
             // 
@@ -127,39 +152,40 @@ namespace Time_Tracker
             this.dtpDate.TabIndex = 3;
             this.dtpDate.ValueChanged += new System.EventHandler(this.dtpDate_ValueChanged);
             // 
-            // lblEnd
+            // lblEndTime
             // 
-            this.lblEnd.AutoSize = true;
-            this.lblEnd.Location = new System.Drawing.Point(6, 87);
-            this.lblEnd.Name = "lblEnd";
-            this.lblEnd.Size = new System.Drawing.Size(23, 13);
-            this.lblEnd.TabIndex = 2;
-            this.lblEnd.Text = "bis:";
+            this.lblEndTime.AutoSize = true;
+            this.lblEndTime.Location = new System.Drawing.Point(6, 127);
+            this.lblEndTime.Name = "lblEndTime";
+            this.lblEndTime.Size = new System.Drawing.Size(23, 13);
+            this.lblEndTime.TabIndex = 2;
+            this.lblEndTime.Text = "bis:";
             // 
-            // lblStart
+            // lblStartTime
             // 
-            this.lblStart.AutoSize = true;
-            this.lblStart.Location = new System.Drawing.Point(6, 59);
-            this.lblStart.Name = "lblStart";
-            this.lblStart.Size = new System.Drawing.Size(28, 13);
-            this.lblStart.TabIndex = 1;
-            this.lblStart.Text = "von:";
+            this.lblStartTime.AutoSize = true;
+            this.lblStartTime.Location = new System.Drawing.Point(6, 58);
+            this.lblStartTime.Name = "lblStartTime";
+            this.lblStartTime.Size = new System.Drawing.Size(28, 13);
+            this.lblStartTime.TabIndex = 1;
+            this.lblStartTime.Text = "von:";
             // 
-            // lblDate
+            // lblStartDate
             // 
-            this.lblDate.AutoSize = true;
-            this.lblDate.Location = new System.Drawing.Point(6, 31);
-            this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(41, 13);
-            this.lblDate.TabIndex = 0;
-            this.lblDate.Text = "Datum:";
+            this.lblStartDate.AutoSize = true;
+            this.lblStartDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStartDate.Location = new System.Drawing.Point(6, 31);
+            this.lblStartDate.Name = "lblStartDate";
+            this.lblStartDate.Size = new System.Drawing.Size(38, 13);
+            this.lblStartDate.TabIndex = 0;
+            this.lblStartDate.Text = "Start:";
             // 
             // gbEdit
             // 
             this.gbEdit.Controls.Add(this.dgvTimerTimes);
             this.gbEdit.Location = new System.Drawing.Point(204, 50);
             this.gbEdit.Name = "gbEdit";
-            this.gbEdit.Size = new System.Drawing.Size(382, 209);
+            this.gbEdit.Size = new System.Drawing.Size(382, 250);
             this.gbEdit.TabIndex = 3;
             this.gbEdit.TabStop = false;
             this.gbEdit.Text = "Zeitenübersicht (zum Datum)";
@@ -171,23 +197,24 @@ namespace Time_Tracker
             this.dgvTimerTimes.AllowUserToResizeColumns = false;
             this.dgvTimerTimes.AllowUserToResizeRows = false;
             this.dgvTimerTimes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvTimerTimes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvTimerTimes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvTimerTimes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTimerTimes.Location = new System.Drawing.Point(7, 19);
             this.dgvTimerTimes.MultiSelect = false;
             this.dgvTimerTimes.Name = "dgvTimerTimes";
             this.dgvTimerTimes.ReadOnly = true;
-            this.dgvTimerTimes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvTimerTimes.Size = new System.Drawing.Size(368, 184);
+            this.dgvTimerTimes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvTimerTimes.Size = new System.Drawing.Size(368, 224);
             this.dgvTimerTimes.TabIndex = 0;
             this.dgvTimerTimes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTimerTimes_CellClick);
+            this.dgvTimerTimes.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvTimerTimes_DataBindingComplete);
             // 
             // lblStatus
             // 
@@ -208,29 +235,29 @@ namespace Time_Tracker
             this.lblStatusWert.TabIndex = 5;
             this.lblStatusWert.Text = "wartend";
             // 
-            // btnSaveChange
+            // dtpDateEnd
             // 
-            this.btnSaveChange.Location = new System.Drawing.Point(9, 143);
-            this.btnSaveChange.Name = "btnSaveChange";
-            this.btnSaveChange.Size = new System.Drawing.Size(138, 27);
-            this.btnSaveChange.TabIndex = 7;
-            this.btnSaveChange.Text = "Änderung speichern";
-            this.btnSaveChange.UseVisualStyleBackColor = true;
+            this.dtpDateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpDateEnd.Location = new System.Drawing.Point(53, 98);
+            this.dtpDateEnd.MinDate = new System.DateTime(2021, 1, 1, 0, 0, 0, 0);
+            this.dtpDateEnd.Name = "dtpDateEnd";
+            this.dtpDateEnd.Size = new System.Drawing.Size(94, 20);
+            this.dtpDateEnd.TabIndex = 9;
             // 
-            // btnDeleteSelection
+            // lblEndDate
             // 
-            this.btnDeleteSelection.Location = new System.Drawing.Point(9, 176);
-            this.btnDeleteSelection.Name = "btnDeleteSelection";
-            this.btnDeleteSelection.Size = new System.Drawing.Size(138, 27);
-            this.btnDeleteSelection.TabIndex = 2;
-            this.btnDeleteSelection.Text = "Eintrag löschen";
-            this.btnDeleteSelection.UseVisualStyleBackColor = true;
+            this.lblEndDate.AutoSize = true;
+            this.lblEndDate.Location = new System.Drawing.Point(6, 101);
+            this.lblEndDate.Name = "lblEndDate";
+            this.lblEndDate.Size = new System.Drawing.Size(35, 13);
+            this.lblEndDate.TabIndex = 8;
+            this.lblEndDate.Text = "Ende:";
             // 
             // timelist
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(599, 270);
+            this.ClientSize = new System.Drawing.Size(599, 313);
             this.Controls.Add(this.lblStatusWert);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.gbEdit);
@@ -257,14 +284,16 @@ namespace Time_Tracker
         private System.Windows.Forms.DateTimePicker dtpEnd;
         private System.Windows.Forms.DateTimePicker dtpStart;
         private System.Windows.Forms.DateTimePicker dtpDate;
-        private System.Windows.Forms.Label lblEnd;
-        private System.Windows.Forms.Label lblStart;
-        private System.Windows.Forms.Label lblDate;
+        private System.Windows.Forms.Label lblEndTime;
+        private System.Windows.Forms.Label lblStartTime;
+        private System.Windows.Forms.Label lblStartDate;
         private System.Windows.Forms.GroupBox gbEdit;
         private System.Windows.Forms.DataGridView dgvTimerTimes;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Label lblStatusWert;
         private System.Windows.Forms.Button btnDeleteSelection;
         private System.Windows.Forms.Button btnSaveChange;
+        private System.Windows.Forms.DateTimePicker dtpDateEnd;
+        private System.Windows.Forms.Label lblEndDate;
     }
 }
