@@ -360,22 +360,65 @@ namespace Time_Tracker
             }
         }
 
-        //Datagridview mit aktuellen Timerzeiten füllen
+        //Datagridview mit aktuellen Timerzeiten füllen --> Tabelle mit Daten für gewählten Timer anlegen und befüllen
         public DataTable GetTimerData(string timername)
         {
             DataTable Tabelle = new DataTable();
+            //Tabelle.Columns.Add("Name");
+            Tabelle.Columns.Add("Startdatum");
+            Tabelle.Columns.Add("Startzeit");
+            Tabelle.Columns.Add("Enddatum");
+            Tabelle.Columns.Add("Endzeit");
+            Tabelle.Columns.Add("Dauer");
+
             SQLiteCommand command = new SQLiteCommand();
 
             using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 cnn.Open();
                 SQLiteDataReader LiesReihe;
-                command.CommandText = "SELECT * FROM Timer LEFT JOIN Times ON Times.TimerID = Timer.ID WHERE \n" +
-                "Timer.Name = '" + timername + "'";
+                command.CommandText = "SELECT * FROM Timer LEFT JOIN Times ON Times.TimerID = Timer.ID WHERE Timer.Name = '" + timername + "'";
                 command.CommandType = CommandType.Text;
                 command.Connection = cnn;
                 LiesReihe = command.ExecuteReader();
-                Tabelle.Load(LiesReihe);
+                while (LiesReihe.Read())
+                {
+                    if (LiesReihe["Zeit"].ToString() != "") {
+
+                        string[] new_row = new string[5];
+
+                        //Name holen
+                        //string nameoftimer = LiesReihe["Name"].ToString();
+                        //new_row[0] = nameoftimer;
+
+                        //Startzeit und -dauer holen
+                        string StartTime = LiesReihe.GetString(7);
+                        string[] start_splitted = StartTime.Split(' ');
+                        new_row[0] = start_splitted[0];
+                        new_row[1] = start_splitted[1];
+
+                        //Endzeit und -dauer holen
+                        string EndTime = LiesReihe.GetString(8);
+                        string[] end_splitted = EndTime.Split(' ');
+                        new_row[2] = end_splitted[0];
+                        new_row[3] = end_splitted[1];
+
+
+                        //Dauer holen (Datum wird verworfen)
+                        string duration = LiesReihe["Zeit"].ToString();
+                        string[] duration_edited = duration.Split(' ');
+                        new_row[4] = duration_edited[1];
+
+                        Tabelle.LoadDataRow(new_row, true);
+                    } else
+                    {
+                        //string[] temp = new string[1];
+                        //temp[0] = null;
+                        //Tabelle.LoadDataRow(temp, true);
+                    }
+                }
+
+                //Tabelle.Load(LiesReihe);
                 LiesReihe.Close();
                 cnn.Close();
             }

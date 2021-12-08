@@ -79,7 +79,7 @@ namespace Time_Tracker
             this.gbNew.Controls.Add(this.lblDate);
             this.gbNew.Location = new System.Drawing.Point(16, 50);
             this.gbNew.Name = "gbNew";
-            this.gbNew.Size = new System.Drawing.Size(160, 148);
+            this.gbNew.Size = new System.Drawing.Size(160, 196);
             this.gbNew.TabIndex = 2;
             this.gbNew.TabStop = false;
             this.gbNew.Text = "Neue Zeit erfassen";
@@ -88,7 +88,7 @@ namespace Time_Tracker
             // 
             this.btnSaveTime.Location = new System.Drawing.Point(9, 115);
             this.btnSaveTime.Name = "btnSaveTime";
-            this.btnSaveTime.Size = new System.Drawing.Size(138, 23);
+            this.btnSaveTime.Size = new System.Drawing.Size(138, 75);
             this.btnSaveTime.TabIndex = 6;
             this.btnSaveTime.Text = "Speichern";
             this.btnSaveTime.UseVisualStyleBackColor = true;
@@ -157,14 +157,14 @@ namespace Time_Tracker
             this.gbEdit.Controls.Add(this.dgvTimerTimes);
             this.gbEdit.Location = new System.Drawing.Point(204, 50);
             this.gbEdit.Name = "gbEdit";
-            this.gbEdit.Size = new System.Drawing.Size(212, 148);
+            this.gbEdit.Size = new System.Drawing.Size(382, 196);
             this.gbEdit.TabIndex = 3;
             this.gbEdit.TabStop = false;
             this.gbEdit.Text = "Zeiten bearbeiten";
             // 
             // btnDeleteSelection
             // 
-            this.btnDeleteSelection.Location = new System.Drawing.Point(93, 115);
+            this.btnDeleteSelection.Location = new System.Drawing.Point(262, 167);
             this.btnDeleteSelection.Name = "btnDeleteSelection";
             this.btnDeleteSelection.Size = new System.Drawing.Size(113, 23);
             this.btnDeleteSelection.TabIndex = 2;
@@ -173,19 +173,20 @@ namespace Time_Tracker
             // 
             // btnSaveChanges
             // 
-            this.btnSaveChanges.Location = new System.Drawing.Point(6, 115);
+            this.btnSaveChanges.Location = new System.Drawing.Point(7, 167);
             this.btnSaveChanges.Name = "btnSaveChanges";
-            this.btnSaveChanges.Size = new System.Drawing.Size(77, 23);
+            this.btnSaveChanges.Size = new System.Drawing.Size(113, 23);
             this.btnSaveChanges.TabIndex = 1;
             this.btnSaveChanges.Text = "Speichern";
             this.btnSaveChanges.UseVisualStyleBackColor = true;
             // 
             // dgvTimerTimes
             // 
+            this.dgvTimerTimes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.dgvTimerTimes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTimerTimes.Location = new System.Drawing.Point(7, 19);
             this.dgvTimerTimes.Name = "dgvTimerTimes";
-            this.dgvTimerTimes.Size = new System.Drawing.Size(198, 90);
+            this.dgvTimerTimes.Size = new System.Drawing.Size(368, 142);
             this.dgvTimerTimes.TabIndex = 0;
             // 
             // lblStatus
@@ -211,7 +212,7 @@ namespace Time_Tracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(430, 211);
+            this.ClientSize = new System.Drawing.Size(599, 257);
             this.Controls.Add(this.lblStatusWert);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.gbEdit);
