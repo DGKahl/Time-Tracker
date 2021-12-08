@@ -50,8 +50,8 @@ namespace Time_Tracker
         public void BlockEditing()
         {
             btnDeleteSelection.Enabled = false;
-            btnSaveChanges.Enabled = false;
-            btnSaveTime.Enabled = false;
+            btnSaveChange.Enabled = false;
+            btnSaveNew.Enabled = false;
             dgvTimerTimes.Enabled = false;
             dtpDate.Enabled = false;
             dtpStart.Enabled = false;
@@ -61,8 +61,8 @@ namespace Time_Tracker
         public void EnableEditing()
         {
             btnDeleteSelection.Enabled = true;
-            btnSaveChanges.Enabled = true;
-            btnSaveTime.Enabled = true;
+            btnSaveChange.Enabled = true;
+            btnSaveNew.Enabled = true;
             dgvTimerTimes.Enabled = true;
             dtpDate.Enabled = true;
             dtpStart.Enabled = true;
@@ -77,11 +77,21 @@ namespace Time_Tracker
                 if (dtpDate.Enabled == false)
                 {
                     LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), DateTime.Today);
-                    dgvTimerTimes.ClearSelection();
+                    if (dgvTimerTimes.RowCount > 0)
+                    {
+                        dtpStart.Value = DateTime.Parse(dgvTimerTimes.Rows[0].Cells[0].Value.ToString());
+                        dtpEnd.Value = DateTime.Parse(dgvTimerTimes.Rows[0].Cells[1].Value.ToString());
+                    }
+
                 } else
                 {
                     LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value);
-                    dgvTimerTimes.ClearSelection();
+                    if (dgvTimerTimes.RowCount > 0)
+                    {
+                        dtpStart.Value = DateTime.Parse(dgvTimerTimes.Rows[0].Cells[0].Value.ToString());
+                        dtpEnd.Value = DateTime.Parse(dgvTimerTimes.Rows[0].Cells[1].Value.ToString());
+                    }
+
                 }
                 EnableEditing();
             } else
@@ -116,10 +126,15 @@ namespace Time_Tracker
         private void dtpDate_ValueChanged(object sender, EventArgs e)
         {
             LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value);
-            dgvTimerTimes.ClearSelection();
+            if (dgvTimerTimes.RowCount > 0)
+            {
+                dtpStart.Value = DateTime.Parse(dgvTimerTimes.Rows[0].Cells[0].Value.ToString());
+                dtpEnd.Value = DateTime.Parse(dgvTimerTimes.Rows[0].Cells[1].Value.ToString());
+            }
+            
         }
 
-        private void dgvTimerTimes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvTimerTimes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             dtpStart.Value = DateTime.Parse(dgvTimerTimes.CurrentRow.Cells[0].Value.ToString());
             dtpEnd.Value = DateTime.Parse(dgvTimerTimes.CurrentRow.Cells[1].Value.ToString());
