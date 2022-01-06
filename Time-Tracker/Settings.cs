@@ -12,6 +12,15 @@ namespace Time_Tracker
 {
     public partial class Settings : Form
     {
+        //EVENT UND DELEGATE - Um die gespeicherten Änderungen in der main-Form direkt zu aktualisieren
+        public event Formhandler ChangesAreSaved;
+        public delegate void Formhandler(Settings f, EventArgs e);
+
+        private void settings_saved(object sender, EventArgs e)
+        {
+            ChangesAreSaved(this, e);
+        }
+
         public Settings()
         {
             InitializeComponent();
@@ -44,8 +53,17 @@ namespace Time_Tracker
         //Quickslots neu zuweisen (dazu die ausgewählten Elemente je Combobox als string mitgeben)
         private void btnSlotsOK_Click(object sender, EventArgs e)
         {
-            sqladapter dbaccess = new sqladapter();
-            dbaccess.UpdateQuickslots(cbSlot1.SelectedItem.ToString(), cbSlot2.SelectedItem.ToString(), cbSlot3.SelectedItem.ToString());
+            //Eingabe prüfen -> Keine Doppelbelegung der Quickslots!
+            if (cbSlot1.SelectedItem == cbSlot2.SelectedItem || cbSlot1.SelectedItem == cbSlot3.SelectedItem || cbSlot2.SelectedItem == cbSlot3.SelectedItem)
+            {
+                MessageBox.Show("Doppelte Belegung der Quickslots nicht erlaubt.", "Warnung", MessageBoxButtons.OK);
+            }
+            else
+            {
+                sqladapter dbaccess = new sqladapter();
+                dbaccess.UpdateQuickslots(cbSlot1.SelectedItem.ToString(), cbSlot2.SelectedItem.ToString(), cbSlot3.SelectedItem.ToString());
+                ChangesAreSaved(this, e);
+            }
         }
     }
 }

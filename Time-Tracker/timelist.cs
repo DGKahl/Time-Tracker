@@ -76,25 +76,6 @@ namespace Time_Tracker
         {
             if (cbTimerSelection.SelectedItem.ToString() != "")
             {
-                if (dtpDate.Enabled == false)
-                {
-                    LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), DateTime.Today);
-                    if (dgvTimerTimes.RowCount > 0)
-                    {
-                        dtpStart.Value = DateTime.Parse(dgvTimerTimes.Rows[0].Cells[0].Value.ToString());
-                        dtpEnd.Value = DateTime.Parse(dgvTimerTimes.Rows[0].Cells[1].Value.ToString());
-                    }
-
-                } else
-                {
-                    LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value);
-                    if (dgvTimerTimes.RowCount > 0)
-                    {
-                        dtpStart.Value = DateTime.Parse(dgvTimerTimes.Rows[0].Cells[0].Value.ToString());
-                        dtpEnd.Value = DateTime.Parse(dgvTimerTimes.Rows[0].Cells[1].Value.ToString());
-                    }
-
-                }
                 EnableEditing();
             } else
             {
@@ -102,57 +83,26 @@ namespace Time_Tracker
             }
         }
 
-        //Datagridview befüllen
-        private void LoadTimerTimes(string timername, DateTime selectedtime)
+        //Datagridview befüllen - nur auf Basis des Datums
+        private void LoadTimerTimes(string timername, DateTime starttime, DateTime endtime)
         {
+            //Datetimes übersetzen: starttime --> mit Uhrzeit 00:00:00, endtime mit Uhrzeit 23:59:59
+            TimeSpan ts = new TimeSpan(00, 00, 00);
+            starttime = starttime.Date + ts;
+            ts = new TimeSpan(23, 59, 59);
+            endtime = endtime.Date + ts;
+
             sqladapter dbaccess = new sqladapter();
-            dgvTimerTimes.DataSource = dbaccess.GetTimerData(timername, selectedtime);
+            dgvTimerTimes.DataSource = dbaccess.GetTimerData(timername, starttime, endtime);
         }
 
-        private void btnSaveTime_Click(object sender, EventArgs e)
-        {
-            sqladapter dbaccess = new sqladapter();
-            bool choice = dbaccess.CheckExistingTime(dtpDate.Value.ToShortDateString(), dtpStart.Value.ToLongTimeString(), dtpDateEnd.Value.ToShortDateString(), dtpEnd.Value.ToLongTimeString());
-
-            if (choice == true)
-            {
-                DialogResult dialogResult = MessageBox.Show("Eintrag bereits für einen Single-Timer vorhanden! Trotzdem speichern?", "Hinweis", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    // TODO - Unsinnige Eingaben (Dauer = 0, negative Dauern) abfangen
-                    dbaccess.savetime(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value, dtpStart.Value, dtpDateEnd.Value, dtpEnd.Value);
-                    lblStatusWert.Text = "Neuer Eintrag wurde gespeichert!";
-                    mytimer.Start();
-                    LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value);
-                }
-                else if (dialogResult == DialogResult.No)
-                {
-                    //break
-                }
-            } else
-            {
-                dbaccess.savetime(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value, dtpStart.Value, dtpDateEnd.Value, dtpEnd.Value);
-                lblStatusWert.Text = "Neuer Eintrag wurde gespeichert!";
-                mytimer.Start();
-                LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value);
-            }
-        }
-
-        private void dtpDate_ValueChanged(object sender, EventArgs e)
-        {
-            LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value);
-            if (dgvTimerTimes.RowCount > 0)
-            {
-                dtpStart.Value = DateTime.Parse(dgvTimerTimes.Rows[0].Cells[0].Value.ToString());
-                dtpEnd.Value = DateTime.Parse(dgvTimerTimes.Rows[0].Cells[1].Value.ToString());
-            }
-            
-        }
-
+        //Update Start/Ende nach Klick auf Eintrag
         private void dgvTimerTimes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            dtpStart.Value = DateTime.Parse(dgvTimerTimes.CurrentRow.Cells[0].Value.ToString());
-            dtpEnd.Value = DateTime.Parse(dgvTimerTimes.CurrentRow.Cells[1].Value.ToString());
+            dtpStartDateSave.Value = DateTime.Parse(dgvTimerTimes.CurrentRow.Cells[0].Value.ToString());
+            dtpStart.Value = DateTime.Parse(dgvTimerTimes.CurrentRow.Cells[1].Value.ToString());
+            dtpEndDateSave.Value = DateTime.Parse(dgvTimerTimes.CurrentRow.Cells[2].Value.ToString());
+            dtpEnd.Value = DateTime.Parse(dgvTimerTimes.CurrentRow.Cells[3].Value.ToString());
         }
 
         private void btnDeleteSelection_Click(object sender, EventArgs e)
@@ -160,12 +110,12 @@ namespace Time_Tracker
             if (dgvTimerTimes.RowCount > 0)
             {
                 sqladapter dbaccess = new sqladapter();
-                dbaccess.deletetime(dgvTimerTimes.CurrentRow.Cells[4].Value.ToString());
-                LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value);
+                dbaccess.deletetime(dgvTimerTimes.CurrentRow.Cells[5].Value.ToString());
+                LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value, dtpDateEnd.Value);
                 if (dgvTimerTimes.RowCount > 0)
                 {
-                    dtpStart.Value = DateTime.Parse(dgvTimerTimes.Rows[0].Cells[0].Value.ToString());
-                    dtpEnd.Value = DateTime.Parse(dgvTimerTimes.Rows[0].Cells[1].Value.ToString());
+                    dtpStart.Value = DateTime.Parse(dgvTimerTimes.Rows[0].Cells[1].Value.ToString());
+                    dtpEnd.Value = DateTime.Parse(dgvTimerTimes.Rows[0].Cells[3].Value.ToString());
                 }
             }
             else
@@ -180,17 +130,17 @@ namespace Time_Tracker
             if (dgvTimerTimes.RowCount > 0)
             {
                 sqladapter dbaccess = new sqladapter();
-                bool choice = dbaccess.CheckExistingTime(dtpDate.Value.ToShortDateString(), dtpStart.Value.ToLongTimeString(), dtpDateEnd.Value.ToShortDateString(), dtpEnd.Value.ToLongTimeString());
+                bool choice = dbaccess.CheckExistingTime(dtpStartDateSave.Value.ToShortDateString(), dtpStartDateSave.Value.ToLongTimeString(), dtpEndDateSave.Value.ToShortDateString(), dtpEndDateSave.Value.ToLongTimeString());
                 if (choice == true)
                 {
                     DialogResult dialogResult = MessageBox.Show("Eintrag bereits für einen Single-Timer vorhanden! Trotzdem speichern?", "Hinweis", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
                         // TODO - Unsinnige Eingaben (Dauer = 0, negative Dauern) abfangen
-                        dbaccess.edittime(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value, dtpStart.Value, dtpDateEnd.Value, dtpEnd.Value, dgvTimerTimes.CurrentRow.Cells[4].Value.ToString());
+                        dbaccess.edittime(cbTimerSelection.SelectedItem.ToString(), dtpStartDateSave.Value, dtpStartDateSave.Value, dtpEndDateSave.Value, dtpEndDateSave.Value, dgvTimerTimes.CurrentRow.Cells[5].Value.ToString());
                         lblStatusWert.Text = "Neuer Eintrag wurde gespeichert!";
                         mytimer.Start();
-                        LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value);
+                        LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value, dtpDateEnd.Value);
                     }
                     else if (dialogResult == DialogResult.No)
                     {
@@ -199,10 +149,10 @@ namespace Time_Tracker
                 }
                 else
                 {
-                    dbaccess.edittime(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value, dtpStart.Value, dtpDateEnd.Value, dtpEnd.Value, dgvTimerTimes.CurrentRow.Cells[4].Value.ToString());
+                    dbaccess.edittime(cbTimerSelection.SelectedItem.ToString(), dtpStartDateSave.Value, dtpStart.Value, dtpEndDateSave.Value, dtpEnd.Value, dgvTimerTimes.CurrentRow.Cells[5].Value.ToString());
                     lblStatusWert.Text = "Neuer Eintrag wurde gespeichert!";
                     mytimer.Start();
-                    LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value);
+                    LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value, dtpDateEnd.Value);
                 }
             } else
             {
@@ -216,6 +166,16 @@ namespace Time_Tracker
         {
             this.dgvTimerTimes.Columns["TimesID"].Visible = false;
 
+        }
+
+        private void btnLoadTimes_Click(object sender, EventArgs e)
+        {
+            LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value, dtpDateEnd.Value);
+        }
+
+        private void btnSaveNew_Click(object sender, EventArgs e)
+        {
+            //todo
         }
     }
 }

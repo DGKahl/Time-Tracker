@@ -71,7 +71,7 @@ namespace Time_Tracker
         private void btnStop_Click(object sender, EventArgs e)
         {
             thistimer.stopTimer();
-            lblEndTime.Text = thistimer.getEnd().ToString();
+            //lblEndTime.Text = thistimer.getEnd().ToString();
             mytimer.Stop();
             writedata();
             this.Close();
@@ -81,13 +81,13 @@ namespace Time_Tracker
         {
             sqladapter myadapter = new sqladapter();
             myadapter.savetime(thistimer, this.Text);
-            lblStatus.Text = "saved!";
+            //lblStatus.Text = "saved!";
         }
 
         public void ExternalClosing()
         {
             thistimer.stopTimer();
-            lblEndTime.Text = thistimer.getEnd().ToString();
+            //lblEndTime.Text = thistimer.getEnd().ToString();
             mytimer.Stop();
             writedata();
             this.Close();

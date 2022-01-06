@@ -26,15 +26,25 @@ namespace Time_Tracker
         }
 
         //DELEGATE STUFF
-        public void Subscriber(timer f)
+        public void Subscriber(timer f) //Subscriber für Form "timer"
         {
             f.FormIsClosed += new timer.Formhandler(EventHappens);
+        }
+
+        public void Subscriber(Settings f) //Subscriber für Form "settings"
+        {
+            f.ChangesAreSaved += new Settings.Formhandler(RefreshMainEvent);
         }
 
         // !!! Delegate+Eventhandler in Action!
         public void EventHappens(timer f, GetClosedFormEventArgs e)
         {
             timerrunningstatus.Remove(f);
+        }
+
+        public void RefreshMainEvent(Settings f, EventArgs e)
+        {
+            SetQuickslots();
         }
 
         void Fillcb()
@@ -167,6 +177,7 @@ namespace Time_Tracker
         private void bearbeitenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Settings OpenForm = new Settings();
+            this.Subscriber(OpenForm);
             OpenForm.Show();
         }
 

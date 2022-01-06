@@ -1,36 +1,20 @@
 ﻿Noch offen:
- - Timelist fertigstellen (Datagridview, Auto-Refresh bei Änderung)
  - Auswertung (design, Funktionalität komplett offen)
  - Visuellen Pomodoro-Timer (komplett offen)
 
 
-initial:	
-	[-] Grafik einbinden mit überschriebener OnPaint-Methode.
-	[x] Datenbank entwerfen
-	[x] Datenbank anbinden
-+ 16.09.21:
-	[ ] Wenn Start-Fenster geschlossen wird, sollen auch alle anderen Fenster geschlossen werden
-	[ ] Wenn die Einstellungen offen sind, kann nichts anderes geöffnet werden.
-	[ ] Nach dem Speichern in den Einstellungen sollten die anderen Fenster (min. Start, wg. Quickslots) aktualisiert werden
-		(i) evtl. mit refresh, wenn Fokus auf das Fenster geht?
-+ 20.09.21:
-	[x] Timer auf Typ (parallel/n.parallel) prüfen und bei Start jeweils andere Timer prüfen (ggf. auto-beenden/-speichern)
-+ 21.09.21:
-	[x] m:n Tabelle nicht praktikabel (bes. wg. "deletes") --> Änderung auf 2 Tabellen: Timer, Times. Times entählt alle gemessenen Zeiten mit eindeutigem Timer als ForeignKey verlinkt.
-	[-] 2 Knöpfe bei beendeten Timern: "Stop" und "Stop+Schließen", damit das Fenster gleich geschlossen wird.
-	[ ] Die Sekunden werden manchmal nicht richtig gezählt --> prüfen!
-	[ ] Auswertungen-Form fertigstellen (Design)
-	[ ] Listen-Form fertigstellen (Design)
-+ 06.12.21_
-	[ ] Zeiten bearbeiten: DataGRidview automatisch befüllen:
-		- alle Einträge für einen gewählten Timer zum gewählten Datum
-		- initial: leer
-		- nach Wahl eines Timers: Datum automatisch auf heute gesetzt
-		- nach Wahl eines Datums: Update auf das Datum für gewählten Timer
-		- nach Wahl eines anderen Timers: Letztes Datum "merken"
-		- nach Wahl eines Eintrags: Automatisches Updaten der Zeiten gemäß Eintrag
-		- nach jeder externen Änderung (Wechsel Timer, Wechsel Datum, Speichern/Löschen Knopf) -> Update des Datagridviews
-		- nach jeder internen Änderung (neuer Eintrag in Datagridview angeklickt) -> Update der Uhrzeiten
+-= TODOs =-
+[ok] 05.01.22: Quickslots unter "Settings" ändern; nach Klick auf OK wird nur die DB aktualisiert, aber nicht die Buttons in main.
+[ ] 05.01.22: Parallele Timer scheinen nicht mehr parallel zu laufen --> testen!
+[ ] 05.01.22: Bearbeiten der Timer; Fenster sollte sich nur 1x öffnen. Evtl. über erzwungenen Fokus auf das Fenster lösen?
+[ok] 06.01.22: Timelist -> Speichern einer Änderung scheint nicht zu funktionieren. Double-Check + Auto-Refresh des Datagrid-Views einbauen.
+[ ] 06.01.22: Timelist -> Manuell anlegen nochmal neu programmieren.
+[ ] 06.01.22: Timelist -> Die Auswahl von Daten im letzten + diesen Jahr funktioniert nicht (in SQL schon nicht). Recherche + fixen.
+[ ] 06.01.22: Timelist -> Unsinnige Eingaben bei manueller Pfelge/Bearbeiten abfangen.
+[ ] 21.09.21: Results -> Form designen. Todos definieren.
+[ ] 21.09.21: Timer --> Die Sekunden werden manchmal nicht richtig gezählt --> prüfen!
+[ ] 06.01.22: Main --> Schließen des Main-Fensters bei laufenden Timern: Warnung, alles schließen mit oder ohne Speichern.
+
 
 
 

@@ -403,14 +403,14 @@ namespace Time_Tracker
         }
 
         //Datagridview mit aktuellen Timerzeiten füllen --> Tabelle mit Daten für gewählten Timer anlegen und befüllen
-        public DataTable GetTimerData(string timername, DateTime selectedtime)
+        public DataTable GetTimerData(string timername, DateTime starttime, DateTime endtime)
         {
             DataTable Tabelle = new DataTable();
             //Tabelle.Columns.Add("Name");
-            //Tabelle.Columns.Add("Startdatum");
+            Tabelle.Columns.Add("Startdatum");
             Tabelle.Columns.Add("Startzeit");
-            Tabelle.Columns.Add("Endzeit");
             Tabelle.Columns.Add("Enddatum");
+            Tabelle.Columns.Add("Endzeit");
             Tabelle.Columns.Add("Dauer");
             Tabelle.Columns.Add("TimesID");
 
@@ -421,7 +421,7 @@ namespace Time_Tracker
                 cnn.Open();
                 SQLiteDataReader LiesReihe;
                 //command.CommandText = "SELECT * FROM Timer LEFT JOIN Times ON Times.TimerID = Timer.ID WHERE Timer.Name = '" + timername + "'";
-                command.CommandText = "SELECT * FROM Timer LEFT JOIN Times ON Times.TimerID = Timer.ID WHERE Timer.Name = '" + timername + "' AND Start >= '" + selectedtime.Date + "' AND Start < '" + selectedtime.AddDays(1).Date + "'";
+                command.CommandText = "SELECT * FROM Timer LEFT JOIN Times ON Times.TimerID = Timer.ID WHERE Timer.Name = '" + timername + "' AND Start >= '" + starttime + "' AND END <= '" + endtime + "'";
                 command.CommandType = CommandType.Text;
                 command.Connection = cnn;
                 LiesReihe = command.ExecuteReader();
@@ -429,7 +429,7 @@ namespace Time_Tracker
                 {
                     if (LiesReihe["Zeit"].ToString() != "") {
 
-                        string[] new_row = new string[5];
+                        string[] new_row = new string[6];
 
                         //Name holen
                         //string nameoftimer = LiesReihe["Name"].ToString();
@@ -438,23 +438,23 @@ namespace Time_Tracker
                         //Startzeit und -dauer holen
                         string StartTime = LiesReihe.GetString(7);
                         string[] start_splitted = StartTime.Split(' ');
-                        //new_row[0] = start_splitted[0];
-                        new_row[0] = start_splitted[1];
+                        new_row[0] = start_splitted[0];
+                        new_row[1] = start_splitted[1];
 
                         //Endzeit und -dauer holen
                         string EndTime = LiesReihe.GetString(8);
                         string[] end_splitted = EndTime.Split(' ');
-                        new_row[1] = end_splitted[1];
                         new_row[2] = end_splitted[0];
+                        new_row[3] = end_splitted[1];
 
 
                         //Dauer holen (Datum wird verworfen)
                         string duration = LiesReihe.GetString(9);
-                        new_row[3] = duration;
+                        new_row[4] = duration;
 
                         //TimesID holen (für Edit später)
                         int timesid = LiesReihe.GetInt32(6);
-                        new_row[4] = timesid.ToString();
+                        new_row[5] = timesid.ToString();
 
                         Tabelle.LoadDataRow(new_row, true);
                     } else
