@@ -130,7 +130,7 @@ namespace Time_Tracker
             if (dgvTimerTimes.RowCount > 0)
             {
                 sqladapter dbaccess = new sqladapter();
-                bool choice = dbaccess.CheckExistingTime(dtpStartDateSave.Value.ToShortDateString(), dtpStartDateSave.Value.ToLongTimeString(), dtpEndDateSave.Value.ToShortDateString(), dtpEndDateSave.Value.ToLongTimeString());
+                bool choice = dbaccess.CheckExistingTime(dtpStartDateSave.Value, dtpStart.Value, dtpEndDateSave.Value, dtpEnd.Value);
                 if (choice == true)
                 {
                     DialogResult dialogResult = MessageBox.Show("Eintrag bereits für einen Single-Timer vorhanden! Trotzdem speichern?", "Hinweis", MessageBoxButtons.YesNo);
@@ -170,7 +170,12 @@ namespace Time_Tracker
 
         private void btnLoadTimes_Click(object sender, EventArgs e)
         {
-            LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value, dtpDateEnd.Value);
+            if (cbTimerSelection.SelectedItem != null) {
+                LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value, dtpDateEnd.Value);
+            } else
+            {
+                //do nothing
+            }
         }
 
         private void btnSaveNew_Click(object sender, EventArgs e)

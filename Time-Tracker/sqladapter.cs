@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SQLite;
 using System.Data;
+using System.Windows.Forms; //TODO nur TEMPRORÄR, zum TESTEN
 
 
 namespace Time_Tracker
@@ -369,27 +370,32 @@ namespace Time_Tracker
         //Ermittlung, ob ein manueller Eintrag (Timer, Datum, Start, Ende) von einem Single-Timer bereits belegt ist
         //(Idee: Single-Timer dürfen nur alleine laufen, nicht parallel zu anderen Timern)
 
-        public bool CheckExistingTime(string datum, string start, string datumende, string ende)
+        public bool CheckExistingTime(DateTime startdate, DateTime starttime, DateTime enddate, DateTime endtime)
         {
-            //build string from date and times
-            string startvalue = datum + " " + start;
-            string endvalue = datumende + " " + ende;
+            //build correct times from dates and times
+            ////(1) Get correct Date and time for start and end
+            DateTime startvalue = startdate.Date + starttime.TimeOfDay;
+            DateTime endvalue = enddate.Date + endtime.TimeOfDay;
 
             using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
+                ////(1) Build strings
+
                 SQLiteCommand com = new SQLiteCommand();
                 com.Connection = cnn;
                 //com.CommandText = "SELECT * FROM TIMES WHERE ('" + startvalue + "' BETWEEN TIMES.Start AND TIMES.End OR '" + endvalue + "' BETWEEN TIMES.Start AND TIMES.End)";
-                com.CommandText = "SELECT * FROM Timer LEFT JOIN Times ON Times.TimerID = Timer.ID WHERE \n" +
-                    "('" + startvalue + "' BETWEEN Times.Start AND Times.End) OR \n" +
-                    "('" + endvalue + "' BETWEEN Times.Start AND Times.End) OR \n" +
-                    "(Times.Start BETWEEN '" + startvalue + "' AND '" + endvalue + "') OR \n" +
-                    "(Times.End BETWEEN '" + startvalue + "' AND '" + endvalue + "')";
+                com.CommandText = "SELECT * FROM Timer LEFT JOIN Times ON Times.TimerID = Timer.ID WHERE (('" + startvalue.ToString() + "' BETWEEN Times.Start AND Times.End) OR ('" + endvalue.ToString() + "' BETWEEN Times.Start AND Times.End) OR (Times.Start BETWEEN '" + startvalue.ToString() + "' AND '" + endvalue.ToString() + "') OR (Times.End BETWEEN '" + startvalue.ToString() + "' AND '" + endvalue.ToString() + "')) AND (Timer.parallel = 'false')";
                 cnn.Open();
                 SQLiteDataReader reader = com.ExecuteReader();
 
-                if (reader.HasRows == true)
+                if (reader.HasRows == true) //AKTUELLER FEHLER: String not valid DateTime. WTF?
                 {
+                    //TODO TEMPORÄR - NUR ZUM TESTEN
+                    string message_output = "Timer: (ID) " + reader["ID"].ToString() + ", (Name) " + reader["Name"].ToString() + ", (Typ) " + reader["parallel"].ToString() + "\n"
+                                            + "(Start) " + reader["Start"].ToString() + "(End)" + reader["End"].ToString();
+                    MessageBox.Show(message_output, "Gefundener Eintrag", MessageBoxButtons.OK);
+                    //TEMPORÄR - NUR ZUM TESTEN
+
                     reader.Close();
                     cnn.Close();
                     return true;

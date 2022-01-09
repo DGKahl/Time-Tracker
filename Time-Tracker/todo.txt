@@ -14,6 +14,14 @@
 [ ] 21.09.21: Results -> Form designen. Todos definieren.
 [ ] 21.09.21: Timer --> Die Sekunden werden manchmal nicht richtig gezählt --> prüfen!
 [ ] 06.01.22: Main --> Schließen des Main-Fensters bei laufenden Timern: Warnung, alles schließen mit oder ohne Speichern.
+[ ] 09.01.22: SELECT Abfrage mit DateTime Informationen funktioniert wieder nicht; "string not recognized as valid datetime" :(
+[ ] 09.01.22: "Debug" Menü anlegen, wo man per Checkbox Debug-Funktionen (spezielle Ausgaben etc.) aktivieren kann. 
+			  Entsprechenden Code mit "TODO-DEBUG" Schlagwort markieren!
+[ ] 09.01.22: Log-Fenster eingefügt, aber es enthält noch keine Logik. Idee: Die Vorgänge im Programm "loggen":
+			  - Start, Ende, Anlegen, Ändern, Löschen eines Timers loggen (mit Timestamp). Neue Zeilen ganz oben.
+			  - Ausgabe auf 10(?) Zeilen im Logfenster beschränken
+			  - Jede Zeile wird zusätzlich beim Erzeugen in eine laufende .txt-Datei weggeschrieben.
+
 
 
 
