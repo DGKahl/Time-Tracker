@@ -376,6 +376,8 @@ namespace Time_Tracker
             ////(1) Get correct Date and time for start and end
             DateTime startvalue = startdate.Date + starttime.TimeOfDay;
             DateTime endvalue = enddate.Date + endtime.TimeOfDay;
+            //string startvalue = startdate.ToShortDateString() + " " + starttime.ToString(@"HH\:mm\:ss");
+            //string endvalue = enddate.ToShortDateString() + " " + endtime.ToString(@"HH\:mm\:ss");
 
             using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
@@ -388,23 +390,33 @@ namespace Time_Tracker
                 cnn.Open();
                 SQLiteDataReader reader = com.ExecuteReader();
 
-                if (reader.HasRows == true) //AKTUELLER FEHLER: String not valid DateTime. WTF?
+                while (reader.Read())
                 {
-                    //TODO TEMPORÄR - NUR ZUM TESTEN
-                    string message_output = "Timer: (ID) " + reader["ID"].ToString() + ", (Name) " + reader["Name"].ToString() + ", (Typ) " + reader["parallel"].ToString() + "\n"
-                                            + "(Start) " + reader["Start"].ToString() + "(End)" + reader["End"].ToString();
-                    MessageBox.Show(message_output, "Gefundener Eintrag", MessageBoxButtons.OK);
-                    //TEMPORÄR - NUR ZUM TESTEN
+                    if (reader.HasRows == true) //AKTUELLER FEHLER: String not valid DateTime. WTF?
+                    {
+                        //TODO TEMPORÄR - NUR ZUM TESTEN
+                        string message_output = "Timer: \n(ID) " + reader["ID"].ToString() + "\n" 
+                        + "(Name) " + reader["Name"].ToString() + "\n"
+                        + "(Typ) " + reader["parallel"].ToString() + "\n"
+                        + "(Start) " + reader["Start"].ToString() + "\n" 
+                        + "(End) " + reader["End"].ToString();
+                        MessageBox.Show(message_output, "Gefundener Eintrag", MessageBoxButtons.OK);
+                        //TEMPORÄR - NUR ZUM TESTEN
 
-                    reader.Close();
-                    cnn.Close();
-                    return true;
-                } else
-                {
-                    reader.Close();
-                    cnn.Close();
-                    return false;
+                        reader.Close();
+                        cnn.Close();
+                        return true;
+                    }
+                    else
+                    {
+                        reader.Close();
+                        cnn.Close();
+                        return false;
+                    }
                 }
+                //hier sollte man eigentlich nie ankommen...
+                MessageBox.Show("Unerreichbaren Code erreicht.", "Weird...?", MessageBoxButtons.OK);
+                return false;
             }
         }
 
