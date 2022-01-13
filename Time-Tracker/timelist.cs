@@ -125,7 +125,7 @@ namespace Time_Tracker
             
         }
 
-        private void btnSaveChange_Click(object sender, EventArgs e)
+        private void btnSaveChange_Click(object sender, EventArgs e)    //TODO Punkt 1
         {
             if (dgvTimerTimes.RowCount > 0)
             {
@@ -137,7 +137,7 @@ namespace Time_Tracker
                     if (dialogResult == DialogResult.Yes)
                     {
                         // TODO - Unsinnige Eingaben (Dauer = 0, negative Dauern) abfangen
-                        dbaccess.edittime(cbTimerSelection.SelectedItem.ToString(), dtpStartDateSave.Value, dtpStartDateSave.Value, dtpEndDateSave.Value, dtpEndDateSave.Value, dgvTimerTimes.CurrentRow.Cells[5].Value.ToString());
+                        dbaccess.edittime(cbTimerSelection.SelectedItem.ToString(), dtpStartDateSave.Value, dtpStart.Value, dtpEndDateSave.Value, dtpEnd.Value, dgvTimerTimes.CurrentRow.Cells[5].Value.ToString());
                         lblStatusWert.Text = "Neuer Eintrag wurde gespeichert!";
                         mytimer.Start();
                         LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value, dtpDateEnd.Value);
@@ -180,7 +180,39 @@ namespace Time_Tracker
 
         private void btnSaveNew_Click(object sender, EventArgs e)
         {
-            //todo
+            //wie "changetime", nur mit INSERT anstatt UPDATE in der DB  -- TODO: Doppelte Codezeilen einsparen?
+            if (dgvTimerTimes.RowCount > 0)
+            {
+                sqladapter dbaccess = new sqladapter();
+                bool choice = dbaccess.CheckExistingTime(dtpStartDateSave.Value, dtpStart.Value, dtpEndDateSave.Value, dtpEnd.Value);
+                if (choice == true)
+                {
+                    DialogResult dialogResult = MessageBox.Show("Eintrag bereits für einen Single-Timer vorhanden! Trotzdem speichern?", "Hinweis", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        // TODO - Unsinnige Eingaben (Dauer = 0, negative Dauern) abfangen
+                        dbaccess.savetime(cbTimerSelection.SelectedItem.ToString(), dtpStartDateSave.Value, dtpStart.Value, dtpEndDateSave.Value, dtpEnd.Value);
+                        lblStatusWert.Text = "Neuer Eintrag wurde gespeichert!";
+                        mytimer.Start();
+                        LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value, dtpDateEnd.Value);
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        //break
+                    }
+                }
+                else
+                {
+                    dbaccess.edittime(cbTimerSelection.SelectedItem.ToString(), dtpStartDateSave.Value, dtpStart.Value, dtpEndDateSave.Value, dtpEnd.Value, dgvTimerTimes.CurrentRow.Cells[5].Value.ToString());
+                    lblStatusWert.Text = "Neuer Eintrag wurde gespeichert!";
+                    mytimer.Start();
+                    LoadTimerTimes(cbTimerSelection.SelectedItem.ToString(), dtpDate.Value, dtpDateEnd.Value);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Es wurde nichts zum Ändern ausgewählt, duh!", "Info an den Dödel", MessageBoxButtons.OK);
+            }
         }
     }
 }

@@ -390,33 +390,56 @@ namespace Time_Tracker
                 cnn.Open();
                 SQLiteDataReader reader = com.ExecuteReader();
 
-                while (reader.Read())
+                //Test - Ermitteln, ob reader überhaupt irgendeine Zeile hat:
+                if (reader.HasRows == false)
                 {
-                    if (reader.HasRows == true) //AKTUELLER FEHLER: String not valid DateTime. WTF?
-                    {
-                        //TODO TEMPORÄR - NUR ZUM TESTEN
-                        string message_output = "Timer: \n(ID) " + reader["ID"].ToString() + "\n" 
+                    reader.Close();
+                    cnn.Close();
+                    return false;
+                } else
+                {
+                    reader.Read();
+                    //Ausgabe der ersten Zeile
+                    string message_output = "Timer: \n(ID) " + reader["ID"].ToString() + "\n"
                         + "(Name) " + reader["Name"].ToString() + "\n"
                         + "(Typ) " + reader["parallel"].ToString() + "\n"
-                        + "(Start) " + reader["Start"].ToString() + "\n" 
+                        + "(Start) " + reader["Start"].ToString() + "\n"
                         + "(End) " + reader["End"].ToString();
-                        MessageBox.Show(message_output, "Gefundener Eintrag", MessageBoxButtons.OK);
-                        //TEMPORÄR - NUR ZUM TESTEN
+                    MessageBox.Show(message_output, "Gefundener Eintrag", MessageBoxButtons.OK);
 
-                        reader.Close();
-                        cnn.Close();
-                        return true;
-                    }
-                    else
-                    {
-                        reader.Close();
-                        cnn.Close();
-                        return false;
-                    }
+                    reader.Close();
+                    cnn.Close();
+                    return true;
                 }
-                //hier sollte man eigentlich nie ankommen...
-                MessageBox.Show("Unerreichbaren Code erreicht.", "Weird...?", MessageBoxButtons.OK);
-                return false;
+
+                //ALTES, für den Test deaktiviert:
+                //while (reader.Read())   //TODO Punkt 2
+                //{
+                //    if (reader.HasRows == true)
+                //    {
+                //        //TODO TEMPORÄR - NUR ZUM TESTEN
+                //        string message_output = "Timer: \n(ID) " + reader["ID"].ToString() + "\n" 
+                //        + "(Name) " + reader["Name"].ToString() + "\n"
+                //        + "(Typ) " + reader["parallel"].ToString() + "\n"
+                //        + "(Start) " + reader["Start"].ToString() + "\n" 
+                //        + "(End) " + reader["End"].ToString();
+                //        MessageBox.Show(message_output, "Gefundener Eintrag", MessageBoxButtons.OK);
+                //        //TEMPORÄR - NUR ZUM TESTEN
+
+                //        reader.Close();
+                //        cnn.Close();
+                //        return true;
+                //    }
+                //    else
+                //    {
+                //        reader.Close();
+                //        cnn.Close();
+                //        return false;
+                //    }
+                //}
+                ////hier sollte man eigentlich nie ankommen...
+                //MessageBox.Show("Unerreichbaren Code erreicht.", "Weird...?", MessageBoxButtons.OK);
+                //return false;
             }
         }
 
