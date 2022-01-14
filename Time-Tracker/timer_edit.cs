@@ -61,6 +61,7 @@ namespace Time_Tracker
             txtInfo.Clear();
             rbParallel.Checked = false;
             rbSingle.Checked = false;
+            btnPickColor.Enabled = false;
         }
 
         void Fillcb()
@@ -79,6 +80,7 @@ namespace Time_Tracker
             resetData();
             cbSelection.Hide();
             txtName.Visible = true;
+            btnPickColor.Enabled = true;
             btnNew.BackColor = Color.Green;
             btnEdit.BackColor = Color.Red;
             btnDelete.BackColor = Color.Red;
@@ -90,6 +92,7 @@ namespace Time_Tracker
             resetData();
             txtName.Hide();
             cbSelection.Visible = true;
+            btnPickColor.Enabled = true;
             btnNew.BackColor = Color.Red;
             btnEdit.BackColor = Color.Green;
             btnDelete.BackColor = Color.Red;
@@ -174,6 +177,21 @@ namespace Time_Tracker
             } else
             {
                 rbSingle.Checked = true;
+            }
+        }
+
+        private void btnPickColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDlg = new ColorDialog();
+            colorDlg.AnyColor = true;
+            colorDlg.AllowFullOpen = true;
+            colorDlg.SolidColorOnly = false;
+
+            if (colorDlg.ShowDialog() == DialogResult.OK)
+            {
+                btnPickColor.BackColor = colorDlg.Color;
+
+                //TODO Color über sqladapter für Timer speichern!
             }
         }
     }

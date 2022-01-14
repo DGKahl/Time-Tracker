@@ -34,16 +34,20 @@ namespace Time_Tracker
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtInfo = new System.Windows.Forms.TextBox();
             this.gbType = new System.Windows.Forms.GroupBox();
-            this.rbSingle = new System.Windows.Forms.RadioButton();
             this.rbParallel = new System.Windows.Forms.RadioButton();
+            this.rbSingle = new System.Windows.Forms.RadioButton();
             this.btnOK = new System.Windows.Forms.Button();
             this.cbSelection = new System.Windows.Forms.ComboBox();
             this.btnNew = new System.Windows.Forms.Button();
             this.gbMode = new System.Windows.Forms.GroupBox();
-            this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
+            this.gbColor = new System.Windows.Forms.GroupBox();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.btnPickColor = new System.Windows.Forms.Button();
             this.gbType.SuspendLayout();
             this.gbMode.SuspendLayout();
+            this.gbColor.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblName
@@ -89,17 +93,6 @@ namespace Time_Tracker
             this.gbType.TabStop = false;
             this.gbType.Text = "Typ";
             // 
-            // rbSingle
-            // 
-            this.rbSingle.AutoSize = true;
-            this.rbSingle.Location = new System.Drawing.Point(7, 19);
-            this.rbSingle.Name = "rbSingle";
-            this.rbSingle.Size = new System.Drawing.Size(54, 17);
-            this.rbSingle.TabIndex = 0;
-            this.rbSingle.TabStop = true;
-            this.rbSingle.Text = "Single";
-            this.rbSingle.UseVisualStyleBackColor = true;
-            // 
             // rbParallel
             // 
             this.rbParallel.AutoSize = true;
@@ -110,6 +103,17 @@ namespace Time_Tracker
             this.rbParallel.TabStop = true;
             this.rbParallel.Text = "Parallel";
             this.rbParallel.UseVisualStyleBackColor = true;
+            // 
+            // rbSingle
+            // 
+            this.rbSingle.AutoSize = true;
+            this.rbSingle.Location = new System.Drawing.Point(7, 19);
+            this.rbSingle.Name = "rbSingle";
+            this.rbSingle.Size = new System.Drawing.Size(54, 17);
+            this.rbSingle.TabIndex = 0;
+            this.rbSingle.TabStop = true;
+            this.rbSingle.Text = "Single";
+            this.rbSingle.UseVisualStyleBackColor = true;
             // 
             // btnOK
             // 
@@ -145,22 +149,12 @@ namespace Time_Tracker
             this.gbMode.Controls.Add(this.btnDelete);
             this.gbMode.Controls.Add(this.btnEdit);
             this.gbMode.Controls.Add(this.btnNew);
-            this.gbMode.Location = new System.Drawing.Point(15, 158);
+            this.gbMode.Location = new System.Drawing.Point(15, 201);
             this.gbMode.Name = "gbMode";
             this.gbMode.Size = new System.Drawing.Size(216, 53);
             this.gbMode.TabIndex = 10;
             this.gbMode.TabStop = false;
             this.gbMode.Text = "Modus";
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.Location = new System.Drawing.Point(81, 19);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(54, 23);
-            this.btnEdit.TabIndex = 10;
-            this.btnEdit.Text = "Ändern";
-            this.btnEdit.UseVisualStyleBackColor = true;
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnDelete
             // 
@@ -172,11 +166,41 @@ namespace Time_Tracker
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // btnEdit
+            // 
+            this.btnEdit.Location = new System.Drawing.Point(81, 19);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(54, 23);
+            this.btnEdit.TabIndex = 10;
+            this.btnEdit.Text = "Ändern";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // gbColor
+            // 
+            this.gbColor.Controls.Add(this.btnPickColor);
+            this.gbColor.Location = new System.Drawing.Point(15, 143);
+            this.gbColor.Name = "gbColor";
+            this.gbColor.Size = new System.Drawing.Size(216, 52);
+            this.gbColor.TabIndex = 11;
+            this.gbColor.TabStop = false;
+            this.gbColor.Text = "Farbe";
+            // 
+            // btnPickColor
+            // 
+            this.btnPickColor.Location = new System.Drawing.Point(7, 19);
+            this.btnPickColor.Name = "btnPickColor";
+            this.btnPickColor.Size = new System.Drawing.Size(203, 23);
+            this.btnPickColor.TabIndex = 1;
+            this.btnPickColor.UseVisualStyleBackColor = true;
+            this.btnPickColor.Click += new System.EventHandler(this.btnPickColor_Click);
+            // 
             // timer_edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(245, 220);
+            this.ClientSize = new System.Drawing.Size(245, 267);
+            this.Controls.Add(this.gbColor);
             this.Controls.Add(this.gbMode);
             this.Controls.Add(this.cbSelection);
             this.Controls.Add(this.btnOK);
@@ -190,6 +214,7 @@ namespace Time_Tracker
             this.gbType.ResumeLayout(false);
             this.gbType.PerformLayout();
             this.gbMode.ResumeLayout(false);
+            this.gbColor.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -210,5 +235,8 @@ namespace Time_Tracker
         private System.Windows.Forms.GroupBox gbMode;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.GroupBox gbColor;
+        private System.Windows.Forms.Button btnPickColor;
+        private System.Windows.Forms.ColorDialog colorDialog1;
     }
 }

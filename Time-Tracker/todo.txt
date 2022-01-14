@@ -1,52 +1,105 @@
-﻿||||| T O D O ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-	 - Auswertung (design, Funktionalität komplett offen)
-	 - Visuellen Pomodoro-Timer (komplett offen)
-	 - Debug" Menü anlegen, wo man per Checkbox Debug-Funktionen (spezielle Ausgaben etc.) aktivieren kann. 
-	   Entsprechenden Code mit "TODO-DEBUG" Schlagwort markieren!
-	 - Log-Fenster eingefügt, aber es enthält noch keine Logik. Idee: Die Vorgänge im Programm "loggen":
-		- Start, Ende, Anlegen, Ändern, Löschen eines Timers loggen (mit Timestamp). Neue Zeilen ganz oben.
-		- Ausgabe auf 10(?) Zeilen im Logfenster beschränken
-		- Jede Zeile wird zusätzlich beim Erzeugen in eine laufende .txt-Datei weggeschrieben.
+﻿______________________________________________________________________________________________________________________________________
+||||| O F F E N E  F E A T U R E S |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||	
 
+>>> TEMPLATE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>																											 <
+>	(Aufwand) <Kurze Beschreibung>																			 <
+>			--> <Details als Freitext...>																	 <
+>				...																							 <
+>																											 <
+>   <(Aufwand)> = Schätzung, wie umfangreich die Aufgabe sein wird (in Hemdgrößen)							 <
+>			(XS) Kleinigkeit, schnell gemacht																 <
+>			(S)  Kleinere Entwicklung, relativ schnell gemacht												 <
+>			(M)  Eine "normale" Entwicklung, die ein wenig mehr Zeit (>= 1 Std.) in Anspruch nehmen wird	 <
+>			(L)  Größere Entwicklung; benötigt etwas mehr Zeit und Recherche								 <
+>			(XL) Große Entwicklung; wird einiges an Zeit, Recherche, Trial & Error und Nerven kosten		 <
+>																											 <
+>   <Kurze Beschreibung> = Zusammenfassung, worum es geht													 <
+>																											 <
+>   --> <Details als Freitext...> = Optionale Erklärungen und Notizen										 <
+>																											 <
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+>>>>>>> ------- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>> TRACKER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>> ------- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+		- (XL) Visuellen Pomodoro-Timer (komplett offen)
+		- (L) Skalieren der Anzeigen mit Fenstergröße (Echtzeit)
+		- (L) "Debug" Menü anlegen, wo man per Checkbox Debug-Funktionen (spezielle Ausgaben etc.) aktivieren kann. 
+			  --> Entsprechenden Code mit "TODO-DEBUG" Schlagwort markieren!
+		- (M) Log-Fenster eingefügt, aber es enthält noch keine Logik. Idee: Die Vorgänge im Programm "loggen":
+			  --> Start, Ende, Anlegen, Ändern, Löschen eines Timers loggen (mit Timestamp). Neue Zeilen ganz oben.
+				  Ausgabe auf 10(?) Zeilen im Logfenster beschränken
+				  Jede Zeile wird zusätzlich beim Erzeugen in eine laufende .txt-Datei weggeschrieben.
+		- (XL) Auswertung/Übersicht 
+			   --> 2 Modi: 
+				   - Einzelanzeige eines bestimmten Timers für heute bis Stichzeitpunkt JETZT; als "Torte"
+				   - Gesamtanzeige aller Timer mit Stundenverteilung und Prozentanteilan allen Stunden
+				   - Zeitraum kann vorher festgelegt werden
+				   - Darstellung/Intervall kann vorher festgelegt werden (Tag, Woche, Monat...)
+				   - optional: Anzeige der "ungetrackten" Stunden
+				   - optional: Abzug von X Stunden je Tag von der Gesamtanzeige (z.B. 7 Std. für Schlaf täglich, o.ä.)
+				   - Darstellung als Balkendiagramm: x-Achse = Tage/Wochen etc.; y-Achse = Stunden
+				   - Jedem Timer sollte eine eigene Farbe zuweisbar sein (Einstellungen für den Timer)
+				   - Keine Farbe darf 2x vorkommen
+
+
+
+
+______________________________________________________________________________________________________________________________________
 ||||| I S S U E S |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| 
 
-	>>> TEMPLATE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>> TEMPLATE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>																									        <
+>		[x] DD.MM.YY: <Beschreibung>																		<
+>					  <Freier Text......>																	<
+>					  [UPDATE DD.MM.YY] <Freier Text 2...>													<
+>																											<
+>		<x> = Prio																							<
+>		--> 1 (very low) Nur "kosmetische" Themen															<		
+>		--> 2 (low)		 Geringe Auswirkungen; kann aktuell drum herum gearbeitet werden					<
+>		--> 3 (medium)	 Bug im System, der Funktionen einschränkt											<
+>		--> 4 (high)	 Fehler, der bestimmte Funktionen unbenutzbar macht									<		
+>		--> 5 (critical) Großes Problem, relevant für mehrere Bereiche und/oder die weitere Entwicklung		<
+>		--> x (done)	 Thema erledigt																		<
+>		--> - (Cancel)	 Aufgabe gestrichen																	<
+>																											<
+>		<DD.MM.YY> = Datum der Erstellung des Eintrags in Tag (DD), Monat (MM) und Jahr (YY)				<
+>		--> Beispiel: 03.01.22																				<
+>																											<
+>		<Beschreibung> = Kurze Zusammenfassung in max. 1 Satz												<
+>																											<
+>		<Freier Text> = Ausführliche Info, je nach Bedarf auch mehrzeilig.									<
+>																											<
+>		[UPDATE DD.MM.YY] <Freier Text 2...> = Eingerücktes Update, falls es Neuigkeiten gibt.			    <
+>																										    <
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-		[x] DD.MM.YY: <Beschreibung>
-					  <Freier Text......>
-					  [UPDATE DD.MM.YY] <Freier Text 2...>
-
-		<x> = Prio
-		--> 1 (very low) Nur "kosmetische" Themen
-		--> 2 (low)		 Geringe Auswirkungen; kann aktuell drum herum gearbeitet werden
-		--> 3 (medium)	 Bug im System, der Funktionen einschränkt
-		--> 4 (high)	 Fehler, der bestimmte Funktionen unbenutzbar macht
-		--> 5 (critical) Großes Problem, relevant für mehrere Bereiche und/oder die weitere Entwicklung
-		--> x (done)	 Thema erledigt
-		--> - (Cancel)	 Aufgabe gestrichen
-
-		<DD.MM.YY> = Datum der Erstellung des Eintrags in Tag (DD), Monat (MM) und Jahr (YY)
-		--> Beispiel: 03.01.22
-
-		<Beschreibung> = Kurze Zusammenfassung in max. 1 Satz
-
-		<Freier Text> = Ausführliche Info, je nach Bedarf auch mehrzeilig.
-
-		[UPDATE DD.MM.YY] <Freier Text 2...> = Eingerücktes Update, falls es Neuigkeiten gibt. 
 
 
-!!!	>>> TRACKER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>> ------- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>> TRACKER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>> ------- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 	[4] 05.01.22: Parallele Timer scheinen nicht mehr parallel zu laufen --> testen!
 	[2] 05.01.22: Bearbeiten der Timer; Fenster sollte sich nur 1x öffnen. Evtl. über erzwungenen Fokus auf das Fenster lösen?
-	[x] 06.01.22: Timelist -> Manuell anlegen nochmal neu programmieren.
 	[3] 06.01.22: Timelist -> Die Auswahl von Daten im letzten + diesen Jahr funktioniert nicht (in SQL schon nicht). Recherche + fixen.
 	[2] 06.01.22: Timelist -> Unsinnige Eingaben bei manueller Pflege/Bearbeiten abfangen.
 	[3] 21.09.21: Timer --> Die Sekunden werden manchmal nicht richtig gezählt --> prüfen!
 	[3] 06.01.22: Main --> Schließen des Main-Fensters bei laufenden Timern: Warnung, alles schließen mit oder ohne Speichern.
-	[x] 09.01.22: SELECT Abfrage mit DateTime Informationen funktioniert wieder nicht; "string not recognized as valid datetime" :(
+	[2] 14.01.22: Archivierte Timer bei Selektionen etc. herausfiltern!
+	[4] 14.01.22: Check: Unvollständige Eingaben abfangen (Timer anlegen/bearbeiten, Zeiten editieren ohne sie geändert zu haben...)
+	[4] 14.01.22: Unsinnige Eingaben bei der Bearbeitung/manuellen Eingabe von Zeiten in timelist abfangen (z.B. Ende vor Start etc. ...)  
 
 
-||||| ISSUE ARCHIVE ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+
+_______________________________________________________________________________________________________________________________________
+||||| ISSUE ARCHIVE |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 	[x] 05.01.22: Quickslots unter "Settings" ändern; nach Klick auf OK wird nur die DB aktualisiert, aber nicht die Buttons in main.
 	[x] 06.01.22: Timelist -> Speichern einer Änderung scheint nicht zu funktionieren. Double-Check + Auto-Refresh des Datagrid-Views einbauen.
-
+	[x] 09.01.22: SELECT Abfrage mit DateTime Informationen funktioniert wieder nicht; "string not recognized as valid datetime" :(
+	[x] 06.01.22: Timelist -> Manuell anlegen nochmal neu programmieren.
