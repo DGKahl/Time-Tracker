@@ -1,28 +1,52 @@
-﻿Noch offen:
- - Auswertung (design, Funktionalität komplett offen)
- - Visuellen Pomodoro-Timer (komplett offen)
+﻿||||| T O D O ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+	 - Auswertung (design, Funktionalität komplett offen)
+	 - Visuellen Pomodoro-Timer (komplett offen)
+	 - Debug" Menü anlegen, wo man per Checkbox Debug-Funktionen (spezielle Ausgaben etc.) aktivieren kann. 
+	   Entsprechenden Code mit "TODO-DEBUG" Schlagwort markieren!
+	 - Log-Fenster eingefügt, aber es enthält noch keine Logik. Idee: Die Vorgänge im Programm "loggen":
+		- Start, Ende, Anlegen, Ändern, Löschen eines Timers loggen (mit Timestamp). Neue Zeilen ganz oben.
+		- Ausgabe auf 10(?) Zeilen im Logfenster beschränken
+		- Jede Zeile wird zusätzlich beim Erzeugen in eine laufende .txt-Datei weggeschrieben.
+
+||||| I S S U E S |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| 
+
+	>>> TEMPLATE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+		[x] DD.MM.YY: <Beschreibung>
+					  <Freier Text......>
+					  [UPDATE DD.MM.YY] <Freier Text 2...>
+
+		<x> = Prio
+		--> 1 (very low) Nur "kosmetische" Themen
+		--> 2 (low)		 Geringe Auswirkungen; kann aktuell drum herum gearbeitet werden
+		--> 3 (medium)	 Bug im System, der Funktionen einschränkt
+		--> 4 (high)	 Fehler, der bestimmte Funktionen unbenutzbar macht
+		--> 5 (critical) Großes Problem, relevant für mehrere Bereiche und/oder die weitere Entwicklung
+		--> x (done)	 Thema erledigt
+		--> - (Cancel)	 Aufgabe gestrichen
+
+		<DD.MM.YY> = Datum der Erstellung des Eintrags in Tag (DD), Monat (MM) und Jahr (YY)
+		--> Beispiel: 03.01.22
+
+		<Beschreibung> = Kurze Zusammenfassung in max. 1 Satz
+
+		<Freier Text> = Ausführliche Info, je nach Bedarf auch mehrzeilig.
+
+		[UPDATE DD.MM.YY] <Freier Text 2...> = Eingerücktes Update, falls es Neuigkeiten gibt. 
 
 
--= TODOs =-
-[ok] 05.01.22: Quickslots unter "Settings" ändern; nach Klick auf OK wird nur die DB aktualisiert, aber nicht die Buttons in main.
-[ ] 05.01.22: Parallele Timer scheinen nicht mehr parallel zu laufen --> testen!
-[ ] 05.01.22: Bearbeiten der Timer; Fenster sollte sich nur 1x öffnen. Evtl. über erzwungenen Fokus auf das Fenster lösen?
-[ok] 06.01.22: Timelist -> Speichern einer Änderung scheint nicht zu funktionieren. Double-Check + Auto-Refresh des Datagrid-Views einbauen.
-[ ] 06.01.22: Timelist -> Manuell anlegen nochmal neu programmieren.
-[ ] 06.01.22: Timelist -> Die Auswahl von Daten im letzten + diesen Jahr funktioniert nicht (in SQL schon nicht). Recherche + fixen.
-[ ] 06.01.22: Timelist -> Unsinnige Eingaben bei manueller Pfelge/Bearbeiten abfangen.
-[ ] 21.09.21: Results -> Form designen. Todos definieren.
-[ ] 21.09.21: Timer --> Die Sekunden werden manchmal nicht richtig gezählt --> prüfen!
-[ ] 06.01.22: Main --> Schließen des Main-Fensters bei laufenden Timern: Warnung, alles schließen mit oder ohne Speichern.
-[ ] 09.01.22: SELECT Abfrage mit DateTime Informationen funktioniert wieder nicht; "string not recognized as valid datetime" :(
-[ ] 09.01.22: "Debug" Menü anlegen, wo man per Checkbox Debug-Funktionen (spezielle Ausgaben etc.) aktivieren kann. 
-			  Entsprechenden Code mit "TODO-DEBUG" Schlagwort markieren!
-[ ] 09.01.22: Log-Fenster eingefügt, aber es enthält noch keine Logik. Idee: Die Vorgänge im Programm "loggen":
-			  - Start, Ende, Anlegen, Ändern, Löschen eines Timers loggen (mit Timestamp). Neue Zeilen ganz oben.
-			  - Ausgabe auf 10(?) Zeilen im Logfenster beschränken
-			  - Jede Zeile wird zusätzlich beim Erzeugen in eine laufende .txt-Datei weggeschrieben.
+!!!	>>> TRACKER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	[4] 05.01.22: Parallele Timer scheinen nicht mehr parallel zu laufen --> testen!
+	[2] 05.01.22: Bearbeiten der Timer; Fenster sollte sich nur 1x öffnen. Evtl. über erzwungenen Fokus auf das Fenster lösen?
+	[x] 06.01.22: Timelist -> Manuell anlegen nochmal neu programmieren.
+	[3] 06.01.22: Timelist -> Die Auswahl von Daten im letzten + diesen Jahr funktioniert nicht (in SQL schon nicht). Recherche + fixen.
+	[2] 06.01.22: Timelist -> Unsinnige Eingaben bei manueller Pflege/Bearbeiten abfangen.
+	[3] 21.09.21: Timer --> Die Sekunden werden manchmal nicht richtig gezählt --> prüfen!
+	[3] 06.01.22: Main --> Schließen des Main-Fensters bei laufenden Timern: Warnung, alles schließen mit oder ohne Speichern.
+	[x] 09.01.22: SELECT Abfrage mit DateTime Informationen funktioniert wieder nicht; "string not recognized as valid datetime" :(
 
 
-
-
+||||| ISSUE ARCHIVE ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+	[x] 05.01.22: Quickslots unter "Settings" ändern; nach Klick auf OK wird nur die DB aktualisiert, aber nicht die Buttons in main.
+	[x] 06.01.22: Timelist -> Speichern einer Änderung scheint nicht zu funktionieren. Double-Check + Auto-Refresh des Datagrid-Views einbauen.
 
