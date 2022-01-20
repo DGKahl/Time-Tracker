@@ -512,5 +512,46 @@ namespace Time_Tracker
             }
             return Tabelle;
         }
+
+        //Logging-Daten für Settings-Form einlesen
+        public List<string> GetCurrentLogSettings() 
+        {
+            List<string> list = new List<string>();
+
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                SQLiteCommand com = new SQLiteCommand();
+                com.Connection = cnn;
+                cnn.Open();
+                com.CommandText = "SELECT Settings.Tracking AS status, Settings.Trackinginterval as interval, Settings.savedlogs AS savedlogs FROM Settings WHERE ID=1";
+                SQLiteDataReader reader = com.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    list.Add((string)reader[0]);
+                    list.Add((string)reader[1]);
+                    list.Add(reader[2].ToString());
+                }
+                reader.Close();
+
+                cnn.Close();
+                return list;
+            }
+        }
+
+        //Logging-Daten in Settings aktualisieren
+        public void updateLoggingSettings(bool status, string interval, int logcount)
+        {
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                SQLiteCommand com = new SQLiteCommand();
+                com.Connection = cnn;
+                com.CommandText = "UPDATE Settings SET Tracking = '" + status + "', Trackinginterval = '" + interval + "', savedlogs = '" + logcount + "' WHERE Settings.ID='1'";
+                cnn.Open();
+                com.ExecuteNonQuery();
+                cnn.Close();
+            }
+        }
+
     }
 }

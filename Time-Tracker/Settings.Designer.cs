@@ -33,11 +33,20 @@ namespace Time_Tracker
             this.lblSlot2 = new System.Windows.Forms.Label();
             this.lblSlot3 = new System.Windows.Forms.Label();
             this.gbQuickslots = new System.Windows.Forms.GroupBox();
-            this.cbSlot1 = new System.Windows.Forms.ComboBox();
-            this.cbSlot2 = new System.Windows.Forms.ComboBox();
             this.cbSlot3 = new System.Windows.Forms.ComboBox();
-            this.btnSlotsOK = new System.Windows.Forms.Button();
+            this.cbSlot2 = new System.Windows.Forms.ComboBox();
+            this.cbSlot1 = new System.Windows.Forms.ComboBox();
+            this.btnSettingsSave = new System.Windows.Forms.Button();
+            this.gbLogging = new System.Windows.Forms.GroupBox();
+            this.btnLogpath = new System.Windows.Forms.Button();
+            this.cbLogs = new System.Windows.Forms.CheckBox();
+            this.nudLogs = new System.Windows.Forms.NumericUpDown();
+            this.lblLogs = new System.Windows.Forms.Label();
+            this.rbSession = new System.Windows.Forms.RadioButton();
+            this.rbDaily = new System.Windows.Forms.RadioButton();
             this.gbQuickslots.SuspendLayout();
+            this.gbLogging.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudLogs)).BeginInit();
             this.SuspendLayout();
             // 
             // lblSlot1
@@ -69,7 +78,6 @@ namespace Time_Tracker
             // 
             // gbQuickslots
             // 
-            this.gbQuickslots.Controls.Add(this.btnSlotsOK);
             this.gbQuickslots.Controls.Add(this.cbSlot3);
             this.gbQuickslots.Controls.Add(this.cbSlot2);
             this.gbQuickslots.Controls.Add(this.cbSlot1);
@@ -78,26 +86,10 @@ namespace Time_Tracker
             this.gbQuickslots.Controls.Add(this.lblSlot1);
             this.gbQuickslots.Location = new System.Drawing.Point(13, 13);
             this.gbQuickslots.Name = "gbQuickslots";
-            this.gbQuickslots.Size = new System.Drawing.Size(273, 117);
+            this.gbQuickslots.Size = new System.Drawing.Size(209, 153);
             this.gbQuickslots.TabIndex = 0;
             this.gbQuickslots.TabStop = false;
             this.gbQuickslots.Text = "Quickslots";
-            // 
-            // cbSlot1
-            // 
-            this.cbSlot1.FormattingEnabled = true;
-            this.cbSlot1.Location = new System.Drawing.Point(52, 25);
-            this.cbSlot1.Name = "cbSlot1";
-            this.cbSlot1.Size = new System.Drawing.Size(145, 21);
-            this.cbSlot1.TabIndex = 3;
-            // 
-            // cbSlot2
-            // 
-            this.cbSlot2.FormattingEnabled = true;
-            this.cbSlot2.Location = new System.Drawing.Point(52, 51);
-            this.cbSlot2.Name = "cbSlot2";
-            this.cbSlot2.Size = new System.Drawing.Size(145, 21);
-            this.cbSlot2.TabIndex = 4;
             // 
             // cbSlot3
             // 
@@ -107,26 +99,138 @@ namespace Time_Tracker
             this.cbSlot3.Size = new System.Drawing.Size(145, 21);
             this.cbSlot3.TabIndex = 5;
             // 
-            // btnSlotsOK
+            // cbSlot2
             // 
-            this.btnSlotsOK.Location = new System.Drawing.Point(208, 25);
-            this.btnSlotsOK.Name = "btnSlotsOK";
-            this.btnSlotsOK.Size = new System.Drawing.Size(51, 73);
-            this.btnSlotsOK.TabIndex = 6;
-            this.btnSlotsOK.Text = "OK";
-            this.btnSlotsOK.UseVisualStyleBackColor = true;
-            this.btnSlotsOK.Click += new System.EventHandler(this.btnSlotsOK_Click);
+            this.cbSlot2.FormattingEnabled = true;
+            this.cbSlot2.Location = new System.Drawing.Point(52, 51);
+            this.cbSlot2.Name = "cbSlot2";
+            this.cbSlot2.Size = new System.Drawing.Size(145, 21);
+            this.cbSlot2.TabIndex = 4;
+            // 
+            // cbSlot1
+            // 
+            this.cbSlot1.FormattingEnabled = true;
+            this.cbSlot1.Location = new System.Drawing.Point(52, 25);
+            this.cbSlot1.Name = "cbSlot1";
+            this.cbSlot1.Size = new System.Drawing.Size(145, 21);
+            this.cbSlot1.TabIndex = 3;
+            // 
+            // btnSettingsSave
+            // 
+            this.btnSettingsSave.Location = new System.Drawing.Point(247, 181);
+            this.btnSettingsSave.Name = "btnSettingsSave";
+            this.btnSettingsSave.Size = new System.Drawing.Size(167, 31);
+            this.btnSettingsSave.TabIndex = 6;
+            this.btnSettingsSave.Text = "Speichern und Schließen";
+            this.btnSettingsSave.UseVisualStyleBackColor = true;
+            this.btnSettingsSave.Click += new System.EventHandler(this.btnSettingsSave_Click);
+            // 
+            // gbLogging
+            // 
+            this.gbLogging.Controls.Add(this.btnLogpath);
+            this.gbLogging.Controls.Add(this.cbLogs);
+            this.gbLogging.Controls.Add(this.nudLogs);
+            this.gbLogging.Controls.Add(this.lblLogs);
+            this.gbLogging.Controls.Add(this.rbSession);
+            this.gbLogging.Controls.Add(this.rbDaily);
+            this.gbLogging.Location = new System.Drawing.Point(247, 12);
+            this.gbLogging.Name = "gbLogging";
+            this.gbLogging.Size = new System.Drawing.Size(167, 154);
+            this.gbLogging.TabIndex = 1;
+            this.gbLogging.TabStop = false;
+            this.gbLogging.Text = "Log-Dateien";
+            // 
+            // btnLogpath
+            // 
+            this.btnLogpath.Location = new System.Drawing.Point(9, 114);
+            this.btnLogpath.Name = "btnLogpath";
+            this.btnLogpath.Size = new System.Drawing.Size(144, 23);
+            this.btnLogpath.TabIndex = 5;
+            this.btnLogpath.Text = "zu den Logs...";
+            this.btnLogpath.UseVisualStyleBackColor = true;
+            // 
+            // cbLogs
+            // 
+            this.cbLogs.AutoSize = true;
+            this.cbLogs.Location = new System.Drawing.Point(6, 24);
+            this.cbLogs.Name = "cbLogs";
+            this.cbLogs.Size = new System.Drawing.Size(73, 17);
+            this.cbLogs.TabIndex = 4;
+            this.cbLogs.Text = "Aktivieren";
+            this.cbLogs.UseVisualStyleBackColor = true;
+            this.cbLogs.CheckedChanged += new System.EventHandler(this.cbLogs_CheckedChanged);
+            // 
+            // nudLogs
+            // 
+            this.nudLogs.Enabled = false;
+            this.nudLogs.Location = new System.Drawing.Point(111, 86);
+            this.nudLogs.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.nudLogs.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudLogs.Name = "nudLogs";
+            this.nudLogs.Size = new System.Drawing.Size(42, 20);
+            this.nudLogs.TabIndex = 3;
+            this.nudLogs.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // lblLogs
+            // 
+            this.lblLogs.AutoSize = true;
+            this.lblLogs.Location = new System.Drawing.Point(6, 88);
+            this.lblLogs.Name = "lblLogs";
+            this.lblLogs.Size = new System.Drawing.Size(99, 13);
+            this.lblLogs.TabIndex = 2;
+            this.lblLogs.Text = "Gespeicherte Logs:";
+            // 
+            // rbSession
+            // 
+            this.rbSession.AutoSize = true;
+            this.rbSession.Enabled = false;
+            this.rbSession.Location = new System.Drawing.Point(6, 64);
+            this.rbSession.Name = "rbSession";
+            this.rbSession.Size = new System.Drawing.Size(106, 17);
+            this.rbSession.TabIndex = 1;
+            this.rbSession.TabStop = true;
+            this.rbSession.Text = "Logs pro Session";
+            this.rbSession.UseVisualStyleBackColor = true;
+            // 
+            // rbDaily
+            // 
+            this.rbDaily.AutoSize = true;
+            this.rbDaily.Enabled = false;
+            this.rbDaily.Location = new System.Drawing.Point(6, 46);
+            this.rbDaily.Name = "rbDaily";
+            this.rbDaily.Size = new System.Drawing.Size(123, 17);
+            this.rbDaily.TabIndex = 0;
+            this.rbDaily.TabStop = true;
+            this.rbDaily.Text = "Logs auf Tagesbasis";
+            this.rbDaily.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(640, 559);
+            this.ClientSize = new System.Drawing.Size(428, 224);
+            this.Controls.Add(this.btnSettingsSave);
+            this.Controls.Add(this.gbLogging);
             this.Controls.Add(this.gbQuickslots);
             this.Name = "Settings";
             this.Text = "Settings";
             this.gbQuickslots.ResumeLayout(false);
             this.gbQuickslots.PerformLayout();
+            this.gbLogging.ResumeLayout(false);
+            this.gbLogging.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudLogs)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -137,9 +241,16 @@ namespace Time_Tracker
         private System.Windows.Forms.Label lblSlot2;
         private System.Windows.Forms.Label lblSlot3;
         private System.Windows.Forms.GroupBox gbQuickslots;
-        private System.Windows.Forms.Button btnSlotsOK;
+        private System.Windows.Forms.Button btnSettingsSave;
         private System.Windows.Forms.ComboBox cbSlot3;
         private System.Windows.Forms.ComboBox cbSlot2;
         private System.Windows.Forms.ComboBox cbSlot1;
+        private System.Windows.Forms.GroupBox gbLogging;
+        private System.Windows.Forms.Button btnLogpath;
+        private System.Windows.Forms.CheckBox cbLogs;
+        private System.Windows.Forms.NumericUpDown nudLogs;
+        private System.Windows.Forms.Label lblLogs;
+        private System.Windows.Forms.RadioButton rbSession;
+        private System.Windows.Forms.RadioButton rbDaily;
     }
 }
