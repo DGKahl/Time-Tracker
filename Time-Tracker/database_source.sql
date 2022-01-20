@@ -1,10 +1,32 @@
 ﻿--
--- File generated with SQLiteStudio v3.3.0 on Mo Jan 10 17:42:42 2022
+-- File generated with SQLiteStudio v3.3.0 on Do Jan 20 08:42:19 2022
 --
 -- Text encoding used: System
 --
 PRAGMA foreign_keys = off;
 BEGIN TRANSACTION;
+
+-- Table: Settings
+CREATE TABLE Settings (
+    ID               INTEGER PRIMARY KEY,
+    Tracking         STRING,
+    Trackinginterval STRING,
+    savedlogs        STRING
+);
+
+INSERT INTO Settings (
+                         ID,
+                         Tracking,
+                         Trackinginterval,
+                         savedlogs
+                     )
+                     VALUES (
+                         1,
+                         True,
+                         daily,
+                         10
+                     );
+
 
 -- Table: Timer
 CREATE TABLE Timer (
@@ -13,7 +35,8 @@ CREATE TABLE Timer (
     Beschreibung TEXT,
     parallel     BOOLEAN DEFAULT (true),
     quickslot    INTEGER DEFAULT (0),
-    Archived     BOOLEAN DEFAULT false
+    Archived     BOOLEAN DEFAULT false,
+    Color        INTEGER UNIQUE
 );
 
 INSERT INTO Timer (
@@ -22,7 +45,8 @@ INSERT INTO Timer (
                       Beschreibung,
                       parallel,
                       quickslot,
-                      Archived
+                      Archived,
+                      Color
                   )
                   VALUES (
                       1,
@@ -30,7 +54,8 @@ INSERT INTO Timer (
                       Testeintrag zum Tracken von Arbeitszeit,
                       false,
                       2,
-                      0
+                      0,
+                      NULL
                   );
 
 INSERT INTO Timer (
@@ -39,7 +64,8 @@ INSERT INTO Timer (
                       Beschreibung,
                       parallel,
                       quickslot,
-                      Archived
+                      Archived,
+                      Color
                   )
                   VALUES (
                       2,
@@ -47,7 +73,8 @@ INSERT INTO Timer (
                       Testeintrag zum Tracken von privater Zeit,
                       false,
                       3,
-                      0
+                      0,
+                      NULL
                   );
 
 INSERT INTO Timer (
@@ -56,7 +83,8 @@ INSERT INTO Timer (
                       Beschreibung,
                       parallel,
                       quickslot,
-                      Archived
+                      Archived,
+                      Color
                   )
                   VALUES (
                       3,
@@ -64,7 +92,8 @@ INSERT INTO Timer (
                       Testeintrag für parallele Tätigkeit,
                       true,
                       0,
-                      0
+                      0,
+                      NULL
                   );
 
 INSERT INTO Timer (
@@ -73,7 +102,8 @@ INSERT INTO Timer (
                       Beschreibung,
                       parallel,
                       quickslot,
-                      Archived
+                      Archived,
+                      Color
                   )
                   VALUES (
                       4,
@@ -81,7 +111,8 @@ INSERT INTO Timer (
                       Testeintrag für Quickslot-Tests,
                       false,
                       0,
-                      0
+                      0,
+                      NULL
                   );
 
 INSERT INTO Timer (
@@ -90,7 +121,8 @@ INSERT INTO Timer (
                       Beschreibung,
                       parallel,
                       quickslot,
-                      Archived
+                      Archived,
+                      Color
                   )
                   VALUES (
                       5,
@@ -98,7 +130,8 @@ INSERT INTO Timer (
                       Testeintrag für Spatzl,
                       false,
                       1,
-                      0
+                      0,
+                      NULL
                   );
 
 INSERT INTO Timer (
@@ -107,7 +140,8 @@ INSERT INTO Timer (
                       Beschreibung,
                       parallel,
                       quickslot,
-                      Archived
+                      Archived,
+                      Color
                   )
                   VALUES (
                       6,
@@ -115,7 +149,8 @@ INSERT INTO Timer (
                       Testeintrag für mich,
                       true,
                       0,
-                      0
+                      0,
+                      NULL
                   );
 
 
@@ -242,62 +277,11 @@ INSERT INTO Times (
                   )
                   VALUES (
                       179,
-                      05.01.2022 13:07:24,
-                      05.01.2022 13:07:27,
-                      00:00:03,
+                      05.01.2022 15:07:24,
+                      06.01.2022 13:07:27,
+                      22:00:03,
                       NULL,
                       2
-                  );
-
-INSERT INTO Times (
-                      ID,
-                      Start,
-                      [End],
-                      Zeit,
-                      Notiz,
-                      TimerID
-                  )
-                  VALUES (
-                      180,
-                      05.01.2022 13:07:27,
-                      05.01.2022 13:07:30,
-                      00:00:02,
-                      NULL,
-                      1
-                  );
-
-INSERT INTO Times (
-                      ID,
-                      Start,
-                      [End],
-                      Zeit,
-                      Notiz,
-                      TimerID
-                  )
-                  VALUES (
-                      182,
-                      05.01.2022 13:08:20,
-                      05.01.2022 13:08:32,
-                      00:00:12,
-                      NULL,
-                      3
-                  );
-
-INSERT INTO Times (
-                      ID,
-                      Start,
-                      [End],
-                      Zeit,
-                      Notiz,
-                      TimerID
-                  )
-                  VALUES (
-                      183,
-                      04.01.2022 13:08:32,
-                      05.01.2022 19:08:38,
-                      1.06:00:06,
-                      NULL,
-                      5
                   );
 
 INSERT INTO Times (
@@ -326,27 +310,10 @@ INSERT INTO Times (
                       TimerID
                   )
                   VALUES (
-                      185,
-                      06.01.2022 18:35:21,
-                      06.01.2022 18:35:23,
-                      00:00:01,
-                      NULL,
-                      2
-                  );
-
-INSERT INTO Times (
-                      ID,
-                      Start,
-                      [End],
-                      Zeit,
-                      Notiz,
-                      TimerID
-                  )
-                  VALUES (
                       186,
-                      06.01.2022 18:46:49,
-                      06.01.2022 18:46:54,
-                      00:00:04,
+                      04.01.2022 18:00:00,
+                      05.01.2022 19:00:00,
+                      1.01:00:00,
                       NULL,
                       2
                   );
@@ -383,6 +350,23 @@ INSERT INTO Times (
                       00:00:15,
                       NULL,
                       1
+                  );
+
+INSERT INTO Times (
+                      ID,
+                      Start,
+                      [End],
+                      Zeit,
+                      Notiz,
+                      TimerID
+                  )
+                  VALUES (
+                      189,
+                      06.01.2022 09:00:00,
+                      06.01.2022 10:30:00,
+                      01:30:00,
+                      NULL,
+                      2
                   );
 
 
