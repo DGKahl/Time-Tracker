@@ -34,6 +34,18 @@
 			  --> Start, Ende, Anlegen, Ändern, Löschen eines Timers loggen (mit Timestamp). Neue Zeilen ganz oben.
 				  Ausgabe auf 10(?) Zeilen im Logfenster beschränken
 				  Jede Zeile wird zusätzlich beim Erzeugen in eine laufende .txt-Datei weggeschrieben.
+			  --> [UPDATE 30.01.22] 
+				  Anlegen/Ändern/Löschen eines Timers klappt rudimentär.
+				  Update des Logfensters auch.
+				  Noch offen: 
+					- Nur 10 Zeilen im Logfenster darstellen.
+					- Aktuellester Eintrag oben.
+					- Unterscheidung "Löschen" und "Archivieren".
+					- Logging von Start/Ende eines spezifischen Timers.
+					- Separate Logdateien in eigenem Ordner mit Unterscheidung "je Session" oder "je Tag"
+					- Verknüpfung mit Settings-Einstellungen zum Logging
+					- Begrüßungstext beim Start der Anwendung.
+					- (??) Zu überlegen: Soll auch die eine Info darüber, "was" im Timer geändert wurde, gespeichert werden?
 		- (XL) Auswertung/Übersicht 
 			   --> 2 Modi: 
 				   - Einzelanzeige eines bestimmten Timers für heute bis Stichzeitpunkt JETZT; als "Torte"
@@ -93,9 +105,11 @@ ________________________________________________________________________________
 	[2] 14.01.22: Archivierte Timer bei Selektionen etc. herausfiltern!
 	[4] 14.01.22: Check: Unvollständige Eingaben abfangen (Timer anlegen/bearbeiten, Zeiten editieren ohne sie geändert zu haben...)
 	[4] 14.01.22: Unsinnige Eingaben bei der Bearbeitung/manuellen Eingabe von Zeiten in timelist abfangen (z.B. Ende vor Start etc. ...)  
-
-
-
+	[2] 30.01.22: Nach dem Löschen eines Timers bleibt des Name im Dropdownfeld verfügbar --> Ziel: Daten rauslöschen!
+	[3] 30.01.22: Anlegen eines neuen Timers prüft aktuell nicht, ob ein Timer mit gleichem Namen schon existiert --> Muss gemacht werden! 
+	[3] 30.01.22: Ein Timer kann ohne Wahl des Typs (single, parallel) angelegt werden --> Sicherstellen, dass hier was gesetzt wird!
+	[2] 30.01.22: Nachdem ein Timer angelegt/bearbeitet/gelöscht wurde, resettet der OK Button nicht.
+				  --> Nach dem Speichern der Aktion sollten alle Felder autom. resetten.
 
 _______________________________________________________________________________________________________________________________________
 ||||| ISSUE ARCHIVE |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
