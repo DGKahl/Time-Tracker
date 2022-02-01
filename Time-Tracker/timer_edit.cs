@@ -140,7 +140,7 @@ namespace Time_Tracker
                     log_action(logflag);               //Logfile updaten.    
                     EditsAreSaved(this, e);            //Logfenster in main aktualisieren (Subscriber).
                     resetData();
-                    Fillcb();
+                    Fillcb(); //TODO - Leeren des gewählten Timers im Dropdown Fenster nach Speichern der Änderung.
                 }
             }
         }
