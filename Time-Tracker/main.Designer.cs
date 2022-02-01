@@ -46,7 +46,7 @@ namespace Time_Tracker
             this.btnQTimer1 = new System.Windows.Forms.Button();
             this.btnStopAll = new System.Windows.Forms.Button();
             this.gbLog = new System.Windows.Forms.GroupBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.rtbLog = new System.Windows.Forms.RichTextBox();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gbLog.SuspendLayout();
@@ -197,7 +197,7 @@ namespace Time_Tracker
             // 
             // gbLog
             // 
-            this.gbLog.Controls.Add(this.richTextBox1);
+            this.gbLog.Controls.Add(this.rtbLog);
             this.gbLog.Location = new System.Drawing.Point(12, 184);
             this.gbLog.Name = "gbLog";
             this.gbLog.Size = new System.Drawing.Size(248, 91);
@@ -205,13 +205,14 @@ namespace Time_Tracker
             this.gbLog.TabStop = false;
             this.gbLog.Text = "Log";
             // 
-            // richTextBox1
+            // rtbLog
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(7, 20);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(236, 65);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            this.rtbLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbLog.Location = new System.Drawing.Point(7, 20);
+            this.rtbLog.Name = "rtbLog";
+            this.rtbLog.Size = new System.Drawing.Size(236, 65);
+            this.rtbLog.TabIndex = 0;
+            this.rtbLog.Text = "";
             // 
             // Start
             // 
@@ -255,7 +256,7 @@ namespace Time_Tracker
         private System.Windows.Forms.ToolStripMenuItem timerLöschenToolStripMenuItem;
         private System.Windows.Forms.Button btnStopAll;
         private System.Windows.Forms.GroupBox gbLog;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox rtbLog;
     }
 }
 

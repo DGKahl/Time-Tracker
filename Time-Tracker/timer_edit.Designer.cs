@@ -43,8 +43,8 @@ namespace Time_Tracker
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.gbColor = new System.Windows.Forms.GroupBox();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.btnPickColor = new System.Windows.Forms.Button();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.gbType.SuspendLayout();
             this.gbMode.SuspendLayout();
             this.gbColor.SuspendLayout();
@@ -199,7 +199,7 @@ namespace Time_Tracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(245, 267);
+            this.ClientSize = new System.Drawing.Size(246, 289);
             this.Controls.Add(this.gbColor);
             this.Controls.Add(this.gbMode);
             this.Controls.Add(this.cbSelection);

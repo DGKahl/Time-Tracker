@@ -552,6 +552,5 @@ namespace Time_Tracker
                 cnn.Close();
             }
         }
-
     }
 }

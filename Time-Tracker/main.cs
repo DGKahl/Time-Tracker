@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Time_Tracker
 {
@@ -36,6 +37,11 @@ namespace Time_Tracker
             f.ChangesAreSaved += new Settings.Formhandler(RefreshMainEvent);
         }
 
+        public void Subscriber(timer_edit f) //Subscriber für Form "timer_edit"
+        {
+            f.EditsAreSaved += new timer_edit.Formhandler(UpdateLogEvent);
+        }
+
         // !!! Delegate+Eventhandler in Action!
         public void EventHappens(timer f, GetClosedFormEventArgs e)
         {
@@ -45,6 +51,22 @@ namespace Time_Tracker
         public void RefreshMainEvent(Settings f, EventArgs e)
         {
             SetQuickslots();
+        }
+
+        public void UpdateLogEvent(timer_edit f, EventArgs e)
+        {
+            //Ausgabe der aktuellen Logdatei (aktuell alles, neueste Einträge unten; nach jedem Update wird ALLES ausgelesen - TODO)
+            //Ziel: Direkt den neuen Eintrag übergeben, oben anfügen, max. 10 Einträge vorhalten.
+            rtbLog.Text = "";
+
+            using (StreamReader sr = new StreamReader(@"logfile.txt"))
+            {
+                string s;
+                while ((s = sr.ReadLine()) != null)
+                {
+                    rtbLog.Text += s + "\n";
+                }
+            }
         }
 
         void Fillcb()
@@ -184,18 +206,21 @@ namespace Time_Tracker
         private void neuerTimerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             timer_edit OpenForm = new timer_edit(1);
+            this.Subscriber(OpenForm);
             OpenForm.Show();
         }
 
         private void timerBearbeitenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             timer_edit OpenForm = new timer_edit(2);
+            this.Subscriber(OpenForm);
             OpenForm.Show();
         }
 
         private void timerLöschenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             timer_edit OpenForm = new timer_edit(3);
+            this.Subscriber(OpenForm);
             OpenForm.Show();
         }
 
@@ -221,5 +246,14 @@ namespace Time_Tracker
                 //timerrunningstatus.Remove(t);
             }
         }
+
+
+        //---------------------------------------------------------------------------------------
+        // ### Logfenster -----------------------------------------------------------------------
+        //---------------------------------------------------------------------------------------
+
+
+
+
     }
 }
