@@ -203,23 +203,9 @@ namespace Time_Tracker
             OpenForm.Show();
         }
 
-        private void neuerTimerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            timer_edit OpenForm = new timer_edit(1);
-            this.Subscriber(OpenForm);
-            OpenForm.Show();
-        }
-
         private void timerBearbeitenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            timer_edit OpenForm = new timer_edit(2);
-            this.Subscriber(OpenForm);
-            OpenForm.Show();
-        }
-
-        private void timerLöschenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            timer_edit OpenForm = new timer_edit(3);
+            timer_edit OpenForm = new timer_edit();
             this.Subscriber(OpenForm);
             OpenForm.Show();
         }
