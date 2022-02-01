@@ -57,6 +57,10 @@
 				   - Darstellung als Balkendiagramm: x-Achse = Tage/Wochen etc.; y-Achse = Stunden
 				   - Jedem Timer sollte eine eigene Farbe zuweisbar sein (Einstellungen für den Timer)
 				   - Keine Farbe darf 2x vorkommen
+		- (L) Komplettes "Timer Editieren" Fenster überabeiten
+				   - 1 Hauptfenster zum Editieren + Löschen eines Timers
+				   - 1 Knopf zum Anlegen eines neuen Timers (dabei wird dann das Dropdown Fenster gesperrt)
+				   - nach jeder Änderung: Schriftliche Bestätigung + Reset aller Felder + Update des Dropdown-Feldes
 
 
 
@@ -103,13 +107,7 @@ ________________________________________________________________________________
 	[3] 21.09.21: Timer --> Die Sekunden werden manchmal nicht richtig gezählt --> prüfen!
 	[3] 06.01.22: Main --> Schließen des Main-Fensters bei laufenden Timern: Warnung, alles schließen mit oder ohne Speichern.
 	[2] 14.01.22: Archivierte Timer bei Selektionen etc. herausfiltern!
-	[4] 14.01.22: Check: Unvollständige Eingaben abfangen (Timer anlegen/bearbeiten, Zeiten editieren ohne sie geändert zu haben...)
-	[4] 14.01.22: Unsinnige Eingaben bei der Bearbeitung/manuellen Eingabe von Zeiten in timelist abfangen (z.B. Ende vor Start etc. ...)  
-	[2] 30.01.22: Nach dem Löschen eines Timers bleibt des Name im Dropdownfeld verfügbar --> Ziel: Daten rauslöschen!
-	[3] 30.01.22: Anlegen eines neuen Timers prüft aktuell nicht, ob ein Timer mit gleichem Namen schon existiert --> Muss gemacht werden! 
-	[3] 30.01.22: Ein Timer kann ohne Wahl des Typs (single, parallel) angelegt werden --> Sicherstellen, dass hier was gesetzt wird!
-	[2] 30.01.22: Nachdem ein Timer angelegt/bearbeitet/gelöscht wurde, resettet der OK Button nicht.
-				  --> Nach dem Speichern der Aktion sollten alle Felder autom. resetten.
+	
 
 _______________________________________________________________________________________________________________________________________
 ||||| ISSUE ARCHIVE |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
