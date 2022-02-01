@@ -58,8 +58,8 @@
 				   - Jedem Timer sollte eine eigene Farbe zuweisbar sein (Einstellungen für den Timer)
 				   - Keine Farbe darf 2x vorkommen
 		- (L) Komplettes "Timer Editieren" Fenster überabeiten
-				   - 1 Hauptfenster zum Editieren + Löschen eines Timers
-				   - 1 Knopf zum Anlegen eines neuen Timers (dabei wird dann das Dropdown Fenster gesperrt)
+				   OK 1 Hauptfenster zum Editieren + Löschen eines Timers
+				   OK 1 Knopf zum Anlegen eines neuen Timers (dabei wird dann das Dropdown Fenster gesperrt)
 				   - nach jeder Änderung: Schriftliche Bestätigung + Reset aller Felder + Update des Dropdown-Feldes
 
 
@@ -107,6 +107,8 @@ ________________________________________________________________________________
 	[3] 21.09.21: Timer --> Die Sekunden werden manchmal nicht richtig gezählt --> prüfen!
 	[3] 06.01.22: Main --> Schließen des Main-Fensters bei laufenden Timern: Warnung, alles schließen mit oder ohne Speichern.
 	[2] 14.01.22: Archivierte Timer bei Selektionen etc. herausfiltern!
+	[5] 01.02.22: Aktuell wird der Name beim "Ändern" eines Timers nicht an die DB gespielt; der Name eines Timers ist also aktuell nicht änderbar.
+	[1] 01.02.22: Nach dem Ändern eines Timers und Speichern bleibt der letzte Eintrag im Dropdown-Fenster ausgewählt.
 	
 
 _______________________________________________________________________________________________________________________________________
