@@ -160,6 +160,56 @@ namespace Time_Tracker
             return list;
         }
 
+        // Timer_Edit: Liste der Farben aller aktuellen Timer exklusive "selectedtimer" ermitteln
+        public List<string> GetOtherColors(string selectedtimer)
+        {
+
+            List<string> list = new List<string>();
+
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                SQLiteCommand com = new SQLiteCommand();
+                com.Connection = cnn;
+                cnn.Open();
+
+                com.CommandText = "SELECT Timer.color AS color FROM Timer WHERE timer.name <> '" + selectedtimer + "'";
+                SQLiteDataReader reader = com.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    list.Add(reader["color"].ToString());
+                }
+                reader.Close();
+                cnn.Close();
+            }
+            return list;
+        }
+
+        // Timer_Edit: Liste der Farben aller aktuellen Timer ermitteln
+        public List<string> GetAllColors()
+        {
+
+            List<string> list = new List<string>();
+
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                SQLiteCommand com = new SQLiteCommand();
+                com.Connection = cnn;
+                cnn.Open();
+
+                com.CommandText = "SELECT Timer.color AS color FROM Timer";
+                SQLiteDataReader reader = com.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    list.Add(reader["color"].ToString());
+                }
+                reader.Close();
+                cnn.Close();
+            }
+            return list;
+        }
+
         //Timer: Zeit vom Tracker speichern
         public void savetime(timeobject t, string timername)
         {
@@ -255,7 +305,7 @@ namespace Time_Tracker
                 com.Connection = cnn;
                 cnn.Open();
 
-                com.CommandText = "SELECT Timer.id as id, Timer.Name AS name, Timer.Beschreibung AS descr, Timer.parallel AS parallel, Timer.quickslot AS quickslot FROM Timer where id='" + i + "'";
+                com.CommandText = "SELECT Timer.id as id, Timer.Name AS name, Timer.Beschreibung AS descr, Timer.parallel AS parallel, Timer.quickslot AS quickslot, Timer.Color AS color FROM Timer where id='" + i + "'";
                 SQLiteDataReader reader = com.ExecuteReader();
 
                 while (reader.Read())
@@ -265,6 +315,7 @@ namespace Time_Tracker
                     currenttimer.setDescr(reader["descr"].ToString());
                     currenttimer.setParallel(Boolean.Parse(reader["parallel"].ToString()));
                     currenttimer.setQuickslot(Int32.Parse(reader["quickslot"].ToString()));
+                    currenttimer.setColor(Int32.Parse(reader["color"].ToString()));
                 }
                 reader.Close();
                 cnn.Close();
@@ -298,13 +349,13 @@ namespace Time_Tracker
 
 
         //neuen Timer hinzufügen
-        public void AddTimer(string name, string beschreibung, bool parallel)
+        public void AddTimer(string name, string beschreibung, bool parallel, int color)
         {
             using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 SQLiteCommand com = new SQLiteCommand();
                 com.Connection = cnn;
-                com.CommandText = "INSERT INTO Timer (name, beschreibung, parallel) VALUES ('" + name + "', '" + beschreibung + "', '" + parallel + "')";
+                com.CommandText = "INSERT INTO Timer (name, beschreibung, parallel, color) VALUES ('" + name + "', '" + beschreibung + "', '" + parallel + "', '" + color + "')";
                 cnn.Open();
                 com.ExecuteNonQuery();
                 cnn.Close();
@@ -312,22 +363,22 @@ namespace Time_Tracker
         }
 
         //Timer editieren
-        public void EditTimer(string name, string beschreibung, bool parallel)
+        public void EditTimer(string name, string beschreibung, bool parallel, int color, string oldname)
         {
-            int id = sqladapter.getTimerID(name);
+            int id = sqladapter.getTimerID(oldname);
 
             using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 SQLiteCommand com = new SQLiteCommand();
                 com.Connection = cnn;
-                com.CommandText = "UPDATE Timer SET name = '" + name + "', beschreibung = '" + beschreibung + "', parallel = '" + parallel + "' WHERE Timer.ID = " + id;
+                com.CommandText = "UPDATE Timer SET name = '" + name + "', beschreibung = '" + beschreibung + "', parallel = '" + parallel + "', color = '" + color + "' WHERE Timer.ID = " + id;
                 cnn.Open();
                 com.ExecuteNonQuery();
                 cnn.Close();
             }
         }
 
-        //Timer archivieren
+        //Timer archivieren -- TODO: Hier wird nur das flag auf "true" gesetzt; gemacht wird mit der Info aber noch nichts.
         public void ArchiveTimer(string name)
         {
             int id = sqladapter.getTimerID(name);

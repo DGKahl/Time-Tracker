@@ -20,59 +20,45 @@ namespace Time_Tracker
         public timer_edit()
         {
             InitializeComponent();
-        }
-
-        public timer_edit(int i)
-        {
-            InitializeComponent();
-
-            switch (i)
-            {
-                case 1: //neuen Timer anlegen
-                    cbSelection.Hide();
-                    btnNew.BackColor = Color.Green;
-                    btnEdit.BackColor = Color.Red;
-                    btnDelete.BackColor = Color.Red;
-                    btnOK.Text = "Anlegen";
-                    rbSingle.Checked = true;
-                    break;
-                case 2: //Timer wählen und bearbeiten
-                    txtName.Hide();
-                    Fillcb();
-                    btnNew.BackColor = Color.Red;
-                    btnEdit.BackColor = Color.Green;
-                    btnDelete.BackColor = Color.Red;
-                    btnOK.Text = "Ändern";
-                    break;
-                case 3: //TImer wählen und löschen
-                    txtName.Hide();
-                    Fillcb();
-                    btnNew.BackColor = Color.Red;
-                    btnEdit.BackColor = Color.Red;
-                    btnDelete.BackColor = Color.Green;
-                    btnOK.Text = "Löschen";
-                    break;
-                default:
-                    break;
-            }
+            resetData();
+            Fillcb();
+            btnOK.Enabled = false;
+            btnDelete.Enabled = false;
         }
 
         //Resetten aller Informationen
         void resetData()
         {
-            txtName.Clear();
-            cbSelection.Items.Add("");
-            cbSelection.SelectedItem = "";
-            cbSelection.Items.Clear();
-            txtInfo.Clear();
-            rbParallel.Checked = false;
-            rbSingle.Checked = false;
-            btnPickColor.Enabled = false;
+            txtName.Text = "";
+            txtName.Enabled = false;
+            txtInfo.Text = "";
+            txtInfo.Enabled = false;
             rbSingle.Checked = true;
+            rbSingle.Enabled = false;
+            rbParallel.Enabled = false;
+            btnPickColor.BackColor = default;
+            btnPickColor.Enabled = false;
+            cbSelection.Enabled = true;
+            btnOK.Enabled = false;
+            btnDelete.Enabled = false;
+        }
+
+        //für das schnelle "enablen" aller Felder
+        void enable_editing()
+        {
+            txtName.Enabled = true;
+            txtInfo.Enabled = true;
+            rbSingle.Enabled = true;
+            rbParallel.Enabled = true;
+            btnPickColor.Enabled = true;
+            cbSelection.Enabled = true;
+            btnOK.Enabled = true;
+            btnDelete.Enabled = true;
         }
 
         void Fillcb()
         {
+            cbSelection.Items.Clear();
             sqladapter adapter = new sqladapter();
             List<string> list = adapter.GetAllTimers();
 
@@ -82,50 +68,22 @@ namespace Time_Tracker
             }
         }
 
-        private void btnNew_Click(object sender, EventArgs e)
-        {
-            resetData();
-            cbSelection.Hide();
-            txtName.Visible = true;
-            btnPickColor.Enabled = true;
-            btnNew.BackColor = Color.Green;
-            btnEdit.BackColor = Color.Red;
-            btnDelete.BackColor = Color.Red;
-            btnOK.Text = "Anlegen";
-            rbSingle.Checked = true;
-        }
-
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            resetData();
-            txtName.Hide();
-            cbSelection.Visible = true;
-            btnPickColor.Enabled = true;
-            btnNew.BackColor = Color.Red;
-            btnEdit.BackColor = Color.Green;
-            btnDelete.BackColor = Color.Red;
-            btnOK.Text = "Ändern";
-            Fillcb();
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            resetData();
-            txtName.Hide();
-            cbSelection.Visible = true;
-            btnNew.BackColor = Color.Red;
-            btnEdit.BackColor = Color.Red;
-            btnDelete.BackColor = Color.Green;
-            btnOK.Text = "Löschen";
-            Fillcb();
-        }
-
         //Logik für den Bestätigungsbutton --> je nach gewähltem Modus anders!
         private void btnOK_Click(object sender, EventArgs e)
         {
             sqladapter dbaccess = new sqladapter();
-            List<string> log = dbaccess.GetCurrentLogSettings();
-            bool logflag = Boolean.Parse(log[0]);
+            List<string> log = dbaccess.GetCurrentLogSettings();    //Status für logging abfragen
+            bool logflag = Boolean.Parse(log[0]);                   //logstatus als bool wegspeichern
+            List<string> usedcolors;
+
+            // verwendete Farben aller Timer (exkl. Auswahl) holen
+            if (btnNew.Text == "Abbruch") //Neuanlage; ALLE Farben holen
+            {
+                usedcolors = dbaccess.GetAllColors();
+            } else //Änderung; gewählten Timer ausschließen (dieser kann seine aktuelle Farbe behalten)
+            {
+                usedcolors = dbaccess.GetOtherColors(cbSelection.SelectedItem.ToString());
+            }
 
             //Prüfen des Radio-Nuttons
             bool test;
@@ -141,14 +99,19 @@ namespace Time_Tracker
 
 
             //Modus: Anlage ----------------------------
-            if (btnOK.Text == "Anlegen")
+            if (btnNew.Text == "Abbruch")
             {
                 //Prüfung, ob Namensfeld befüllt
                 if (txtName.Text == "")
                 {
                     MessageBox.Show("Bitte Namen für neuen Timer eingeben!", "Speichern nicht möglich", MessageBoxButtons.OK);
                 }
-                else
+                else if (usedcolors.Contains(btnPickColor.BackColor.ToArgb().ToString())) //Prüfung, ob gewählte Farbe bereits in Verwendung
+                {
+                    MessageBox.Show("Bitte eine eindeutige Farbe für den Timer wählen!", "Speichern nicht möglich", MessageBoxButtons.OK);
+
+                }
+                else //Minimaleingaben vorhanden --> Speichern.
                 {
                     //Prüfung, ob Timer schon existiert:
                     List<string> list = new List<string>();
@@ -159,91 +122,65 @@ namespace Time_Tracker
                     }
                     else
                     {
-                        dbaccess.AddTimer(this.txtName.Text, this.txtInfo.Text, test);
-                        log_action(logflag);               //Logfile updaten.
-                                                           //btnOK.Text = "OK!";
-                        EditsAreSaved(this, e);         //Logfenster in main aktualisieren (Subscriber).
+                        dbaccess.AddTimer(this.txtName.Text, this.txtInfo.Text, test, btnPickColor.BackColor.ToArgb());
+                        log_action(logflag, "anlegen");               //Logfile updaten.
+                        EditsAreSaved(this, e);            //Logfenster in main aktualisieren (Subscriber).
                         resetData();
                         Fillcb();
+                        btnNew.Text = "Neu...";
+                        cbSelection.SelectedIndex = -1;
                     }
                 }
 
-            } else if (btnOK.Text == "Ändern")
+            } else if (btnNew.Text == "Neu...")
             {
                 //Modus: Ändern ----------------------------
-                //Prüfung, ob Namensfeld befüllt
-                if (txtName.Text == "")
+                if (txtName.Text == "") //Prüfung, ob Namensfeld befüllt
                 {
                     MessageBox.Show("Bitte Namen für neuen Timer eingeben!", "Speichern nicht möglich", MessageBoxButtons.OK);
                 }
-                else
+                else if (usedcolors.Contains(btnPickColor.BackColor.ToArgb().ToString())) //Prüfung, ob gewählte Farbe bereits in Verwendung
                 {
-                    //sqladapter dbaccess = new sqladapter();
-                    dbaccess.EditTimer(this.cbSelection.SelectedItem.ToString(), this.txtInfo.Text, test);
-                    log_action(logflag);               //Logfile updaten.
-                                                       //btnOK.Text = "OK!";        
-                    EditsAreSaved(this, e);         //Logfenster in main aktualisieren (Subscriber).
+                    MessageBox.Show("Bitte eine eindeutige Farbe für den Timer wählen!", "Speichern nicht möglich", MessageBoxButtons.OK);
+
+                } else //Minimaleingaben vorhanden --> Speichern.
+                { 
+                    dbaccess.EditTimer(this.txtName.Text, this.txtInfo.Text, test, btnPickColor.BackColor.ToArgb(), cbSelection.SelectedItem.ToString());
+                    log_action(logflag, "ändern");               //Logfile updaten.    
+                    EditsAreSaved(this, e);            //Logfenster in main aktualisieren (Subscriber).
                     resetData();
-                    Fillcb();
-                }
-
-            } else if (btnOK.Text == "Löschen")
-            {
-                //Modus: Löschen (archivieren oder hard-delete alles?) ------------------------------
-                //Prüfung, ob Namensfeld befüllt
-                if (txtName.Text == "")
-                {
-                    MessageBox.Show("Bitte Namen für neuen Timer eingeben!", "Speichern nicht möglich", MessageBoxButtons.OK);
-                }
-                else
-                {
-                    if (MessageBox.Show("Möchten Sie den Eintrag archivieren (Nein), oder den Timer und alle hinterlegten Zeiten unwiderruflich löschen (Ja)?", "Warnung", MessageBoxButtons.YesNoCancel) == DialogResult.Yes)
-                    {
-                        //ALLES LÖSCHEN
-                        //sqladapter dbaccess = new sqladapter();
-                        dbaccess.DeleteTimer(this.cbSelection.SelectedItem.ToString());
-                        log_action(logflag);           //Logfile updaten.
-                                                       //btnOK.Text = "OK!";
-                        EditsAreSaved(this, e);     //Logfenster in main aktualisieren (Subscriber).
-                        resetData();
-                        Fillcb();
-
-                    }
-                    else if (MessageBox.Show("Möchten Sie den Eintrag archivieren (Nein), oder den Timer und alle hinterlegten Zeiten unwiderruflich löschen (Ja)?", "Warnung", MessageBoxButtons.YesNoCancel) == DialogResult.No)
-                    {
-                        //Nur archiveren
-                        //sqladapter dbaccess = new sqladapter();
-                        dbaccess.ArchiveTimer(this.cbSelection.SelectedItem.ToString());
-                        log_action(logflag);           //Logfile updaten.
-                                                       //btnOK.Text = "OK!";
-                        EditsAreSaved(this, e);     //Logfenster in main aktualisieren (Subscriber).
-                        resetData();
-                        Fillcb();
-                    }
-                    else
-                    {
-                        //User hat "Cancel" geklickt. Nichts machen.
-                        resetData();
-                        Fillcb();
-                    }
+                    Fillcb(); 
+                    
                 }
             }
+            cbSelection.ResetText();
         }
 
         private void cbSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
-            sqladapter dbaccess = new sqladapter();
-            timeobject mytimer = new timeobject();
-            string selectedtimer = cbSelection.SelectedItem.ToString();
-            int id = sqladapter.getTimerID(selectedtimer);
-            mytimer = dbaccess.mytimer(id);
-            txtInfo.Text = mytimer.getDescr();
-            if (mytimer.getParallel() == true)
+            if (cbSelection.SelectedIndex == -1)
             {
-                rbParallel.Checked = true;
-            } else
-            {
-                rbSingle.Checked = true;
+                //nur "Leeren" des Eintrags, kein echter Eintrag ausgewählt.
+            } else 
+            { 
+                resetData();
+                enable_editing();
+                sqladapter dbaccess = new sqladapter();
+                timeobject mytimer = new timeobject();
+                string selectedtimer = cbSelection.SelectedItem.ToString();
+                int id = sqladapter.getTimerID(selectedtimer);
+                mytimer = dbaccess.mytimer(id);
+                btnPickColor.BackColor = ColorTranslator.FromHtml(mytimer.getColor().ToString());
+                txtName.Text = mytimer.getName();
+                txtInfo.Text = mytimer.getDescr();
+                if (mytimer.getParallel() == true)
+                {
+                    rbParallel.Checked = true;
+                }
+                else
+                {
+                    rbSingle.Checked = true;
+                }
             }
         }
 
@@ -257,13 +194,11 @@ namespace Time_Tracker
             if (colorDlg.ShowDialog() == DialogResult.OK)
             {
                 btnPickColor.BackColor = colorDlg.Color;
-
-                //TODO Color über sqladapter für Timer speichern!
             }
         }
 
         //Logging der Aktionen -- erster Versuch (TODO)
-        private void log_action(bool flag)
+        private void log_action(bool flag, string logtype) //Logtype: "anlegen", "ändern", "löschen", "archivieren"
         {
             if (flag == true)
             {
@@ -271,18 +206,22 @@ namespace Time_Tracker
                 //Logeintrag "bauen"
                 string logentry = "";
 
-                if (btnOK.Text == "Anlegen")
+                if (logtype == "anlegen")
                 {
-                    logentry = "[" + DateTime.Now + "]: Timer '" + txtName.Text + "' wurde angelegt.";
+                    logentry = "[" + DateTime.Now + "]: '" + txtName.Text + "' angelegt.";
                 }
-                else if (btnOK.Text == "Ändern")
+                else if (logtype == "ändern")
                 {
 
-                    logentry = "[" + DateTime.Now + "]: Timer '" + cbSelection.SelectedItem.ToString() + "' wurde geändert.";
+                    logentry = "[" + DateTime.Now + "]: '" + cbSelection.SelectedItem.ToString() + "' geändert.";
                 }
-                else if (btnOK.Text == "Löschen")
+                else if (logtype == "löschen")
                 {
-                    logentry = "[" + DateTime.Now + "]: Timer '" + cbSelection.SelectedItem.ToString() + "' wurde gelöscht.";
+                    logentry = "[" + DateTime.Now + "]: '" + cbSelection.SelectedItem.ToString() + "' gelöscht.";
+                }
+                else if (logtype == "archivieren")
+                {
+                    logentry = "[" + DateTime.Now + "]: '" + cbSelection.SelectedItem.ToString() + "' archiviert.";
                 }
 
                 //Eintrag speichern (fügt aktuell neue Zeilen unten an - TODO)
@@ -298,11 +237,67 @@ namespace Time_Tracker
             }
         }
 
-
-        //Zum Editieren des Namens eines vorhandenen Timers
-        private void btnNameEdit_Click(object sender, EventArgs e)
+        private void btnDelete_Click(object sender, EventArgs e)
         {
+            sqladapter dbaccess = new sqladapter();
+            List<string> log = dbaccess.GetCurrentLogSettings();
+            bool logflag = Boolean.Parse(log[0]);
 
+            //Prüfung, ob ein Timer zum Löschen gewählt wurde
+            if (this.cbSelection.SelectedItem.ToString() == "")
+            {
+                MessageBox.Show("Bitte Timer auswählen!", "Löschen nicht möglich", MessageBoxButtons.OK);
+            }
+            else
+            {
+                if (MessageBox.Show("Möchten Sie den Eintrag archivieren (Nein), oder den Timer und alle hinterlegten Zeiten unwiderruflich löschen (Ja)?", "Warnung", MessageBoxButtons.YesNoCancel) == DialogResult.Yes)
+                {
+                    //ALLES LÖSCHEN
+                    dbaccess.DeleteTimer(this.cbSelection.SelectedItem.ToString());
+                    log_action(logflag, "löschen");           //Logfile updaten.
+                    EditsAreSaved(this, e);        //Logfenster in main aktualisieren (Subscriber).
+                    resetData();
+                    Fillcb();
+                }
+                else if (MessageBox.Show("Möchten Sie den Eintrag archivieren (Nein), oder den Timer und alle hinterlegten Zeiten unwiderruflich löschen (Ja)?", "Warnung", MessageBoxButtons.YesNoCancel) == DialogResult.No)
+                {
+                    //Nur archiveren
+                    dbaccess.ArchiveTimer(this.cbSelection.SelectedItem.ToString());
+                    log_action(logflag, "archivieren");           //Logfile updaten.
+                    EditsAreSaved(this, e);        //Logfenster in main aktualisieren (Subscriber).
+                    resetData();
+                    Fillcb();
+                }
+                else
+                {
+                    //User hat "Cancel" geklickt. Nichts machen.
+                    resetData();
+                    Fillcb();
+                }
+            }
+            cbSelection.ResetText();
+        }
+
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            //Start - Alle Eingaben löschen, Dropdown deaktiviert, Button = "Abbruch"
+            if (btnNew.Text == "Neu...")
+            {
+                //Fillcb();
+                resetData();
+                enable_editing();
+                cbSelection.SelectedIndex = -1;
+                cbSelection.Enabled = false;
+                btnNew.Text = "Abbruch";
+
+            } else
+            {
+                //Abbruch -> Alles resetten
+                resetData();
+                cbSelection.SelectedIndex = -1;
+                btnNew.Text = "Neu...";
+            }
         }
     }
 }
+

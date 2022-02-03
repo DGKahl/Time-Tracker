@@ -68,6 +68,7 @@ namespace Time_Tracker
             // 
             // cbTimerSelection
             // 
+            this.cbTimerSelection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTimerSelection.FormattingEnabled = true;
             this.cbTimerSelection.Location = new System.Drawing.Point(55, 10);
             this.cbTimerSelection.Name = "cbTimerSelection";
