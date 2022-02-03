@@ -37,7 +37,6 @@ namespace Time_Tracker
             this.cbSelection = new System.Windows.Forms.ComboBox();
             this.btnPickColor = new System.Windows.Forms.Button();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.btnSelect = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
             this.gbSelection = new System.Windows.Forms.GroupBox();
             this.bDetails = new System.Windows.Forms.GroupBox();
@@ -100,10 +99,11 @@ namespace Time_Tracker
             // 
             // cbSelection
             // 
+            this.cbSelection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSelection.FormattingEnabled = true;
             this.cbSelection.Location = new System.Drawing.Point(6, 19);
             this.cbSelection.Name = "cbSelection";
-            this.cbSelection.Size = new System.Drawing.Size(136, 21);
+            this.cbSelection.Size = new System.Drawing.Size(217, 21);
             this.cbSelection.TabIndex = 7;
             this.cbSelection.SelectedIndexChanged += new System.EventHandler(this.cbSelection_SelectedIndexChanged);
             // 
@@ -115,16 +115,6 @@ namespace Time_Tracker
             this.btnPickColor.TabIndex = 1;
             this.btnPickColor.UseVisualStyleBackColor = true;
             this.btnPickColor.Click += new System.EventHandler(this.btnPickColor_Click);
-            // 
-            // btnSelect
-            // 
-            this.btnSelect.Location = new System.Drawing.Point(148, 18);
-            this.btnSelect.Name = "btnSelect";
-            this.btnSelect.Size = new System.Drawing.Size(75, 23);
-            this.btnSelect.TabIndex = 12;
-            this.btnSelect.Text = "Bearbeiten";
-            this.btnSelect.UseVisualStyleBackColor = true;
-            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
             // btnNew
             // 
@@ -140,7 +130,6 @@ namespace Time_Tracker
             // 
             this.gbSelection.Controls.Add(this.cbSelection);
             this.gbSelection.Controls.Add(this.btnNew);
-            this.gbSelection.Controls.Add(this.btnSelect);
             this.gbSelection.Location = new System.Drawing.Point(12, 12);
             this.gbSelection.Name = "gbSelection";
             this.gbSelection.Size = new System.Drawing.Size(317, 51);
@@ -220,7 +209,7 @@ namespace Time_Tracker
             this.Controls.Add(this.gbSelection);
             this.Controls.Add(this.btnOK);
             this.Name = "timer_edit";
-            this.Text = "timer_edit";
+            this.Text = "Timer bearbeiten";
             this.gbSelection.ResumeLayout(false);
             this.bDetails.ResumeLayout(false);
             this.bDetails.PerformLayout();
@@ -237,7 +226,6 @@ namespace Time_Tracker
         private System.Windows.Forms.ComboBox cbSelection;
         private System.Windows.Forms.Button btnPickColor;
         private System.Windows.Forms.ColorDialog colorDialog1;
-        private System.Windows.Forms.Button btnSelect;
         private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.GroupBox gbSelection;
         private System.Windows.Forms.GroupBox bDetails;

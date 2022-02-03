@@ -52,6 +52,7 @@ namespace Time_Tracker
             // 
             // cbTimerSelection
             // 
+            this.cbTimerSelection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTimerSelection.FormattingEnabled = true;
             this.cbTimerSelection.Location = new System.Drawing.Point(12, 28);
             this.cbTimerSelection.Name = "cbTimerSelection";
@@ -92,21 +93,21 @@ namespace Time_Tracker
             // timerBearbeitenToolStripMenuItem
             // 
             this.timerBearbeitenToolStripMenuItem.Name = "timerBearbeitenToolStripMenuItem";
-            this.timerBearbeitenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.timerBearbeitenToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.timerBearbeitenToolStripMenuItem.Text = "Timer bearbeiten...";
             this.timerBearbeitenToolStripMenuItem.Click += new System.EventHandler(this.timerBearbeitenToolStripMenuItem_Click);
             // 
             // zeitenBearbeitenToolStripMenuItem
             // 
             this.zeitenBearbeitenToolStripMenuItem.Name = "zeitenBearbeitenToolStripMenuItem";
-            this.zeitenBearbeitenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zeitenBearbeitenToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.zeitenBearbeitenToolStripMenuItem.Text = "Zeiten...";
             this.zeitenBearbeitenToolStripMenuItem.Click += new System.EventHandler(this.zeitenBearbeitenToolStripMenuItem_Click);
             // 
             // auswertungToolStripMenuItem
             // 
             this.auswertungToolStripMenuItem.Name = "auswertungToolStripMenuItem";
-            this.auswertungToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.auswertungToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.auswertungToolStripMenuItem.Text = "Auswertung...";
             this.auswertungToolStripMenuItem.Click += new System.EventHandler(this.auswertungToolStripMenuItem_Click);
             // 

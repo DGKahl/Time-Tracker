@@ -160,6 +160,56 @@ namespace Time_Tracker
             return list;
         }
 
+        // Timer_Edit: Liste der Farben aller aktuellen Timer exklusive "selectedtimer" ermitteln
+        public List<string> GetOtherColors(string selectedtimer)
+        {
+
+            List<string> list = new List<string>();
+
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                SQLiteCommand com = new SQLiteCommand();
+                com.Connection = cnn;
+                cnn.Open();
+
+                com.CommandText = "SELECT Timer.color AS color FROM Timer WHERE timer.name <> '" + selectedtimer + "'";
+                SQLiteDataReader reader = com.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    list.Add(reader["color"].ToString());
+                }
+                reader.Close();
+                cnn.Close();
+            }
+            return list;
+        }
+
+        // Timer_Edit: Liste der Farben aller aktuellen Timer ermitteln
+        public List<string> GetAllColors()
+        {
+
+            List<string> list = new List<string>();
+
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                SQLiteCommand com = new SQLiteCommand();
+                com.Connection = cnn;
+                cnn.Open();
+
+                com.CommandText = "SELECT Timer.color AS color FROM Timer";
+                SQLiteDataReader reader = com.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    list.Add(reader["color"].ToString());
+                }
+                reader.Close();
+                cnn.Close();
+            }
+            return list;
+        }
+
         //Timer: Zeit vom Tracker speichern
         public void savetime(timeobject t, string timername)
         {
@@ -313,9 +363,9 @@ namespace Time_Tracker
         }
 
         //Timer editieren
-        public void EditTimer(string name, string beschreibung, bool parallel, int color)
+        public void EditTimer(string name, string beschreibung, bool parallel, int color, string oldname)
         {
-            int id = sqladapter.getTimerID(name);
+            int id = sqladapter.getTimerID(oldname);
 
             using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
@@ -328,7 +378,7 @@ namespace Time_Tracker
             }
         }
 
-        //Timer archivieren
+        //Timer archivieren -- TODO: Hier wird nur das flag auf "true" gesetzt; gemacht wird mit der Info aber noch nichts.
         public void ArchiveTimer(string name)
         {
             int id = sqladapter.getTimerID(name);
