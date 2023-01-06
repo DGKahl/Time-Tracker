@@ -1,0 +1,106 @@
+﻿______________________________________________________________________________________________________________________________________
+||||| O F F E N E  F E A T U R E S |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||	
+
+>>> TEMPLATE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>																											 <
+>	(Aufwand) <Kurze Beschreibung>																			 <
+>			--> <Details als Freitext...>																	 <
+>				...																							 <
+>																											 <
+>   <(Aufwand)> = Schätzung, wie umfangreich die Aufgabe sein wird (in Hemdgrößen)							 <
+>			(XS) Kleinigkeit, schnell gemacht																 <
+>			(S)  Kleinere Entwicklung, relativ schnell gemacht												 <
+>			(M)  Eine "normale" Entwicklung, die ein wenig mehr Zeit (>= 1 Std.) in Anspruch nehmen wird	 <
+>			(L)  Größere Entwicklung; benötigt etwas mehr Zeit und Recherche								 <
+>			(XL) Große Entwicklung; wird einiges an Zeit, Recherche, Trial & Error und Nerven kosten		 <
+>																											 <
+>   <Kurze Beschreibung> = Zusammenfassung, worum es geht													 <
+>																											 <
+>   --> <Details als Freitext...> = Optionale Erklärungen und Notizen										 <
+>																											 <
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+>>>>>>> ------- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>> TRACKER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>> ------- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+		- (XL) Visuellen Pomodoro-Timer (komplett offen) --> erstmal separat programmieren, danach integrieren!
+		- (L) Skalieren der Anzeigen mit Fenstergröße (Echtzeit)
+		- (L) "Debug" Menü anlegen, wo man per Checkbox Debug-Funktionen (spezielle Ausgaben etc.) aktivieren kann. 
+			  --> Entsprechenden Code mit "TODO-DEBUG" Schlagwort markieren!
+		- (M) Log-Fenster eingefügt, aber es enthält noch keine Logik. Idee: Die Vorgänge im Programm "loggen":
+			  --> [UPDATE 30.01.22] 
+				  Anlegen/Ändern/Löschen eines Timers klappt rudimentär.
+				  Update des Logfensters auch.
+				  Noch offen: 
+					- Nur 10 Zeilen im Logfenster darstellen.
+					- Aktuellester Eintrag oben.
+					ok Unterscheidung "Löschen" und "Archivieren".
+					- Logging von Start/Ende eines spezifischen Timers.
+					- Separate Logdateien in eigenem Ordner mit Unterscheidung "je Session" oder "je Tag"
+					- Verknüpfung mit Settings-Einstellungen zum Logging
+					- Begrüßungstext beim Start der Anwendung.
+					- (??) Zu überlegen: Soll auch die eine Info darüber, "was" im Timer geändert wurde, gespeichert werden?
+		- (XL) Auswertung/Übersicht 
+			   --> 2 Modi: 
+				   - Einzelanzeige eines bestimmten Timers für heute bis Stichzeitpunkt JETZT; als "Torte"
+				   - Gesamtanzeige aller Timer mit Stundenverteilung und Prozentanteilan allen Stunden
+				   - Zeitraum kann vorher festgelegt werden
+				   - Darstellung/Intervall kann vorher festgelegt werden (Tag, Woche, Monat...)
+				   - optional: Anzeige der "ungetrackten" Stunden
+				   - optional: Abzug von X Stunden je Tag von der Gesamtanzeige (z.B. 7 Std. für Schlaf täglich, o.ä.)
+				   - Darstellung als Balkendiagramm: x-Achse = Tage/Wochen etc.; y-Achse = Stunden
+				   - Jedem Timer sollte eine eigene Farbe zuweisbar sein (Einstellungen für den Timer)
+				   - Keine Farbe darf 2x vorkommen
+		- (M) Archivierungsfunktion fertigstellen
+				   - wenn flag "archive" des Timers auf "true", dann bei allen Abfragen ignorieren/rausfiltern
+
+
+
+
+______________________________________________________________________________________________________________________________________
+||||| I S S U E S |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| 
+
+>>> TEMPLATE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>																									        <
+>		[x] DD.MM.YY: <Beschreibung>																		<
+>					  <Freier Text......>																	<
+>					  [UPDATE DD.MM.YY] <Freier Text 2...>													<
+>																											<
+>		<x> = Prio																							<
+>		--> 1 (very low) Nur "kosmetische" Themen															<		
+>		--> 2 (low)		 Geringe Auswirkungen; kann aktuell drum herum gearbeitet werden					<
+>		--> 3 (medium)	 Bug im System, der Funktionen einschränkt											<
+>		--> 4 (high)	 Fehler, der bestimmte Funktionen unbenutzbar macht									<		
+>		--> 5 (critical) Großes Problem, relevant für mehrere Bereiche und/oder die weitere Entwicklung		<
+>		--> x (done)	 Thema erledigt																		<
+>		--> - (Cancel)	 Aufgabe gestrichen																	<
+>																											<
+>		<DD.MM.YY> = Datum der Erstellung des Eintrags in Tag (DD), Monat (MM) und Jahr (YY)				<
+>		--> Beispiel: 03.01.22																				<
+>																											<
+>		<Beschreibung> = Kurze Zusammenfassung in max. 1 Satz												<
+>																											<
+>		<Freier Text> = Ausführliche Info, je nach Bedarf auch mehrzeilig.									<
+>																											<
+>		[UPDATE DD.MM.YY] <Freier Text 2...> = Eingerücktes Update, falls es Neuigkeiten gibt.			    <
+>																										    <
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+>>>>>>> ------- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>> TRACKER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>> ------- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+	[4] 05.01.22: Parallele Timer scheinen nicht mehr parallel zu laufen --> testen!
+	[2] 05.01.22: Bearbeiten der Timer; Fenster sollte sich nur 1x öffnen. Evtl. über erzwungenen Fokus auf das Fenster lösen?
+	[5] 06.01.22: Timelist -> Die Auswahl von Daten im letzten + diesen Jahr funktioniert nicht (in SQL schon nicht). Recherche + fixen.
+	[2] 06.01.22: Timelist -> Unsinnige Eingaben bei manueller Pflege/Bearbeiten abfangen.
+	[3] 21.09.21: Timer --> Die Sekunden werden manchmal nicht richtig gezählt --> prüfen!
+	[3] 06.01.22: Main --> Schließen des Main-Fensters bei laufenden Timern: Warnung, alles schließen mit oder ohne Speichern.
+	[2] 14.01.22: Archivierte Timer bei Selektionen etc. herausfiltern!
+	[1] 03.02.22: Anpassen der sqladapter-Funktionen (gleiche, nachvollziehbare Logiken, überflüssiges raus, etc. ...)
+	[2] 11.02.22: Combobox in Main wird aktuell nicht automatisch nach Neuanlage eines Timers aktualisiert.
