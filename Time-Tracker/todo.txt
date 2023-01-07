@@ -103,4 +103,4 @@ ________________________________________________________________________________
 	[3] 06.01.22: Main --> Schließen des Main-Fensters bei laufenden Timern: Warnung, alles schließen mit oder ohne Speichern.
 	[2] 14.01.22: Archivierte Timer bei Selektionen etc. herausfiltern!
 	[1] 03.02.22: Anpassen der sqladapter-Funktionen (gleiche, nachvollziehbare Logiken, überflüssiges raus, etc. ...)
-	
+	[2] 11.02.22: Combobox in Main wird aktuell nicht automatisch nach Neuanlage eines Timers aktualisiert.
