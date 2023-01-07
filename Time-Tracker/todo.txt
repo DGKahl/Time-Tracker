@@ -1,28 +1,4 @@
-﻿______________________________________________________________________________________________________________________________________
-||||| O F F E N E  F E A T U R E S |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||	
-
->>> TEMPLATE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
->																											 <
->	(Aufwand) <Kurze Beschreibung>																			 <
->			--> <Details als Freitext...>																	 <
->				...																							 <
->																											 <
->   <(Aufwand)> = Schätzung, wie umfangreich die Aufgabe sein wird (in Hemdgrößen)							 <
->			(XS) Kleinigkeit, schnell gemacht																 <
->			(S)  Kleinere Entwicklung, relativ schnell gemacht												 <
->			(M)  Eine "normale" Entwicklung, die ein wenig mehr Zeit (>= 1 Std.) in Anspruch nehmen wird	 <
->			(L)  Größere Entwicklung; benötigt etwas mehr Zeit und Recherche								 <
->			(XL) Große Entwicklung; wird einiges an Zeit, Recherche, Trial & Error und Nerven kosten		 <
->																											 <
->   <Kurze Beschreibung> = Zusammenfassung, worum es geht													 <
->																											 <
->   --> <Details als Freitext...> = Optionale Erklärungen und Notizen										 <
->																											 <
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-
-
->>>>>>> ------- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+﻿>>>>>>> ------- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 >>>>>>> TRACKER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 >>>>>>> ------- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -57,43 +33,8 @@
 		- (M) Archivierungsfunktion fertigstellen
 				   - wenn flag "archive" des Timers auf "true", dann bei allen Abfragen ignorieren/rausfiltern
 
-
-
-
 ______________________________________________________________________________________________________________________________________
 ||||| I S S U E S |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| 
-
->>> TEMPLATE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
->																									        <
->		[x] DD.MM.YY: <Beschreibung>																		<
->					  <Freier Text......>																	<
->					  [UPDATE DD.MM.YY] <Freier Text 2...>													<
->																											<
->		<x> = Prio																							<
->		--> 1 (very low) Nur "kosmetische" Themen															<		
->		--> 2 (low)		 Geringe Auswirkungen; kann aktuell drum herum gearbeitet werden					<
->		--> 3 (medium)	 Bug im System, der Funktionen einschränkt											<
->		--> 4 (high)	 Fehler, der bestimmte Funktionen unbenutzbar macht									<		
->		--> 5 (critical) Großes Problem, relevant für mehrere Bereiche und/oder die weitere Entwicklung		<
->		--> x (done)	 Thema erledigt																		<
->		--> - (Cancel)	 Aufgabe gestrichen																	<
->																											<
->		<DD.MM.YY> = Datum der Erstellung des Eintrags in Tag (DD), Monat (MM) und Jahr (YY)				<
->		--> Beispiel: 03.01.22																				<
->																											<
->		<Beschreibung> = Kurze Zusammenfassung in max. 1 Satz												<
->																											<
->		<Freier Text> = Ausführliche Info, je nach Bedarf auch mehrzeilig.									<
->																											<
->		[UPDATE DD.MM.YY] <Freier Text 2...> = Eingerücktes Update, falls es Neuigkeiten gibt.			    <
->																										    <
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-
-
->>>>>>> ------- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
->>>>>>> TRACKER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
->>>>>>> ------- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 	[4] 05.01.22: Parallele Timer scheinen nicht mehr parallel zu laufen --> testen!
 	[2] 05.01.22: Bearbeiten der Timer; Fenster sollte sich nur 1x öffnen. Evtl. über erzwungenen Fokus auf das Fenster lösen?
